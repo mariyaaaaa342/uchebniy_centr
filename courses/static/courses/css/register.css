@@ -1,0 +1,101 @@
+.register-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 15px 30px rgba(63, 87, 91, 0.1);
+    border: 1px solid var(--color-2);
+}
+
+.register-title {
+    font-family: var(--font-main);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-4);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-4);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--color-2);
+    border-radius: 20px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-1);
+}
+
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--color-3);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    background: var(--color-4);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-family: var(--font-main);
+}
+
+.login-link a {
+    color: var(--color-1);
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: #fee;
+    border: 1px solid #faa;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #c00;
+    text-align: center;
+}
+
+.success-message {
+    background: #efe;
+    border: 1px solid #afa;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #0a0;
+    text-align: center;
+}
+ 

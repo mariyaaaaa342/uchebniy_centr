@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебный центр Ledy</title>
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+</head>
+<body>
+    {% include 'courses/header.html' %}
+
+    <main class="main-container">
+        <section class="hero">
+            <div class="hero_block-1" style="background-image: url('{% static 'courses/images/hero.png' %}');">
+                
+                <div class="hero_notch">
+                    <svg class="hero_notch-svg" viewBox="0 0 300 100" preserveAspectRatio="none">
+                        <path
+                        d="M 0, 0 
+                        L 300, 0
+                        C 270, 3 255, 7 250, 30
+                        L 250, 40
+                        L 250, 50
+                        C 250, 55 253, 70 235, 76
+                        L 27, 77
+                        L 18, 79
+                        C 7, 83 3, 95 1, 98
+                        L 1, 99
+                        L 0, 100
+                        Z"
+                        fill="#fff"
+                        />                       
+                    </svg>
+                    <div class="hero_title">
+                        Учебный центр <br> <span class="hero_title_logo">ЛЕДИ</span>
+                    </div>
+                </div>
+                <div class="hero_block-1-content">
+                    <div class="hero_block-1-title">
+                        КУРСЫ<br>
+                        ПАРИКМАХЕРСКОГО<br>
+                        ИСКУССТВА
+                    </div>
+                        <div class="hero_block-1-subtext">
+                            90% практики, преподаватель-специалист с многолетним опытом,<br>
+                            фокус на становлении мастера и помощь с дальнейшим трудоустройством
+                        </div>
+                        <a href="/courses/" class="hero_block-1-btn">Записаться на курс</a>
+
+                </div>
+            </div>
+
+            <div class="hero_block-2">
+                <svg class="hero_block-2-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
+                    <path 
+                        d="M 681.05,472 
+                        C 681.05,454 687.32,428 715.05,428 
+                        L 1058.76,428 
+                        C 1086.49,428 1092.76,454 1092.76,472 
+                        L 1091.18,638.63 
+                        L 1091.18,660.5 
+                        C 1091.18,672 1101.08,678.63 1117.5,678.63 
+                        L 1127,678.63 
+                        L 666.68,677.93 
+                        C 674.41,677.93 680.68,671.66 680.68,663.93 
+                        L 681.05,661.35 
+                        L 681.05,472 Z"
+                        fill="#fff"
+                        />               
+                </svg>
+                <div class="hero_block-2-content">
+                    <div class="hero_inset">
+                    </div>
+                </div>
+            </div>
+            <div class="hero_block-3"></div>
+        </section>
+        
+        <section class="second">
+            <div class="second_block-1"></div>
+            <div class="second_block-2">
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_1.jpg' %}');"></div>
+                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_2.jpg' %}');"></div>
+                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_3.jpg' %}');"></div>
+                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_4.jpg' %}');"></div>
+                    </div>
+                    
+                    <button class="slider-btn slider-btn-prev">❮</button>
+                    <button class="slider-btn slider-btn-next">❯</button>
+                    
+                    <div class="slider-dots"></div>
+                </div>
+            </div>
+            <div class="second_block-3"></div>
+        </section>
+        
+        <section class="third">
+            <div class="third_slider-container">
+                <h2 class="third_title">Отзывы</h2>
+                
+                <div class="third_slider">
+                    <div class="third_track">
+                        <!-- Слайд 1 -->
+                        <div class="third_slide">
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                        </div>
+                        
+                        <!-- Слайд 2 -->
+                        <div class="third_slide">
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                        </div>
+                        
+                        <!-- Слайд 3 -->
+                        <div class="third_slide">
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                            <div class="review-card" style="background-color: var(--color-w)"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="third_btn third_btn-prev">❮</button>
+                    <button class="third_btn third_btn-next">❯</button>
+                    
+                    <div class="third_dots"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="fourth">
+            <div class="fourth_container">
+                <div class="fourth_rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                    <div class="ring ring-4"></div>
+                </div>
+                
+                <h2 class="fourth_title">Почему мы</h2>
+                
+                <div class="fourth_grid">
+                    <div class="fourth_card">
+                        <h3 class="fourth_card-title">Опыт</h3>
+                        <p class="fourth_card-text">Более 10 лет работы в сфере образования</p>
+                    </div>
+                    <div class="fourth_card">
+                        <h3 class="fourth_card-title">Преподаватели</h3>
+                        <p class="fourth_card-text">Профессионалы с практическим опытом</p>
+                    </div>
+                    <div class="fourth_card">
+                        <h3 class="fourth_card-title">Индивидуальный подход</h3>
+                        <p class="fourth_card-text">Учитываем особенности каждого ученика</p>
+                    </div>
+                    <div class="fourth_card">
+                        <h3 class="fourth_card-title">Результат</h3>
+                        <p class="fourth_card-text">Гарантируем достижение поставленных целей</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'courses/footer.html' %}
+
+    <script src="{% static 'courses/js/menu.js' %}"></script>
+    <script src="{% static 'courses/js/slider.js' %}"></script>
+    <script src="{% static 'courses/js/reviews_slider.js' %}"></script>
+</body>
+</html>

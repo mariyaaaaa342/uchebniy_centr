@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебный центр Ledy</title>
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/about_us.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+</head>
+<body>
+    {% include 'courses/header.html' %}
+
+    <section class="about-section">
+        <div class="background-shape"></div>
+        
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <div class="slider-card card-1" data-index="0">
+                    <img src="images/about-1.jpg" alt="Подпись 1">
+                    <p>Подпись 1</p>
+                </div>
+                
+                <div class="slider-card card-2" data-index="1">
+                    <img src="images/about-2.jpg" alt="Подпись 2">
+                    <p>Подпись 2</p>
+                </div>
+                
+                <div class="slider-card card-3" data-index="2">
+                    <img src="images/about-3.jpg" alt="Подпись 3">
+                    <p>Подпись 3</p>
+                </div>
+            </div>
+            
+            <button class="slider-arrow arrow-left" aria-label="Предыдущий слайд">←</button>
+            <button class="slider-arrow arrow-right" aria-label="Следующий слайд">→</button>
+            
+            <div class="slider-dots">
+                <span class="dot active" data-dot="0"></span>
+                <span class="dot" data-dot="1"></span>
+                <span class="dot" data-dot="2"></span>
+            </div>
+        </div>
+    </section>
+    <section class="blocks-section">
+        <h2 class="blocks-section-title">Наша история</h2>
+        <div class="blocks-container">
+            <div class="block block-1">
+                <h3 class="block-title">Заголовок 1</h3>
+                <p class="block-text">Текст первого блока. Здесь может быть любое описание, которое будет адаптироваться под содержимое.</p>
+            </div>
+            <!-- Стрелка от 1 ко 2 -->
+            <div class="arrow arrow-1-2">
+                <svg class="arrow-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+                    <path class="arrow-path" />
+                    <path class="arrow-head" />
+                </svg>
+            </div>
+            
+            <div class="block block-2">
+                <h3 class="block-title">Заголовок 2</h3>
+                <p class="block-text">Текст второго блока. Lorem ipsum dolor sit amet consectetur,
+                     adipisicing elit. Ullam inventore harum fugit quod minima labore tenetur 
+                     officiis consequuntur consequatur? Perspiciatis facilis exercitationem, 
+                     id adipisci inventore earum hic voluptate nisi.</p>
+            </div>
+            <!-- Стрелка от 2 к 3 -->
+            <div class="arrow arrow-2-3">
+                <svg class="arrow-svg" viewBox="0 0 400 350" preserveAspectRatio="none">
+                    <path class="arrow-path" />
+                    <path class="arrow-head" />
+                </svg>
+            </div>
+            
+            <div class="block block-3">
+                <h3 class="block-title">Заголовок 3</h3>
+                <p class="block-text">Текст третьего блока. Здесь может быть много текста, и блок расширится по высоте.</p>
+            </div>
+            <!-- Стрелка от 3 к 4 -->
+            <div class="arrow arrow-3-4">
+                <svg class="arrow-svg" viewBox="0 0 350 300" preserveAspectRatio="none">
+                    <path class="arrow-path" />
+                    <path class="arrow-head" />
+                </svg>
+            </div>
+            
+            <div class="block block-4">
+                <h3 class="block-title">Заголовок 4</h3>
+                <p class="block-text">Текст четвертого блока. Блоки адаптируются под содержимое.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h2 class="values-title">Наши ценности</h2>
+        <div class="values-grid">
+            <div class="values-card">
+                <svg width="355" height="395" viewBox="0 0 355 395" preserveAspectRatio="none">
+                    <path d="M 25,0 
+                        L 295,0 
+                        C 305,0 322,5 330,25  
+                        L 330,45
+                        L 330,135
+                        C 330,170 375,180 330,235
+                        L 330,270
+                        L 330,354
+                        C 330,365 330,387 306,392 
+                        L 25,392
+                        C 25,392 8,388 0,365
+                        L 0,370 
+                        L 0,35 
+                        C 0,15 8,3 25,0 Z" 
+                        fill="#A8BAA4"
+                        stroke="#EAD7A1"/>
+                </svg>
+                <div class="values-content">
+                    <div class="values-icon">
+                        <svg width="50" height="50" viewBox="0 0 50 50">
+                            <path d="M25 5 L32 18 L47 20 L36 31 L39 46 L25 38 L11 46 L14 31 L3 20 L18 18 Z" 
+                                fill="#3F575B"/>
+                            <circle cx="25" cy="25" r="8" fill="white" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-card-title">Профессионализм</h3>
+                    <p class="values-card-text">Высокое качество обучения и опытные преподаватели</p>
+                </div>
+            </div>
+            
+            <div class="values-card">
+                <svg width="355" height="395" viewBox="0 0 355 395" preserveAspectRatio="none">
+                    <path d="M 25,0 
+                        L 295,0 
+                        C 305,0 322,5 330,25  
+                        L 330,45
+                        L 330,135
+                        C 330,170 375,180 330,235
+                        L 330,270
+                        L 330,354
+                        C 330,365 330,387 306,392 
+                        L 25,392
+                        C 25,392 8,388 0,365
+                        L 0,370 
+                        L 0,257
+                        C 0,220 60,200 0,140 
+                        L 0,140
+                        L 0,35 
+                        C 0,15 8,3 25,0 Z" 
+                        fill="#EAD7A1" 
+                        stroke="#EAD7A1"/>
+                </svg>
+                <div class="values-content">
+                    <div class="values-icon">
+                        <svg width="50" height="50" viewBox="0 0 50 50">
+                            <circle cx="17" cy="17" r="8" fill="#3F575B"/>
+                            <circle cx="33" cy="17" r="8" fill="#3F575B"/>
+                            <path d="M12 33 Q25 25 38 33" stroke="#3F575B" stroke-width="3" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-card-title">Индивидуальный подход</h3>
+                    <p class="values-card-text">Учитываем особенности каждого ученика</p>
+                </div>
+            </div>
+            
+            <div class="values-card">
+                <svg width="355" height="395" viewBox="0 0 355 395" preserveAspectRatio="none">
+                    <path d="M 25,0 
+                        L 295,0 
+                        C 305,0 322,5 330,25  
+                        L 330,45
+                        L 330,135
+                        C 330,170 375,180 330,235
+                        L 330,270
+                        L 330,354
+                        C 330,365 330,387 306,392 
+                        L 25,392
+                        C 25,392 8,388 0,365
+                        L 0,370 
+                        L 0,257
+                        C 0,220 60,200 0,140 
+                        L 0,140
+                        L 0,35 
+                        C 0,15 8,3 25,0 Z" 
+                        fill="#A8BAA4"
+                        stroke="#EAD7A1"/>
+                </svg>
+                <div class="values-content">
+                    <div class="values-icon">
+                        <svg width="50" height="50" viewBox="0 0 50 50">
+                            <path d="M25 10 L32 22 L45 22 L35 32 L38 45 L25 37 L12 45 L15 32 L5 22 L18 22 Z" 
+                                fill="#3F575B"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-card-title">Инновации</h3>
+                    <p class="values-card-text">Современные методики и технологии обучения</p>
+                </div>
+            </div>
+            
+            <div class="values-card">
+                <svg width="355" height="395" viewBox="0 0 355 395" preserveAspectRatio="none">
+                    <path d="M 25,0 
+                        L 295,0 
+                        C 305,0 322,5 330,25  
+                        L 330,354             
+                        C 330,365 330,387 306,392   
+                        L 25,392
+                        C 25,392 8,388 0,365
+                        L 0,257
+                        C 0,220 60,200 0,140 
+                        L 0,140  
+                        L 0,35 
+                        C 0,15 8,3 25,0 Z" 
+                        fill="#EAD7A1" 
+                        stroke="#EAD7A1"/>
+                </svg>
+                <div class="values-content">
+                    <div class="values-icon">
+                        <svg width="50" height="50" viewBox="0 0 50 50">
+                            <path d="M10 40 L20 25 L30 30 L40 15" stroke="#3F575B" stroke-width="3" fill="none"/>
+                            <circle cx="40" cy="15" r="5" fill="#3F575B"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-card-title">Результат</h3>
+                    <p class="values-card-text">Гарантируем достижение поставленных целей</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'courses/footer.html' %}
+
+    <script src="{% static 'courses/js/menu.js' %}"></script>
+    <script src="{% static 'courses/js/slider_about_us.js' %}"></script>
+</body>
+</html>

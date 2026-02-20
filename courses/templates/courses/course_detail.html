@@ -1,0 +1,43 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}{{ course.title }} | Учебный центр Ledy{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto;">
+    <a href="{% url 'course_list' %}" style="display: inline-block; margin-bottom: 30px; color: #3F575B; text-decoration: none;">← Назад к курсам</a>
+    
+    <h1 style="font-size: 2.5rem; color: #3F575B; margin-bottom: 20px;">{{ course.title }}</h1>
+    
+    {% if course.teacher %}
+    <p style="font-size: 1.2rem; color: #719178; margin-bottom: 30px;">Преподаватель: {{ course.teacher.full_name }}</p>
+    {% endif %}
+    
+    <div style="background: #f9f9f9; border-radius: 30px; padding: 30px; margin-bottom: 30px;">
+        <h2 style="color: #3F575B; margin-bottom: 15px;">О курсе</h2>
+        <p style="color: #666; line-height: 1.8;">{{ course.description }}</p>
+    </div>
+    
+    {% if course.course_program %}
+    <div style="background: #f9f9f9; border-radius: 30px; padding: 30px; margin-bottom: 30px;">
+        <h2 style="color: #3F575B; margin-bottom: 15px;">Программа курса</h2>
+        <p style="color: #666; line-height: 1.8; white-space: pre-line;">{{ course.course_program }}</p>
+    </div>
+    {% endif %}
+    
+    <h2 style="color: #3F575B; margin: 40px 0 20px;">Выберите формат обучения</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        {% for format in formats %}
+        <div style="background: white; border: 2px solid #EAD7A1; border-radius: 20px; padding: 25px; text-align: center;">
+            <h3 style="color: #3F575B; margin-bottom: 15px;">{{ format.name }}</h3>
+            <p style="font-size: 1.5rem; color: #719178; margin-bottom: 20px;">{{ format.price }} ₽</p>
+            <button style="padding: 12px 30px; background: #719178; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.1rem;">
+                Выбрать
+            </button>
+        </div>
+        {% empty %}
+        <p>Форматы обучения временно недоступны</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

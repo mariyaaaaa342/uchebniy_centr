@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Курсы - Учебный центр Ledy{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/courses.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+    {% endblock %}
+</head>
+<body data-user-id="{{ request.session.user_id|default:'' }}">
+    {% include 'courses/header.html' %}
+
+    <div class="main-container">
+        <section class="courses-section">
+            <h1 class="courses-title">Наши курсы</h1>
+            <p class="courses-subtitle">Выберите программу и формат обучения, которые подходят именно вам</p>
+            
+            <div class="courses-grid">
+                {% for course in courses %}
+                <div class="course-card" 
+                     data-course-id="{{ course.course_id }}"
+                     data-offline-available="{{ course.offline_available|yesno:'true,false' }}"
+                     data-online-available="{{ course.online_available|yesno:'true,false' }}"
+                     data-price-offline="{{ course.price_offline }}"
+                     data-price-online="{{ course.price_online }}">
+                    <div class="course-card-inner">
+                        <div class="course-header">
+                            <h2 class="course-title">{{ course.title }}</h2>
+                            <!-- Кнопки выбора формата -->
+                            <div class="course-format">
+                                <button class="format-btn format-online" data-format="online" data-course="{{ course.course_id }}">Онлайн</button>
+                                <button class="format-btn format-offline" data-format="offline" data-course="{{ course.course_id }}">Оффлайн</button>
+                            </div>
+                            
+                            <!-- Сообщение о недоступности -->
+                            <div class="format-unavailable" style="display: none;">
+                                <p class="unavailable-message">✗ Этот формат сейчас недоступен</p>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <p class="course-description">{{ course.description }}</p>
+                            <div class="course-details">
+                                <div class="course-detail">
+                                    <span class="detail-text">{{ course.duration }}</span>
+                                </div>
+                                <div class="course-detail">
+                                    <span class="detail-text price">{{ course.price_online }} ₽</span>
+                                </div>
+                            </div>
+                            <div class="course-program">
+                                <h3>Программа курса:</h3>
+                                <ul>
+                                    {% for item in course.course_program.splitlines %}
+                                    <li>{{ item }}</li>
+                                    {% empty %}
+                                    <li>Программа в разработке</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <button class="course-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Курсы временно недоступны</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">&times;</button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalCourseTitle">Запись на курс</h2>
+            </div>
+            
+            <form class="modal-form" id="applicationForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name" class="form-label">Имя</label>
+                    <input type="text" class="form-input" id="name" placeholder="Введите имя" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="surname" class="form-label">Фамилия</label>
+                    <input type="text" class="form-input" id="surname" placeholder="Введите фамилию" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Номер телефона</label>
+                    <div class="phone-input">
+                        <span class="phone-prefix">+7</span>
+                        <input type="tel" class="form-input phone-number" id="phone" placeholder="___ ___ __ __" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthdate" class="form-label">Дата рождения</label>
+                    <input type="text" class="form-input" id="birthdate" placeholder="00.00.0000 г." required>
+                </div>
+                
+                <input type="hidden" id="courseId" name="course_id" value="">
+                <input type="hidden" id="courseFormat" name="format" value="">
+                
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">Отмена</button>
+                    <button type="submit" class="btn btn-submit">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% include 'courses/footer.html' %}
+
+    {% block extra_js %}
+    <script src="{% static 'courses/js/menu.js' %}"></script>
+    <script src="{% static 'courses/js/course.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
