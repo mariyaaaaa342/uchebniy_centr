@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Courses, Teachers, Applications, Users
+from .models import Courses, Teachers, Applications, Users, Portfolio, WorkType
 
 # Регистрация с настройками (через декоратор)
 @admin.register(Courses)
@@ -34,3 +34,37 @@ class UsersAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'phone', 'email')
     exclude = ('password_hash',)
     readonly_fields = ('registration_date',)
+
+@admin.register(WorkType)
+class WorkTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
+
+@admin.register(Portfolio)
+class PortfolioAdmin(admin.ModelAdmin):
+    list_display = ('portfolio_id', 'title', 'get_work_types_display', 'author_type', 'author_name', 'created_at', 'is_active')
+    list_filter = ('work_types', 'author_type', 'is_active')
+    search_fields = ('title', 'author_name', 'description')
+    list_editable = ('is_active',)
+    readonly_fields = ('created_at',)
+    
+    filter_horizontal = ('work_types',)  
+
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('title', 'work_types', 'description')
+        }),
+        ('Автор', {
+            'fields': ('author_type', 'author_name', 'teacher', 'student')
+        }),
+        ('Изображение', {
+            'fields': ('image', 'image_url')
+        }),
+        ('Статус', {
+            'fields': ('is_active', 'created_at')
+        }),
+    )
+    
+    def get_work_types_display(self, obj):
+        return obj.get_work_types_display()
+    get_work_types_display.short_description = 'Типы работ'

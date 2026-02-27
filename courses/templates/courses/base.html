@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{% block title %}Учебный центр Леди{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
+    
+    <!-- Дополнительные стили для конкретной страницы -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body data-user-id="{{ request.session.user_id|default:'' }}">
+    <!-- Шапка сайта -->
+    {% include 'courses/header.html' %}
+    
+    <!-- Основной контент -->
+    <main class="main-container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Подвал сайта -->
+    {% include 'courses/footer.html' %}
+    
+    <!-- Общие скрипты -->
+    <script src="{% static 'courses/js/menu.js' %}"></script>
+    
+    <!-- Дополнительные скрипты для конкретной страницы -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

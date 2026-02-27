@@ -1,21 +1,13 @@
+{% extends 'courses/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Курсы - Учебный центр Ledy{% endblock %}</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/courses.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
-    {% endblock %}
-</head>
-<body data-user-id="{{ request.session.user_id|default:'' }}">
-    {% include 'courses/header.html' %}
+{% block title %}Курсы - Учебный центр Леди{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/courses.css' %}">
+{% endblock %}
+
+{% block content %}
     <div class="main-container">
         <section class="courses-section">
             <h1 class="courses-title">Наши курсы</h1>
@@ -119,12 +111,8 @@
             </form>
         </div>
     </div>
-
-    {% include 'courses/footer.html' %}
+    {% endblock %}
 
     {% block extra_js %}
-    <script src="{% static 'courses/js/menu.js' %}"></script>
     <script src="{% static 'courses/js/course.js' %}"></script>
     {% endblock %}
-</body>
-</html>

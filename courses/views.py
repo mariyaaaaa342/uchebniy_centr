@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
-from .models import Applications, Teachers, Courses, Users
+from .models import Applications, Teachers, Courses, Users, Portfolio
 import json
 
 def course_list(request):
@@ -203,3 +203,23 @@ def logout_view(request):
         del request.session['user_name']
     messages.success(request, 'Вы вышли из системы')
     return redirect('home')
+
+def portfolio(request):
+    """Страница портфолио"""
+    # Получаем все активные работы
+    works = Portfolio.objects.filter(is_active=True).order_by('-created_at')
+    
+    # Получаем все типы работ из отдельной таблицы WorkType
+    from .models import WorkType
+    work_types = WorkType.objects.all()
+    
+    # Типы авторов
+    author_types = Portfolio.AUTHOR_TYPE_CHOICES
+    
+    context = {
+        'works': works,
+        'work_types': work_types,
+        'author_types': author_types,
+        'title': 'Портфолио работ'
+    }
+    return render(request, 'courses/portfolio.html', context)

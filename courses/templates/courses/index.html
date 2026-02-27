@@ -1,19 +1,12 @@
+{% extends 'courses/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Учебный центр Ledy</title>
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
-</head>
-<body>
-    {% include 'courses/header.html' %}
+
+{% block title %}Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
 
     <main class="main-container">
         <section class="hero">
@@ -76,10 +69,29 @@
                 </svg>
                 <div class="hero_block-2-content">
                     <div class="hero_inset">
+                        <div class="hero_inset-content">
+                            <h3 class="hero_inset-title">Что вы получите после обучения:</h3>
+                            <ol class="hero_inset-list">
+                                <li>Сертификат о прохождении наших  курсов</li>
+                                <li>Возможность официально трудоустроиться в нашем салоне</li>
+                                <li>Огромный практический опыт и бесценный багаж знаний о парикмахерском деле</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="hero_block-3"></div>
+            <div class="hero_block-3">
+                <div class="hero_block-3-content">
+                    <div class="hero_block-3-title">Пробное занятие бесплатно!</div>
+                    <p class="hero_block-3-text">Все мечтают найти дело по душе, но страшно ошибиться? 
+                        Мы это понимаем! Поэтому мы даём вам уникальную возможность - посетить полноценное занятие в 
+                        нашей школе абсолютно<br> бесплатно.</p>
+                    <div class="hero_block-3-vector">
+                        <!-- Здесь будет векторная картинка -->
+                        <img src="{% static 'courses/images/hero_2.png' %}" alt="Vector">
+                    </div>
+                </div>
+            </div>
         </section>
         
         <section class="second">
@@ -164,11 +176,8 @@
             </div>
         </section>
     </main>
-
-    {% include 'courses/footer.html' %}
-
-    <script src="{% static 'courses/js/menu.js' %}"></script>
+{% endblock %}
+{% block extra_js %}
     <script src="{% static 'courses/js/slider.js' %}"></script>
     <script src="{% static 'courses/js/reviews_slider.js' %}"></script>
-</body>
-</html>
+{% endblock %}

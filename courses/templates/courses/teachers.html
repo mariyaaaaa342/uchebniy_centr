@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Преподаватели - Учебный центр Леди</title>
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Преподаватели - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'courses/css/teachers.css' %}">
-</head>
-<body>
-    {% include 'courses/header.html' %}
+{% endblock %}
+
+{% block content %}
     
     <div class="teachers-container">
         <h1 class="teachers-title">Наши преподаватели</h1>
@@ -39,9 +35,7 @@
             {% endfor %}
         </div>
     </div>
-    
-    {% include 'courses/footer.html' %}
-    
-    <script src="{% static 'courses/js/menu.js' %}"></script>
-</body>
-</html>
+ {% endblock %}
+
+ {% block extra_js %}      
+ {% endblock %}

@@ -1,17 +1,13 @@
+{% extends 'courses/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Учебный центр Ledy</title>
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+
+{% block title %}О нас - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'courses/css/about_us.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
-</head>
-<body>
-    {% include 'courses/header.html' %}
+{% endblock %}
+
+{% block content %}
 
     <section class="about-section">
         <div class="background-shape"></div>
@@ -227,10 +223,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
 
-    {% include 'courses/footer.html' %}
-
-    <script src="{% static 'courses/js/menu.js' %}"></script>
+{% block extra_js %}
     <script src="{% static 'courses/js/slider_about_us.js' %}"></script>
-</body>
-</html>
+{% endblock %}
