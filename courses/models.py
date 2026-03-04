@@ -44,108 +44,143 @@ ADMIN_ROLE_CHOICES = [
 ]
 
 class Admins(models.Model):
-    admin_id = models.AutoField(primary_key=True)
-    username = models.CharField(unique=True, max_length=50)
-    password_hash = models.CharField(max_length=150)
-    role = models.CharField(max_length=20, choices=ADMIN_ROLE_CHOICES, default='operator')
-    last_login = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(blank=True, null=True)
+    admin_id = models.AutoField(primary_key=True, verbose_name='ID администратора')
+    username = models.CharField(unique=True, max_length=50, verbose_name='Логин')
+    password_hash = models.CharField(max_length=150, verbose_name='Хеш пароля')
+    role = models.CharField(max_length=20, choices=ADMIN_ROLE_CHOICES, default='operator', verbose_name='Роль')
+    last_login = models.DateTimeField(blank=True, null=True, verbose_name='Последний вход')
+    created_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания')
 
     class Meta:
         managed = False
         db_table = 'admins'
+        verbose_name = 'Администратор'           # Единственное число
+        verbose_name_plural = 'Администраторы'
 
 class Applications(models.Model):
-    application_id = models.AutoField(primary_key=True)
-    course = models.ForeignKey('Courses', models.DO_NOTHING)
-    format = models.CharField(max_length=10, choices=FORMAT_CHOICES)
-    application_date = models.DateTimeField(blank=True, null=True)
-    status = models.CharField(max_length=15, choices=APPLICATION_STATUS_CHOICES, default='new')
-    admin_comment = models.TextField(blank=True, null=True)
-    processed_by = models.ForeignKey(Admins, models.DO_NOTHING, db_column='processed_by', blank=True, null=True)
-    user = models.ForeignKey('Users', models.DO_NOTHING)
+    application_id = models.AutoField(primary_key=True, verbose_name='ID заявки')
+    course = models.ForeignKey('Courses', models.DO_NOTHING, verbose_name='Курс')
+    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, verbose_name='Формат')
+    application_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата подачи')
+    status = models.CharField(max_length=15, choices=APPLICATION_STATUS_CHOICES, default='new', verbose_name='Статус')
+    admin_comment = models.TextField(blank=True, null=True, verbose_name='Комментарий администратора')
+    processed_by = models.ForeignKey(Admins, models.DO_NOTHING, db_column='processed_by', blank=True, null=True, verbose_name='Обработал')
+    user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
 
     class Meta:
         managed = False
         db_table = 'applications'
         unique_together = (('user', 'course'),)
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'
+
+    def __str__(self):
+        return f"Заявка #{self.application_id} - {self.user.full_name} - {self.course.title}"
 
 class CourseProgress(models.Model):
-    progress_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('Users', models.DO_NOTHING)
-    course = models.ForeignKey('Courses', models.DO_NOTHING)
-    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, blank=True, null=True)
-    status = models.CharField(max_length=15, choices=PROGRESS_STATUS_CHOICES, default='not_started')
-    modules_progress = models.JSONField(blank=True, null=True)
-    started_at = models.DateTimeField(blank=True, null=True)
-    completed_at = models.DateTimeField(blank=True, null=True)
-    last_accessed_at = models.DateTimeField(blank=True, null=True)
+    progress_id = models.AutoField(primary_key=True, verbose_name='ID прогресса')
+    user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
+    course = models.ForeignKey('Courses', models.DO_NOTHING, verbose_name='Курс')
+    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, blank=True, null=True, verbose_name='Формат')
+    status = models.CharField(max_length=15, choices=PROGRESS_STATUS_CHOICES, default='not_started', verbose_name='Статус')
+    modules_progress = models.JSONField(default=dict, blank=True, null=True, verbose_name='Прогресс по модулям')    
+    started_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала')
+    completed_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата завершения')
+    last_accessed_at = models.DateTimeField(blank=True, null=True, verbose_name='Последний доступ')
 
     class Meta:
         managed = False
         db_table = 'course_progress'
         unique_together = (('user', 'course'),)
+        verbose_name = 'Прогресс обучения'
+        verbose_name_plural = 'Прогресс студентов'
+
+    def __str__(self):
+        return f"Прогресс: {self.user.full_name} - {self.course.title}"
 
 class Courses(models.Model):
-    course_id = models.AutoField(primary_key=True)
-    teacher = models.ForeignKey('Teachers', models.DO_NOTHING)
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True, null=True)
-    course_program = models.TextField(blank=True, null=True)
-    duration = models.CharField(max_length=50, blank=True, null=True)
-    price_offline = models.DecimalField(max_digits=10, decimal_places=2)
-    price_online = models.DecimalField(max_digits=10, decimal_places=2)
-    offline_available = models.BooleanField(blank=True, null=True)
-    online_available = models.BooleanField(blank=True, null=True)
-    status = models.CharField(max_length=10, choices=COURSE_STATUS_CHOICES, default='active')
-    max_students = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(blank=True, null=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
+    course_id = models.AutoField(primary_key=True, verbose_name='ID курса')
+    teacher = models.ForeignKey('Teachers', models.DO_NOTHING, verbose_name='Преподаватель')
+    title = models.CharField(max_length=200, verbose_name='Название курса')
+    description = models.TextField(blank=True, null=True, verbose_name='Описание')
+    course_program = models.TextField(blank=True, null=True, verbose_name='Программа курса')
+    duration = models.CharField(max_length=50, blank=True, null=True, verbose_name='Длительность')
+    price_offline = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена (оффлайн)')
+    price_online = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена (онлайн)')  
+    status = models.CharField(max_length=10, choices=COURSE_STATUS_CHOICES, default='active', verbose_name='Статус')
+    max_students = models.IntegerField(blank=True, null=True, verbose_name='Макс. студентов')
+    created_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата обновления')
+
+    offline_available = models.BooleanField(
+    blank=True, 
+    null=True, 
+    verbose_name='Доступен оффлайн',
+    choices=[(True, 'Да'), (False, 'Нет')]
+    )
+
+    online_available = models.BooleanField(
+        blank=True, 
+        null=True, 
+        verbose_name='Доступен онлайн',
+        choices=[(True, 'Да'), (False, 'Нет')]
+    )
 
     class Meta:
         managed = False
         db_table = 'courses'
+        verbose_name = 'Курс'           
+        verbose_name_plural = 'Курсы'
+
+    def __str__(self):
+        return self.title
 
 class Favorites(models.Model):
-    favorite_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('Users', models.DO_NOTHING)
-    course = models.ForeignKey(Courses, models.DO_NOTHING)
-    added_at = models.DateTimeField(blank=True, null=True)
+    favorite_id = models.AutoField(primary_key=True, verbose_name='ID избранного курса')
+    user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
+    course = models.ForeignKey(Courses, models.DO_NOTHING, verbose_name='Курс')
+    added_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата добавления')
 
     class Meta:
         managed = False
         db_table = 'favorites'
         unique_together = (('user', 'course'),)
+        verbose_name = 'Избранное'           
+        verbose_name_plural = 'Избранные курсы'
 
 class News(models.Model):
-    news_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    image_url = models.CharField(max_length=255, blank=True, null=True)
-    publish_date = models.DateField()
-    type = models.CharField(max_length=10, choices=NEWS_TYPE_CHOICES, default='news')
-    is_active = models.BooleanField(blank=True, null=True)
-    created_by = models.ForeignKey(Admins, models.DO_NOTHING, db_column='created_by')
-    created_at = models.DateTimeField(blank=True, null=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
+    news_id = models.AutoField(primary_key=True, verbose_name='ID новости/акции')
+    title = models.CharField(max_length=200, verbose_name='Заголовок')
+    content = models.TextField(verbose_name='Содержание')
+    image_url = models.CharField(max_length=255, blank=True, null=True, verbose_name='URL изображения')
+    publish_date = models.DateField(verbose_name='Дата публикации')
+    type = models.CharField(max_length=10, choices=NEWS_TYPE_CHOICES, default='news', verbose_name='Тип')
+    is_active = models.BooleanField(blank=True, null=True, verbose_name='Активно')
+    created_by = models.ForeignKey(Admins, models.DO_NOTHING, db_column='created_by', verbose_name='Автор')
+    created_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата обновления')
 
     class Meta:
         managed = False
         db_table = 'news'
+        verbose_name = 'Новость'           
+        verbose_name_plural = 'Новости'
 
 class Notifications(models.Model):
-    notification_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('Users', models.DO_NOTHING)
-    type = models.CharField(max_length=20, choices=NOTIFICATION_TYPE_CHOICES, default='system')
-    title = models.CharField(max_length=200)
-    message = models.TextField()
-    is_read = models.BooleanField(blank=True, null=True)
-    link = models.CharField(max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(blank=True, null=True)
+    notification_id = models.AutoField(primary_key=True, verbose_name='ID уведомления')
+    user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
+    type = models.CharField(max_length=20, choices=NOTIFICATION_TYPE_CHOICES, default='system', verbose_name='Тип')
+    title = models.CharField(max_length=200, verbose_name='Заголовок')
+    message = models.TextField(verbose_name='Сообщения')
+    is_read = models.BooleanField(blank=True, null=True, verbose_name='Прочитано')
+    link = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ссылка')
+    created_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания')
 
     class Meta:
         managed = False
         db_table = 'notifications'
+        verbose_name = 'Уведомление'           
+        verbose_name_plural = 'Уведомления'
 
 class WorkType(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name='Название')
@@ -153,7 +188,7 @@ class WorkType(models.Model):
     
     class Meta:
         managed = False
-        db_table = 'work_type'  # ← важно! Имя таблицы должно совпадать
+        db_table = 'work_type'  
         verbose_name = 'Тип работы'
         verbose_name_plural = 'Типы работ'
     
@@ -169,27 +204,24 @@ class Portfolio(models.Model):
     ]
     
     portfolio_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=200, verbose_name='Название работы')
-    
-    # Два способа добавить фото: через загрузку файла или через URL
+    title = models.CharField(max_length=200, verbose_name='Название работы')   
     image = models.ImageField(upload_to='portfolio/', verbose_name='Фотография (файл)', blank=True, null=True)
-    image_url = models.CharField(max_length=500, verbose_name='URL фотографии (ссылка)', blank=True, null=True)
-    
+    image_url = models.CharField(max_length=500, verbose_name='URL фотографии (ссылка)', blank=True, null=True)    
     work_types = models.ManyToManyField('WorkType', verbose_name='Типы работ', blank=True)
-    
     author_type = models.CharField(max_length=20, choices=AUTHOR_TYPE_CHOICES, verbose_name='Тип автора')
     author_name = models.CharField(max_length=200, verbose_name='Имя автора', blank=True, null=True)
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     is_active = models.BooleanField(default=True, verbose_name='Отображать на сайте')
-    
-    teacher = models.ForeignKey('Teachers', models.SET_NULL, blank=True, null=True)
-    student = models.ForeignKey('Users', models.SET_NULL, blank=True, null=True)
+    teacher = models.ForeignKey('Teachers', models.SET_NULL, blank=True, null=True, verbose_name='Преподаватель')
+    student = models.ForeignKey('Users', models.SET_NULL, blank=True, null=True, verbose_name='Студент')
 
     class Meta:
         managed = False
         db_table = 'portfolio'
         ordering = ['-created_at']
+        verbose_name = 'Портфолио'           # Единственное число
+        verbose_name_plural = 'Портфолио'
 
     def __str__(self):
         return self.title
@@ -214,31 +246,105 @@ class Portfolio(models.Model):
         return '/static/images/no-image.jpg'
     
 class Users(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    full_name = models.CharField(max_length=150)
-    phone = models.CharField(max_length=20)
-    email = models.CharField(unique=True, max_length=100)
-    password_hash = models.CharField(max_length=255)
-    registration_date = models.DateTimeField(blank=True, null=True)
-    is_verified = models.BooleanField(blank=True, null=True)
-    theme_preference = models.CharField(max_length=10, blank=True, null=True)
+    user_id = models.AutoField(primary_key=True, verbose_name='ID пользователя')
+    full_name = models.CharField(max_length=150, verbose_name='ФИО')
+    phone = models.CharField(max_length=20, verbose_name='Номер телефона')
+    email = models.EmailField(unique=True, max_length=100, verbose_name='Email')
+    password_hash = models.CharField(max_length=255, verbose_name='Хеш пароля')
+    registration_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата регистрации')
+
+    is_verified = models.BooleanField(
+        blank=True, 
+        null=True, 
+        verbose_name='Подтверждён',
+        choices=[(True, 'Да'), (False, 'Нет')]
+    )
+    
+    theme_preference = models.CharField(
+        max_length=10, 
+        blank=True, 
+        null=True, 
+        verbose_name='Тема оформления',
+        choices=[('light', 'Светлая'), ('dark', 'Тёмная')]
+    )
 
     class Meta:
         managed = False
         db_table = 'users'
+        verbose_name = 'Пользователь'           # Единственное число
+        verbose_name_plural = 'Пользователи'
+
+    def __str__(self):
+        return self.full_name
 
 class Teachers(models.Model):
-    teacher_id = models.AutoField(primary_key=True)
-    full_name = models.CharField(max_length=150)
-    biography = models.TextField(blank=True, null=True)
-    specialization = models.CharField(max_length=200, blank=True, null=True)
-    photo = models.CharField(max_length=255, blank=True, null=True)
-    experience = models.IntegerField(blank=True, null=True)
-    email = models.CharField(unique=True, max_length=100)
-    created_at = models.DateTimeField(blank=True, null=True)
+    teacher_id = models.AutoField(primary_key=True, verbose_name='ID преподавателя')
+    full_name = models.CharField(max_length=150, verbose_name='ФИО')
+    biography = models.TextField(blank=True, null=True, verbose_name='Биография')
+    specialization = models.CharField(max_length=200, blank=True, null=True, verbose_name='Специализация')
+    photo = models.CharField(max_length=255, blank=True, null=True, verbose_name='Фото')
+    experience = models.IntegerField(blank=True, null=True, verbose_name='Опыт (лет)')
+    email = models.CharField(unique=True, max_length=100, verbose_name='Email')
+    created_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания')
 
     class Meta:
         managed = False
         db_table = 'teachers'
+        verbose_name = 'преподаватель'           # Единственное число
+        verbose_name_plural = 'преподаватели'
+        
+    def __str__(self):
+        return self.full_name
 
+class Profile(models.Model):
+    profile_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField('Users', on_delete=models.CASCADE, related_name='profile')
+    avatar = models.ImageField(upload_to='avatars/', verbose_name='Аватар', blank=True, null=True)
+    bio = models.TextField(max_length=500, verbose_name='О себе', blank=True, null=True)
+    birth_date = models.DateField(verbose_name='Дата рождения', blank=True, null=True)
+    phone_alt = models.CharField(max_length=20, verbose_name='Доп. телефон', blank=True, null=True)
+    address = models.CharField(max_length=255, verbose_name='Адрес', blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    
+    class Meta:
+        managed = False
+        db_table = 'profiles'
+        verbose_name = 'Профиль пользователя'
+        verbose_name_plural = 'Профили пользователей'
+    
+    def __str__(self):
+        return f"Профиль {self.user.full_name if self.user else 'без пользователя'}"
+    
+    def get_avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+        return '/static/images/default-avatar.png'
 
+# ========== СИГНАЛЫ ДЛЯ АВТОМАТИЧЕСКОГО СОЗДАНИЯ ПРОГРЕССА ==========
+#from django.db.models.signals import pre_save
+#from django.dispatch import receiver
+
+#@receiver(pre_save, sender='courses.Applications')
+#def create_progress_on_confirm(sender, instance, **kwargs):
+#    """Автоматически создаёт прогресс при подтверждении заявки"""
+    # Если заявка подтверждена
+ #   if instance.status == 'confirmed':
+        # Проверяем, был ли статус изменён на confirmed
+#            try:
+#                from .models import Applications
+ #               old = Applications.objects.get(pk=instance.pk)
+#                if old.status == 'confirmed':
+#                    return  
+#            except Applications.DoesNotExist:
+#                pass
+        # Создаём прогресс, если его нет
+#        from .models import CourseProgress
+ #       CourseProgress.objects.get_or_create(
+  #          user=instance.user,
+   #         course=instance.course,
+    #        defaults={
+     #           'format': instance.format,
+      #          'status': 'not_started',
+       #         'modules_progress': {}
+        #    }
+        #)

@@ -1,0 +1,94 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/my_courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-sidebar">
+        <div class="profile-avatar">
+            <img src="{% static 'images/default-avatar.png' %}" alt="Аватар">
+        </div>
+        <div class="profile-menu">
+            <a href="{% url 'profile' %}" class="menu-item">Общая информация</a>
+            <a href="{% url 'profile_edit' %}" class="menu-item">Редактировать профиль</a>
+            <a href="{% url 'my_courses' %}" class="menu-item active"> Мои курсы</a>
+            <a href="{% url 'profile_applications' %}" class="menu-item">Мои заявки</a>
+            <a href="{% url 'logout' %}" class="menu-item logout">Выйти</a>
+        </div>
+    </div>
+    
+    <div class="profile-content">
+        <div class="back-link">
+            <a href="{% url 'my_courses' %}" class="back-btn">← Назад к моим курсам</a>
+        </div>
+        
+        <h1>{{ course.title }}</h1>
+        
+        <div class="course-info-card">
+            <div class="course-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Формат:</span>
+                    <span class="meta-value">{{ progress.format }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Статус:</span>
+                    <span class="course-status status-{{ progress.status }}">
+                        {% if progress.status == 'not_started' %}Не начат
+                        {% elif progress.status == 'in_progress' %}В процессе
+                        {% elif progress.status == 'completed' %}Завершён
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modules-section">
+            <h2>Программа курса</h2>
+            
+            {% if modules %}
+                <div class="modules-list">
+                    {% for module in modules %}
+                    <div class="module-item" data-module-key="{{ module.key }}">
+                        <div class="module-header">
+                            <div class="module-title">
+                                <span class="module-number">{{ forloop.counter }}.</span>
+                                <span class="module-name">{{ module.title }}</span>
+                            </div>
+                            <div class="module-status">
+                                <span class="status-badge status-{{ module.status }}">
+                                    {% if module.status == 'not_started' %}⚪ Не начат
+                                    {% elif module.status == 'in_progress' %}🟡 В процессе
+                                    {% elif module.status == 'completed' %}✅ Пройден
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="module-description">
+                            {{ module.description }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-modules">
+                    <p>Программа курса в разработке</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // При необходимости - обновление статусов (только для админов)
+    // Здесь можно добавить JS для интерактивного обновления статусов
+    // при наличии прав администратора/преподавателя
+</script>
+{% endblock %}

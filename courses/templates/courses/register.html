@@ -21,32 +21,31 @@
         
         <form method="post">
             {% csrf_token %}
-            
             <div class="form-group">
                 <label class="form-label">ФИО</label>
-                <input type="text" name="full_name" class="form-input" required placeholder="Введите ФИО">
+                {{ form.full_name }}
+                {{ form.full_name.errors }}
             </div>
-            
             <div class="form-group">
                 <label class="form-label">Номер телефона</label>
-                <input type="tel" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                {{ form.phone }}
+                {{ form.phone.errors }}
             </div>
-            
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-input" required placeholder="anna@example.com">
+                {{ form.email }}
+                {{ form.email.errors }}
             </div>
-            
             <div class="form-group">
                 <label class="form-label">Пароль</label>
-                <input type="password" name="password" class="form-input" required placeholder="Минимум 6 символов">
+                {{ form.password }}
+                {{ form.password.errors }}
             </div>
-            
             <div class="form-group">
                 <label class="form-label">Подтверждение пароля</label>
-                <input type="password" name="password_confirm" class="form-input" required placeholder="Повторите пароль">
+                {{ form.password_confirm }}
+                {{ form.password_confirm.errors }}
             </div>
-            
             <button type="submit" class="register-btn">Зарегистрироваться</button>
         </form>
         

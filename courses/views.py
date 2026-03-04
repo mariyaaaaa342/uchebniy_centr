@@ -1,11 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import check_password
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .forms import UserProfileForm, ProfileExtendedForm
+from django.contrib.auth.hashers import check_password, make_password
 from django.http import JsonResponse
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password
 from django.utils import timezone
-from .models import Applications, Teachers, Courses, Users, Portfolio
+from .forms import RegistrationForm
+from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress
 import json
+
+def custom_login_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.session.get('user_id'):
+            return redirect('login')
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 def course_list(request):
     courses = Courses.objects.filter(status='active')
@@ -126,7 +135,7 @@ def teachers(request):
         'title': 'Наши преподаватели'
     }
     return render(request, 'courses/teachers.html', context)
-def register(request):
+#def register(request):
     """Страница регистрации нового пользователя"""
     if request.method == 'POST':
         # Получаем данные из формы
@@ -170,6 +179,44 @@ def register(request):
         return redirect('login')
     
     return render(request, 'courses/register.html')
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Все проверки пройдены
+            full_name = form.cleaned_data['full_name']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            # Проверка уникальности email и телефона (если решили оставить)
+            if Users.objects.filter(phone=phone).exists():
+                form.add_error('phone', 'Пользователь с таким номером телефона уже существует')
+                return render(request, 'courses/register.html', {'form': form})
+            
+            if Users.objects.filter(email=email).exists():
+                form.add_error('email', 'Пользователь с таким email уже существует')
+                return render(request, 'courses/register.html', {'form': form})
+            
+            # Создаём пользователя
+            user = Users.objects.create(
+                full_name=full_name,
+                phone=phone,
+                email=email,
+                password_hash=make_password(password),
+                registration_date=timezone.now(),
+                is_verified=False,
+                theme_preference='light'
+            )
+            
+            messages.success(request, 'Регистрация прошла успешно! Теперь вы можете войти.')
+            return redirect('login')
+        # else: форма невалидна — ошибки уже есть в form.errors
+    else:
+        form = RegistrationForm()
+    
+    return render(request, 'courses/register.html', {'form': form})
+
 def login_view(request):
     """Страница входа пользователя"""
     if request.method == 'POST':
@@ -223,3 +270,277 @@ def portfolio(request):
         'title': 'Портфолио работ'
     }
     return render(request, 'courses/portfolio.html', context)
+
+
+@custom_login_required
+def profile_view(request):
+    """Личный кабинет пользователя - просмотр"""
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+    
+    from .models import Users
+    user = get_object_or_404(Users, user_id=user_id)
+    
+    # Получаем или создаём профиль
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    # Получаем заявки пользователя
+    applications = Applications.objects.filter(user=user).order_by('-application_date').select_related('course')
+    
+    context = {
+        'title': 'Личный кабинет',
+        'user': user,
+        'profile': profile,
+        'applications': applications,
+    }
+    return render(request, 'courses/profile.html', context)
+
+
+@custom_login_required
+def profile_edit(request):
+    """Редактирование профиля"""
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+    
+    from .models import Users
+    user = get_object_or_404(Users, user_id=user_id)
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    if request.method == 'POST':
+        user_form = UserProfileForm(request.POST, instance=user)
+        profile_form = ProfileExtendedForm(request.POST, request.FILES, instance=profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            # Сохраняем пользователя
+            user.full_name = user_form.cleaned_data['full_name']
+            user.email = user_form.cleaned_data['email']
+            user.phone = user_form.cleaned_data['phone']
+            user.save()
+            
+            # Сохраняем профиль
+            profile_form.save()
+            
+            messages.success(request, 'Профиль успешно обновлён!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме')
+    else:
+        user_form = UserProfileForm(instance=user)
+        profile_form = ProfileExtendedForm(instance=profile)
+    
+    context = {
+        'title': 'Редактирование профиля',
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user': user,
+        'profile': profile,
+    }
+    return render(request, 'courses/profile_edit.html', context)
+
+
+@custom_login_required
+def profile_applications(request):
+    """История заявок пользователя"""
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+    
+    from .models import Users
+    user = get_object_or_404(Users, user_id=user_id)
+    applications = Applications.objects.filter(user=user).order_by('-application_date').select_related('course')
+    
+    context = {
+        'title': 'Мои заявки',
+        'applications': applications,
+    }
+    return render(request, 'courses/profile_applications.html', context)
+
+@custom_login_required
+def my_courses(request):
+    """Мои курсы - отслеживание прогресса обучения"""
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+    
+    from .models import Users, CourseProgress, Courses
+    user = get_object_or_404(Users, user_id=user_id)
+    
+    # Получаем все прогрессы пользователя
+    progresses = CourseProgress.objects.filter(user=user).select_related('course')
+    
+    # Расширяем информацию о курсах
+    courses_data = []
+    for progress in progresses:
+        course = progress.course
+        modules_progress = progress.modules_progress if progress.modules_progress else {}
+        
+        # Разбираем программу курса на модули
+        course_program = course.course_program if course.course_program else ''
+        modules = parse_course_program_to_modules(course_program)
+        
+        # Обогащаем модули статусами из JSONB
+        for module in modules:
+            module_key = module['key']
+            if module_key in modules_progress:
+                module['status'] = modules_progress[module_key]
+            else:
+                module['status'] = 'not_started'
+        
+        # Рассчитываем общий прогресс
+        if modules:
+            completed = sum(1 for m in modules if m['status'] == 'completed')
+            total = len(modules)
+            percent = int((completed / total) * 100)
+        else:
+            completed = 0
+            total = 0
+            percent = 0
+        
+        courses_data.append({
+            'progress_id': progress.progress_id,
+            'course': course,
+            'format': progress.format,
+            'status': progress.status,
+            'modules': modules,
+            'completed_modules': completed,
+            'total_modules': total,
+            'progress_percent': percent,
+            'started_at': progress.started_at,
+            'completed_at': progress.completed_at,
+            'last_accessed_at': progress.last_accessed_at,
+        })
+    
+    context = {
+        'title': 'Мои курсы',
+        'courses_data': courses_data,
+    }
+    return render(request, 'courses/my_courses.html', context)
+
+
+def parse_course_program_to_modules(course_program):
+    """Парсит текст программы курса в список модулей"""
+    modules = []
+    
+    if not course_program:
+        return modules
+    
+    # Ищем строки, начинающиеся с цифры и точки (например "1. Введение")
+    import re
+    lines = course_program.split('\n')
+    module_counter = 1
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        
+        # Проверяем, похоже ли на заголовок модуля
+        if re.match(r'^\d+[\.\)]', line) or line[0].isdigit() or len(line) < 50:
+            module_key = f'module_{module_counter}'
+            modules.append({
+                'key': module_key,
+                'title': line[:100],  # Ограничиваем длину
+                'description': line
+            })
+            module_counter += 1
+        elif modules and len(modules[-1]['description']) < 200:
+            # Добавляем продолжение к последнему модулю
+            modules[-1]['description'] += ' ' + line
+    
+    # Если не нашли модулей по номерам, разбиваем на абзацы
+    if not modules:
+        paragraphs = [p.strip() for p in course_program.split('\n\n') if p.strip()]
+        for i, para in enumerate(paragraphs[:20], 1):  # Максимум 20 модулей
+            modules.append({
+                'key': f'module_{i}',
+                'title': para[:50] + ('...' if len(para) > 50 else ''),
+                'description': para
+            })
+    
+    return modules
+
+
+@custom_login_required
+def update_module_progress(request):
+    """Обновление статуса модуля (AJAX запрос от преподавателя/админа)"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Метод не разрешён'}, status=405)
+    
+    # Проверка прав: только администраторы и преподаватели
+    # Здесь нужно проверить роль пользователя
+    # Пока упрощённо - проверяем сессию админа
+    
+    try:
+        data = json.loads(request.body)
+        progress_id = data.get('progress_id')
+        module_key = data.get('module_key')
+        status = data.get('status')  # 'not_started', 'in_progress', 'completed'
+        
+        progress = CourseProgress.objects.get(progress_id=progress_id)
+        
+        # Обновляем JSONB поле
+        if not progress.modules_progress:
+            progress.modules_progress = {}
+        
+        progress.modules_progress[module_key] = status
+        
+        # Обновляем общий статус курса
+        modules_statuses = list(progress.modules_progress.values())
+        if all(s == 'completed' for s in modules_statuses):
+            progress.status = 'completed'
+            progress.completed_at = timezone.now()
+        elif any(s in ['in_progress', 'completed'] for s in modules_statuses):
+            progress.status = 'in_progress'
+            if not progress.started_at:
+                progress.started_at = timezone.now()
+        else:
+            progress.status = 'not_started'
+        
+        progress.last_accessed_at = timezone.now()
+        progress.save()
+        
+        return JsonResponse({
+            'success': True,
+            'new_status': progress.status,
+            'message': 'Прогресс обновлён'
+        })
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+
+@custom_login_required
+def course_progress_detail(request, progress_id):
+    """Детальный просмотр прогресса по курсу"""
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+    
+    from .models import Users, CourseProgress
+    user = get_object_or_404(Users, user_id=user_id)
+    progress = get_object_or_404(CourseProgress, progress_id=progress_id, user=user)
+    
+    course = progress.course
+    modules_progress = progress.modules_progress if progress.modules_progress else {}
+    
+    # Парсим программу курса
+    modules = parse_course_program_to_modules(course.course_program)
+    
+    for module in modules:
+        module_key = module['key']
+        module['status'] = modules_progress.get(module_key, 'not_started')
+    
+    context = {
+        'title': f'Прогресс: {course.title}',
+        'progress': progress,
+        'course': course,
+        'modules': modules,
+    }
+    return render(request, 'courses/course_progress_detail.html', context)

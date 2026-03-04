@@ -64,6 +64,15 @@
                         <span>07</span> Контакты
                     </a>
                 </li>
+                
+                <!-- Пункт "Личный кабинет" - показывается ТОЛЬКО авторизованным -->
+                <!--{% if request.session.user_id %}-->
+                <li class="header_menu-item" style="--item-index: 8">
+                    <a href="{% url 'profile' %}" class="header_menu-link">
+                        <span>08</span> Личный кабинет
+                    </a>
+                </li>
+               <!-- {% endif %}-->
             </ul>
             
             <div class="header_menu-contacts">
