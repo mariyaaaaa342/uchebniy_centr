@@ -1,12 +1,27 @@
 <header class="header">
         <div class="header_container">
-            <div class="header_logo">
-                <span class="header_logo-text">Учебный центр Леди</span>
+            <div class="header_left">
+                <div class="header_logo">
+                    <span class="header_logo-text">Учебный центр Леди</span>
+                </div>
+                <div class="header_burger" id="burger">
+                        <span class="header_burger-line"></span>
+                        <span class="header_burger-line"></span>
+                        <span class="header_burger-line"></span>
+                    </div>
             </div>
              <div class="header_right">
+                
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-icon">🌙</span>
+                </div>
                 <div class="header_address">
                     <div class="header_address-text">
-                        г. Ростов-на-Дону, ул. 2-я Краснодарская, 15
+                        г. Ростов-на-Дону, ул. 2-я Краснодарская, 96/6
                     </div>
                 </div>
                 {% if request.session.user_id %}
@@ -20,14 +35,13 @@
                     <a href="{% url 'login' %}" class="header_login-btn">Вход</a>
                     <a href="{% url 'register' %}" class="header_register-btn">Регистрация</a>
                 {% endif %}
-                <div class="header_burger" id="burger">
-                    <span class="header_burger-line"></span>
-                    <span class="header_burger-line"></span>
-                    <span class="header_burger-line"></span>
-                </div>
+                
             </div>
         </div>
         <div class="header_menu" id="menu">
+            <div class="header_menu-logo">
+                <span class="header_menu-logo-text">Учебный центр Леди</span>
+            </div>
             <ul class="header_menu-list">
                 <li class="header_menu-item" style="--item-index: 1">
                     <a href="{% url 'home' %}" class="header_menu-link">
@@ -55,12 +69,12 @@
                     </a>
                 </li>
                 <li class="header_menu-item" style="--item-index: 6">
-                    <a href="#" class="header_menu-link">
+                    <a href="{% url 'news' %}" class="header_menu-link">
                         <span>06</span> Новости и акции
                     </a>
                 </li>
                 <li class="header_menu-item" style="--item-index: 7">
-                    <a href="#" class="header_menu-link">
+                    <a href="{% url 'contacts' %}" class="header_menu-link">
                         <span>07</span> Контакты
                     </a>
                 </li>

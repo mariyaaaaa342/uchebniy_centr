@@ -6,7 +6,12 @@
     --color-4: #3F575B;
     --font-main: 'Advent Pro', sans-serif;
 }
-
+.main-container {
+    width: 1500px;
+    max-width: 100%;
+    margin: 60px auto;
+    padding: 0 20px;
+}
 .about-section {
     width: 100%;
     max-width: 1307px;
@@ -15,7 +20,6 @@
     position: relative;
     margin: 0 auto;
     overflow: hidden;
-    padding: 20px 0;
 }
 
 .background-shape {
@@ -75,23 +79,28 @@
 
 .slider-card img {
     width: 100%;
-    height: 80%;
+    height: 100%;
     object-fit: cover;
 }
+/* Подпись под слайдером */
+.slider-caption {
+    text-align: center;
+    font-family: var(--font-main);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--color-w);
+    margin-top: 40px;
+    letter-spacing: 2.5px;
+    position: relative;
+    z-index: 2;
+}
 
-.slider-card p {
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-main); 
-    font-size: 1.5rem;
-    font-weight: 300; 
-    letter-spacing: 1px;
-    color: var(--color-4); 
-    background: var(--color-w);
-    margin: 0;
-    border-top: 1px solid var(--color-2); 
+/* Адаптация для мобильных */
+@media screen and (max-width: 767px) {
+    .slider-caption {
+        margin-top: 50px;
+        font-size: 1rem;
+    }
 }
 
 /* Десктопная версия */
@@ -109,7 +118,6 @@
         transform: translateX(-50%) scale(1);
         z-index: 3;
         box-shadow: 0 20px 40px rgba(63, 87, 91, 0.3);
-        border: 2px solid var(--color-2); 
     }
     
     .card-right {
@@ -150,13 +158,9 @@
     }
     
     .slider-card img {
-        height: 75%;
+        height: 100%;
     }
     
-    .slider-card p {
-        height: 25%;
-        font-size: 1.2rem;
-    }
 }
 
 .slider-arrow {
@@ -286,7 +290,7 @@
     position: relative;
     width: 1307px;
     max-width: 100%;
-    min-height: 800px;
+    min-height: 700px;
     margin: 0 auto;
     padding: 20px 0;
 }
@@ -658,7 +662,7 @@
     position: relative;
     width: 1307px;
     max-width: 100%;
-    margin: 60px auto 0;
+    margin: 0px auto 0;
     padding: 20px 20px;
 }
 
@@ -668,7 +672,7 @@
     font-weight: 300;
     color: var(--color-4);
     text-align: center;
-    margin-bottom: 150px; 
+    margin-bottom: 100px; 
     letter-spacing: 2px;
 }
 
@@ -761,25 +765,29 @@
 
 .values-card-title {
     font-family: var(--font-main);
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 530;
     color: var(--color-4);
-    margin-bottom: 10px;
-    line-height: 1.3;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    line-height: 0.8;
     word-wrap: break-word;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.158);
+
 }
 
 .values-card-text {
     font-family: var(--font-main);
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #666;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    color: var(--color-4);
     margin: 0 auto;
     word-wrap: break-word;
     overflow-wrap: break-word;
     padding: 0;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.118);
 }
 
 @media screen and (max-width: 1200px) {
@@ -873,7 +881,7 @@
     }
     
     .values-card-text {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 }
 
@@ -929,7 +937,7 @@
     }
     
     .values-card-text {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 }
 

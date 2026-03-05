@@ -46,10 +46,10 @@
                                 </div>
                             </div>
                             <div class="course-program">
-                                <h3>Программа курса:</h3>
+                                <h3>Программа курса ({{ course.modules.all.count }} модулей):</h3>
                                 <ul>
-                                    {% for item in course.course_program.splitlines %}
-                                    <li>{{ item }}</li>
+                                    {% for module in course.modules.all %}
+                                    <li>{{ module.title }}</li>
                                     {% empty %}
                                     <li>Программа в разработке</li>
                                     {% endfor %}
@@ -95,7 +95,10 @@
                         <input type="tel" class="form-input phone-number" id="phone" placeholder="___ ___ __ __" required>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-input" id="email" name="email" placeholder="example@mail.com" required>
+                </div>
                 <div class="form-group">
                     <label for="birthdate" class="form-label">Дата рождения</label>
                     <input type="text" class="form-input" id="birthdate" placeholder="00.00.0000 г." required>

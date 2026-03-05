@@ -1,6 +1,6 @@
 .profile-container {
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 80px auto;
     padding: 0 20px;
     display: flex;
     gap: 40px;
@@ -33,6 +33,7 @@
 }
 
 .profile-sidebar h2 {
+    font-family: var(--font-main);
     font-size: 1.3rem;
     color: var(--color-4);
     margin-bottom: 5px;
@@ -42,6 +43,7 @@
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 5px;
+    font-family: var(--font-main);
 }
 
 .profile-menu {
@@ -59,6 +61,7 @@
     text-decoration: none;
     transition: all 0.3s ease;
     text-align: left;
+    font-family: var(--font-main);
 }
 
 .menu-item:hover {
@@ -70,12 +73,20 @@
     color: white;
 }
 
-.menu-item.logout {
+.menu_item_logout {
+    display: block;
+    padding: 12px 15px;
+    border-radius: 15px;
+    font-family: var(--font-main);
     color: #c00;
     margin-top: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-size: 1.3rem;
 }
 
-.menu-item.logout:hover {
+.menu_item_logout:hover {
     background: #fee;
 }
 
@@ -86,6 +97,7 @@
 .profile-content h1 {
     font-size: 2rem;
     font-weight: 300;
+    font-family: var(--font-main);
     color: var(--color-4);
     margin-bottom: 30px;
 }
@@ -99,6 +111,7 @@
 }
 
 .profile-info-card h3 {
+    font-family: var(--font-main);
     font-size: 1.2rem;
     color: var(--color-4);
     margin-bottom: 20px;
@@ -112,12 +125,14 @@
 }
 
 .info-label {
+    font-family: var(--font-main);
     width: 130px;
     font-weight: 500;
     color: var(--color-4);
 }
 
 .info-value {
+    font-family: var(--font-main);
     flex: 1;
     color: #666;
 }
@@ -135,6 +150,7 @@
 }
 
 .app-course {
+    font-family: var(--font-main);
     font-weight: 500;
     color: var(--color-4);
     margin-bottom: 8px;
@@ -147,6 +163,7 @@
 }
 
 .app-format {
+    font-family: var(--font-main);
     background: white;
     padding: 2px 10px;
     border-radius: 20px;
@@ -157,6 +174,7 @@
 }
 
 .app-status {
+    font-family: var(--font-main);
     padding: 2px 10px;
     border-radius: 20px;
 }
@@ -195,6 +213,7 @@
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--color-2);
+    font-family: var(--font-main);
 }
 
 .form-group {
@@ -202,6 +221,7 @@
 }
 
 .form-group label {
+    font-family: var(--font-main);
     display: block;
     font-weight: 500;
     color: var(--color-4);
@@ -233,6 +253,7 @@
 }
 
 .btn-save {
+    font-family: var(--font-main);
     padding: 12px 30px;
     background: var(--color-1);
     color: white;
@@ -247,6 +268,7 @@
 }
 
 .btn-cancel {
+    font-family: var(--font-main);
     padding: 12px 30px;
     background: var(--color-3);
     color: var(--color-4);
@@ -308,6 +330,7 @@
 }
 
 .app-header {
+    font-family: var(--font-main);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -317,6 +340,7 @@
 }
 
 .app-header h3 {
+    font-family: var(--font-main);
     font-size: 1.1rem;
     color: var(--color-4);
 }
@@ -326,6 +350,7 @@
 }
 
 .detail-label {
+    font-family: var(--font-main);
     font-weight: 500;
     color: var(--color-4);
     width: 150px;
@@ -333,6 +358,7 @@
 }
 
 .detail-value {
+    font-family: var(--font-main);
     color: #666;
 }
 

@@ -6,7 +6,7 @@ from django.urls import reverse
 from courses.models import Users
 from .base_test import ManagedModelTestCase
 
-class RegistrationValidTest(ManagedModelTestCase):
+class RegistrationShortPasswordTest(ManagedModelTestCase):
 
     def test_registration_fails_without_at_in_email(self):
         response = self.client.post(reverse('register'), {

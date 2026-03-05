@@ -4,10 +4,9 @@
     left: 0;
     right: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: white;  /* ← непрозрачный фон */
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1100;
     transition: all 0.3s ease;
 }
 
@@ -20,13 +19,20 @@
     justify-content: space-between; 
     align-items: center
 }
+.header_left {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    gap: 30px;
+    margin-left: 0px;
+}
 .header_logo {
     font-family: var(--font-main);
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--color-4);
     letter-spacing: 2px;
-    position: relative;
+    position: relative; 
 }
 
 .header_right {
@@ -52,14 +58,72 @@
     background: var(--color-4);
     transform: translateY(-2px);
 }
-
-@media screen and (max-width: 600px) {
-    .header_register-btn {
-        padding: 6px 15px;
-        font-size: 0.9rem;
-        margin-right: 5px;
-    }
+/* Переключатель темы */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
 }
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background-color: var(--color-4);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-icon {
+    font-size: 16px;
+}
+
+
+
+
 
 @media screen and (max-width: 400px) {
     .header_register-btn {
@@ -132,6 +196,11 @@
         font-size: 0.9rem;
         gap: 8px;
     }
+    .header_register-btn {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
 }
 .header_address {
     display: flex;
@@ -197,13 +266,13 @@
 .header_menu {
     position: fixed;
     top: 0;
-    right: -400px;
+    left: -400px;          /* ← меняем right на left, и минус */
     width: 350px;
     height: 100vh;
     background: white;
-    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-    padding: 100px 40px 40px;
-    transition: right 0.4s ease;
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);  /* ← тень теперь справа */
+    padding: 10px 40px 40px;
+    transition: left 0.4s ease;  /* ← transition для left */
     overflow-y: auto;  
     overflow-x: hidden;
     z-index: 999;
@@ -212,20 +281,20 @@
 .header_menu.active {
     overflow-y: auto;
     overflow-x: hidden;
-    right: 0;
+    left: 0;               /* ← появляется слева */
+    right: auto;           /* ← сбрасываем right */
 }
 
 .header_menu-list {
     list-style: none;
+    margin-top: 20px;
     padding: 0;
 }
 
 .header_menu-item {
     margin-bottom: 25px;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.3s ease;
-    transition-delay: calc(0.1s * var(--item-index));
+    opacity: 1;
+    transform: none;
 }
 
 .header_menu.active .header_menu-item {
@@ -243,29 +312,47 @@
     align-items: center;
     gap: 15px;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
 .header_menu-link:hover {
-    color: var(--color-1);
-    transform: translateX(10px);
+     font-weight: 700;  /* ← жирный шрифт */
+    border-bottom-width: 3px;  /* ← черта толще */
+    border-bottom-color: var(--color-1);
 }
 
 .header_menu-link span {
     font-size: 1rem;
-    color: var(--color-2);
+    color: var(--color-3);
     width: 25px;
 }
+.header_menu-logo {
+    margin-top: 10px;
+    margin-left: 0;
+    text-align: left;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.header_menu-logo-text {
+    font-family: var(--font-main);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-4);
+    letter-spacing: 2px;
+}
+
+
+
 
 .header_overlay {
     position: fixed;
-    top: 0;
+    top:  0;
     left: 0;
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(5px);  /* ← замыливание всей страницы */
     z-index: 998;
     opacity: 0;
     visibility: hidden;
@@ -405,4 +492,11 @@ body {
     body {
         padding-top: 70px;
     }
+}
+.header,
+.header_container,
+.header_left,
+.header_right {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }

@@ -1,0 +1,50 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'courses/css/profile.css' %}">
+    {% block cabinet_extra_css %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <!-- Боковое меню -->
+    <div class="profile-sidebar">
+        <div class="profile-avatar">
+            <img src="{{ profile.get_avatar_url }}" alt="Аватар">
+        </div>
+        <h2>{{ user.full_name }}</h2>
+        <p class="profile-email">{{ user.email }}</p>
+        <p class="profile-phone">{{ user.phone }}</p>
+        
+        <div class="profile-menu">
+            <a href="{% url 'profile' %}" class="menu-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                Общая информация
+            </a>
+            <a href="{% url 'profile_edit' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_edit' %}active{% endif %}">
+                Редактировать профиль
+            </a>
+            <a href="{% url 'my_courses' %}" class="menu-item {% if request.resolver_match.url_name == 'my_courses' %}active{% endif %}">
+                Мои курсы
+            </a>
+            <a href="{% url 'profile_applications' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_applications' %}active{% endif %}">
+                Мои заявки
+            </a>
+            <a href="{% url 'available_for_review' %}" class="menu-item {% if request.resolver_match.url_name == 'available_for_review' %}active{% endif %}">
+                Оставить отзыв
+            </a>
+            <a href="{% url 'logout' %}" class="menu_item_logout">Выйти</a>
+        </div>
+    </div>
+    
+    <!-- Основной контент -->
+    <div class="profile-content">
+        {% block cabinet_content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {% block cabinet_extra_js %}{% endblock %}
+{% endblock %}

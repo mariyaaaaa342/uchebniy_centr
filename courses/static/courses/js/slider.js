@@ -1,6 +1,6 @@
-// Слайдер для второго блока (автоматический)
+// Слайдер для второго блока 
 document.addEventListener('DOMContentLoaded', function() {
-    const sliderContainer = document.querySelector('.slider-container');
+    const sliderContainer = document.querySelector('.second_slider-container');
     if (!sliderContainer) return;
     
     const track = sliderContainer.querySelector('.slider-track');

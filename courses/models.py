@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 FORMAT_CHOICES = [
     ('оффлайн', 'Оффлайн'),
@@ -61,11 +63,12 @@ class Applications(models.Model):
     application_id = models.AutoField(primary_key=True, verbose_name='ID заявки')
     course = models.ForeignKey('Courses', models.DO_NOTHING, verbose_name='Курс')
     format = models.CharField(max_length=10, choices=FORMAT_CHOICES, verbose_name='Формат')
-    application_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата подачи')
+    application_date = models.DateTimeField(default=timezone.now, verbose_name='Дата подачи')
     status = models.CharField(max_length=15, choices=APPLICATION_STATUS_CHOICES, default='new', verbose_name='Статус')
     admin_comment = models.TextField(blank=True, null=True, verbose_name='Комментарий администратора')
     processed_by = models.ForeignKey(Admins, models.DO_NOTHING, db_column='processed_by', blank=True, null=True, verbose_name='Обработал')
     user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
+    email = models.EmailField(max_length=100, blank=True, null=True, verbose_name='Email')
 
     class Meta:
         managed = False
@@ -77,19 +80,54 @@ class Applications(models.Model):
     def __str__(self):
         return f"Заявка #{self.application_id} - {self.user.full_name} - {self.course.title}"
 
+
+class Module(models.Model):
+    module_id = models.AutoField(primary_key=True, verbose_name='ID модуля')
+    course = models.ForeignKey('Courses', on_delete=models.CASCADE, related_name='modules', verbose_name='Курс')
+    title = models.CharField(max_length=200, verbose_name='Название модуля')
+    order = models.PositiveIntegerField(default=0, verbose_name='Порядок сортировки')
+    
+    class Meta:
+        managed = False
+        db_table = 'modules'
+        ordering = ['order', 'module_id']
+        verbose_name = 'Модуль курса'
+        verbose_name_plural = 'Модули курса'
+    
+    def __str__(self):
+        return self.title
+        #return f"{self.course.title} - {self.title}"
+
+class ModuleProgress(models.Model):
+    module_progress_id = models.AutoField(primary_key=True, verbose_name='ID прогресса модуля')
+    progress = models.ForeignKey('CourseProgress', on_delete=models.CASCADE, related_name='modules_progress_list', verbose_name='Прогресс курса')
+    module = models.ForeignKey('Module', on_delete=models.CASCADE, verbose_name='Модуль')
+    status = models.CharField(max_length=20, choices=PROGRESS_STATUS_CHOICES, default='not_started', verbose_name='Статус')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    
+    class Meta:
+        managed = False
+        db_table = 'module_progress'
+        unique_together = (('progress', 'module'),)
+        verbose_name = 'Прогресс модуля'
+        verbose_name_plural = 'Прогресс модулей'
+    
+    def __str__(self):
+        return f"{self.module.title}: {self.get_status_display()}"
+    
 class CourseProgress(models.Model):
     progress_id = models.AutoField(primary_key=True, verbose_name='ID прогресса')
     user = models.ForeignKey('Users', models.DO_NOTHING, verbose_name='Пользователь')
     course = models.ForeignKey('Courses', models.DO_NOTHING, verbose_name='Курс')
     format = models.CharField(max_length=10, choices=FORMAT_CHOICES, blank=True, null=True, verbose_name='Формат')
     status = models.CharField(max_length=15, choices=PROGRESS_STATUS_CHOICES, default='not_started', verbose_name='Статус')
-    modules_progress = models.JSONField(default=dict, blank=True, null=True, verbose_name='Прогресс по модулям')    
     started_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала')
     completed_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата завершения')
     last_accessed_at = models.DateTimeField(blank=True, null=True, verbose_name='Последний доступ')
+    has_reviewed = models.BooleanField(default=False, verbose_name='<Благодарим за отзыв, это очень важно для нас!')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'course_progress'
         unique_together = (('user', 'course'),)
         verbose_name = 'Прогресс обучения'
@@ -97,13 +135,36 @@ class CourseProgress(models.Model):
 
     def __str__(self):
         return f"Прогресс: {self.user.full_name} - {self.course.title}"
+    
+    def update_status_from_modules(self):
+        """Обновляет общий статус на основе ModuleProgress"""
+        # Проверяем, есть ли уже primary key (объект сохранён в БД)
+        if not self.pk:
+            return  # Если объект ещё не сохранён, ничего не делаем
+        
+        modules_progress = self.modules_progress_list.all()
+        if not modules_progress.exists():
+            self.status = 'not_started'
+            return
+        
+        statuses = [mp.status for mp in modules_progress]
+        if all(s == 'completed' for s in statuses):
+            self.status = 'completed'
+        elif any(s in ['in_progress', 'completed'] for s in statuses):
+            self.status = 'in_progress'
+        else:
+            self.status = 'not_started'
+    def save(self, *args, **kwargs):
+        # Обновляем статус только если объект уже существует в БД
+        if self.pk:
+            self.update_status_from_modules()
+        super().save(*args, **kwargs)
 
 class Courses(models.Model):
     course_id = models.AutoField(primary_key=True, verbose_name='ID курса')
     teacher = models.ForeignKey('Teachers', models.DO_NOTHING, verbose_name='Преподаватель')
     title = models.CharField(max_length=200, verbose_name='Название курса')
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
-    course_program = models.TextField(blank=True, null=True, verbose_name='Программа курса')
     duration = models.CharField(max_length=50, blank=True, null=True, verbose_name='Длительность')
     price_offline = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена (оффлайн)')
     price_online = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена (онлайн)')  
@@ -153,6 +214,7 @@ class News(models.Model):
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     content = models.TextField(verbose_name='Содержание')
     image_url = models.CharField(max_length=255, blank=True, null=True, verbose_name='URL изображения')
+    image = models.ImageField(upload_to='news_images/', blank=True, null=True, verbose_name='Изображение (файл)')
     publish_date = models.DateField(verbose_name='Дата публикации')
     type = models.CharField(max_length=10, choices=NEWS_TYPE_CHOICES, default='news', verbose_name='Тип')
     is_active = models.BooleanField(blank=True, null=True, verbose_name='Активно')
@@ -195,14 +257,11 @@ class WorkType(models.Model):
     def __str__(self):
         return self.name
     
-class Portfolio(models.Model):
-   
-    # Выбор автора
+class Portfolio(models.Model):   
     AUTHOR_TYPE_CHOICES = [
         ('teacher', 'Преподаватель'),
         ('student', 'Студент/Выпускник'),
     ]
-    
     portfolio_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, verbose_name='Название работы')   
     image = models.ImageField(upload_to='portfolio/', verbose_name='Фотография (файл)', blank=True, null=True)
@@ -319,32 +378,64 @@ class Profile(models.Model):
         if self.avatar:
             return self.avatar.url
         return '/static/images/default-avatar.png'
+    
+"""from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
-# ========== СИГНАЛЫ ДЛЯ АВТОМАТИЧЕСКОГО СОЗДАНИЯ ПРОГРЕССА ==========
-#from django.db.models.signals import pre_save
-#from django.dispatch import receiver
-
-#@receiver(pre_save, sender='courses.Applications')
-#def create_progress_on_confirm(sender, instance, **kwargs):
-#    """Автоматически создаёт прогресс при подтверждении заявки"""
-    # Если заявка подтверждена
- #   if instance.status == 'confirmed':
+@receiver(pre_save, sender='courses.Applications')
+def create_progress_on_confirm(sender, instance, **kwargs):
+    if instance.status == 'confirmed':
         # Проверяем, был ли статус изменён на confirmed
-#            try:
-#                from .models import Applications
- #               old = Applications.objects.get(pk=instance.pk)
-#                if old.status == 'confirmed':
-#                    return  
-#            except Applications.DoesNotExist:
-#                pass
-        # Создаём прогресс, если его нет
-#        from .models import CourseProgress
- #       CourseProgress.objects.get_or_create(
-  #          user=instance.user,
-   #         course=instance.course,
-    #        defaults={
-     #           'format': instance.format,
-      #          'status': 'not_started',
-       #         'modules_progress': {}
-        #    }
-        #)
+        if instance.pk:
+            try:
+                old = Applications.objects.get(pk=instance.pk)
+                if old.status == 'confirmed':
+                    return
+            except Applications.DoesNotExist:
+                pass
+        
+        CourseProgress.objects.get_or_create(
+            user=instance.user,
+            course=instance.course,
+            defaults={
+                'format': instance.format,
+                'status': 'not_started'
+            }
+        )"""
+
+class Review(models.Model):
+    RATING_CHOICES = [
+        (1, '★☆☆☆☆'),
+        (2, '★★☆☆☆'),
+        (3, '★★★☆☆'),
+        (4, '★★★★☆'),
+        (5, '★★★★★'),
+    ]
+    STATUS_CHOICES = [
+        ('pending', 'На модерации'),
+        ('approved', 'Одобрен'),
+        ('rejected', 'Отклонён'),
+    ]
+    review_id = models.AutoField(primary_key=True, verbose_name='ID отзыва')
+    student_name = models.CharField(max_length=150, verbose_name='Имя студента')
+    course = models.ForeignKey('Courses', models.SET_NULL, blank=True, null=True, verbose_name='Курс')
+    text = models.TextField(verbose_name='Текст отзыва')
+    rating = models.IntegerField(default=5, choices=RATING_CHOICES, verbose_name='Оценка')
+    photo = models.ImageField(upload_to='reviews/', blank=True, null=True, verbose_name='Фото студента')
+    is_active = models.BooleanField(default=False, verbose_name='Отображать на сайте')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='Статус модерации')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+    
+    class Meta:
+        db_table = 'reviews'
+        ordering = ['-created_at']
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+    
+    def __str__(self):
+        return f"{self.student_name} - {self.course.title if self.course else 'Общий отзыв'}"
+    
+    def get_photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return '/static/courses/images/default-avatar.png'

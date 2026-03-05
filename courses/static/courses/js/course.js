@@ -209,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('name', document.getElementById('name').value);
             formData.append('surname', document.getElementById('surname').value);
             formData.append('phone', document.getElementById('phone').value);
+            formData.append('email', document.getElementById('email').value);
             formData.append('birthdate', document.getElementById('birthdate').value);
             formData.append('course_id', document.getElementById('courseId').value);
             formData.append('format', document.getElementById('courseFormat').value);

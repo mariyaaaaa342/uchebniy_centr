@@ -1,0 +1,243 @@
+/* news.css */
+.main-container {
+    width: 1500px;
+    max-width: 100%;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.news-title {
+    font-family: var(--font-main);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--color-4);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.news-subtitle {
+    text-align: center;
+    color: var(--color-4);
+    font-family: var(--font-main);
+    margin-bottom: 50px;
+}
+
+/* Фильтры */
+.news-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    background: white;
+    border: 2px solid var(--color-2);
+    border-radius: 30px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-4);
+}
+
+.filter-btn:hover {
+    background: var(--color-2);
+    color: white;
+}
+
+.filter-btn.active {
+    background: var(--color-1);
+    border-color: var(--color-1);
+    color: white;
+}
+
+/* Секции */
+.news-section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-family: var(--font-main);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-4);
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--color-2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    font-size: 1.8rem;
+}
+
+/* Сетка карточек */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.news-card {
+    width: 100%;  
+    max-width: 450px;
+    background: white;
+    border: 1px solid var(--color-2);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.news-image {
+    width: 100%;
+    height: 250px;  
+    object-fit: cover;
+    background: var(--color-3);
+}
+
+.news-content {
+    padding: 20px;
+}
+
+.news-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.badge-news {
+    background:  var(--color-2);
+    color: white;
+}
+
+.badge-promo {
+    background: #e67e22;
+    color: white;
+}
+
+.badge-event {
+    background: var(--color-2);
+    color: rgb(51, 83, 69);
+}
+.news-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+.news-card-title {
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-4);
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.news-date {
+    margin-right: 20px;
+    font-size: 0.85rem;
+    color: var(--color-3);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.news-excerpt {
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    color: var(--color-4);
+    line-height: 1.5;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.news-link {
+    font-family: var(--font-main);
+    color: var(--color-1);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.news-link:hover {
+    color: var(--color-4);
+}
+
+/* Пустое состояние */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 20px;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.empty-state-title {
+    font-size: 1.5rem;
+    color: var(--color-4);
+    margin-bottom: 10px;
+}
+
+.empty-state-text {
+    color: var(--color-3);
+}
+
+/* Адаптивность */
+@media screen and (max-width: 900px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {
+    .news-card-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .news-date {
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 600px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .news-title {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+

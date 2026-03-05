@@ -1,0 +1,64 @@
+{% extends 'courses/cabinet_base.html' %}
+{% load static %}
+
+{% block title %}Оставить отзыв{% endblock %}
+
+{% block cabinet_extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/available_for_review.css' %}">
+{% endblock %}
+
+{% block cabinet_content %}
+<div class="review-available-container">
+    <h1 class="review-title">Оставить отзыв</h1>
+    
+    {% if available_courses %}
+        {% for item in available_courses %}
+        <div class="course-card">
+            <div class="course-name">{{ item.course.title }}</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ item.progress_percent }}%"></div>
+            </div>
+            <p>Пройдено модулей: {{ item.completed_modules }} из {{ item.total_modules }} ({{ item.progress_percent }}%)</p>
+            
+            <button class="btn-write-review" data-course-id="{{ item.course.course_id }}" data-course-title="{{ item.course.title }}">Написать отзыв</button>
+            
+            <form class="review-form" data-course-id="{{ item.course.course_id }}" method="post" enctype="multipart/form-data" action="{% url 'submit_review' %}">
+                {% csrf_token %}
+                <input type="hidden" name="course_id" value="{{ item.course.course_id }}">
+                
+                <div class="stars" data-rating="0">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" name="rating" id="rating" value="0">
+                
+                <div class="form-group">
+                    <label>Ваш отзыв</label>
+                    <textarea name="text" placeholder="Расскажите о вашем опыте обучения..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Фото (необязательно)</label>
+                    <input type="file" name="photo" accept="image/*">
+                </div>
+                
+                <button type="submit" class="submit-btn">Отправить отзыв</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет курсов, на которые можно оставить отзыв.</p>
+            <p>Чтобы оставить отзыв, нужно пройти хотя бы один модуль любого курса.</p>
+            <a href="{% url 'my_courses' %}" class="btn-primary">Мои курсы</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block cabinet_extra_js %}
+    <script src="{% static 'courses/js/available_for_review.js' %}"></script>
+{% endblock %}

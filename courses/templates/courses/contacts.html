@@ -1,0 +1,82 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Контакты - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/contacts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contacts-container">
+    <h1 class="contacts-title">Контакты</h1>
+    
+    <div class="contacts-grid">
+        <!-- Левая колонка - информация -->
+        <div class="contacts-info">
+            <h2 class="contacts-info-title">Свяжитесь с нами</h2>
+            
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-details">
+                    <div class="contact-label">Адрес</div>
+                    <div class="contact-value">г. Ростов-на-Дону, ул. 2-я Краснодарская, 96/6</div>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div class="contact-details">
+                    <div class="contact-label">Телефон</div>
+                    <div class="contact-value"><a href="tel:+79991234567">+7 (903) 489-22-01</a></div>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-details">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value"><a href="mailto:info@ledy.center">lilitnazaretan1@gmail.com</a></div>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">🕒</div>
+                <div class="contact-details">
+                    <div class="contact-label">Режим работы</div>
+                    <div class="work-hours">
+                        <div class="work-hours-item">
+                            <span class="work-hours-day">Понедельник - Пятница</span>
+                            <span class="work-hours-time">10:00 - 18:00</span>
+                        </div>
+
+                        <div class="work-hours-item">
+                            <span class="work-hours-day">Воскресенье - Суббота</span>
+                            <span class="work-hours-time">Выходной</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правая колонка - карта -->
+        <div class="contacts-map">
+            <h2 class="contacts-map-title">Мы на карте</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?ll=39.618156%2C47.202678&mode=whatshere&whatshere%5Bpoint%5D=39.616090%2C47.204009&whatshere%5Bzoom%5D=17&z=17" 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0" 
+                    allowfullscreen="true">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'courses/js/contacts.js' %}"></script>
+{% endblock %}

@@ -26,7 +26,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
     padding: 0;
     margin: 0;
 }
@@ -184,6 +183,7 @@ section {
     top: 0;
     width: 100%;
     height: 100%;
+    
 }
 
 .hero_block-2-content {
@@ -320,32 +320,135 @@ section {
 }
 
 .second_block-1 {
-    position: absolute;
+    position: relative;
     left: 59px;
     top: 0;
     width: 800px;
     height: 501px;
     background: var(--color-4);
     border-radius: 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     z-index: 2;
+}
+.second_block-1-content {
+    max-width: 80%;
+    margin-left: 60px;
+    margin-top: 30px;        /* ← отступ сверху, как у 3-го блока */
+    text-align: left;
+}
+
+/* Оформление как у hero_block-3-title, но с выравниванием по левому краю */
+.second_block-1-title {
+    display: inline-block;
+    background: var(--color-w);
+    color: var(--color-4);
+    font-family: var(--font-main);
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 20px;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Текст под заголовком */
+.second_block-1-text {
+    margin-top: 40px;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-w);
+    line-height: 1.5;
+    opacity: 0.9;
+}
+.link-about_us {
+    display: inline-block;
+    margin-top: 15px;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    color: var(--color-w);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.link-about_us:hover {
+
+    transform: translateY(-2px);
+}
+@media screen and (max-width: 1000px) {
+    .second_block-1-content {
+        max-width: 90%;
+        margin-left: 30px;
+        margin-top: 30px;
+    }
+    
+    .second_block-1-title {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        margin-top: 10px;
+
+    }
+    
+    .second_block-1-text {
+        font-size: 1rem;
+    }
+}
+/* Адаптивность */
+@media screen and (max-width: 800px) {
+    .second_block-1-content {
+        max-width: 90%;
+        margin-left: 30px;
+        margin-top: 35px;        
+    }
+    
+    .second_block-1-title {
+        font-size: 1rem;
+        padding: 8px 15px;
+        margin-top: 8px;
+    }
+    
+    .second_block-1-text {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .second_block-1-content {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    
+    .second_block-1-title {
+        font-size: 0.6rem;
+        padding: 5px 8px;
+        margin-top: 5px;
+    }
+    
+    .second_block-1-text {
+        font-size: 0.9rem;
+    }
 }
 
 .second_block-2 {
     position: absolute;
-    right: 0;
     top: 0;
     width: 560px;
     height: 258px;
-    z-index: 3;
+    z-index: 2;
+    right: 30px !important;
 }
 
-.slider-container {
+.second_slider-container {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
     border-radius: 30px;
     border: 1px solid var(--color-2);
+    z-index: 2;
 }
 
 .slider-track {
@@ -431,6 +534,80 @@ section {
     width: 100%;
     height: 100%;
 }
+.second_block-3-inner {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    left: 812px;
+    top: 285px;
+    width: 620px;
+    height: 215px;
+    background: var(--color-3);
+    border-radius: 35px;
+    z-index: 21;
+}
+.second_block-3-content {
+    max-width: 90%;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+/* Оформление заголовка как у 3-го блока 1-й секции */
+.second_block-3-title {
+    display: inline-block;
+    color: var(--color-w);
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 7px 25px;
+    border: 1px solid var(--color-2);
+    border-radius: 30px;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Текст под заголовком */
+.second_block-3-text {
+    padding-left: 10px;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-w);
+    line-height: 0.6;
+    opacity: 0.95;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.second_block-3-text p {
+    margin-bottom: 15px;
+}
+
+.second_block-3-text ul {
+    
+    list-style: none;
+    padding-left: 0;
+}
+
+.second_block-3-text li {
+    line-height: 0.5;
+    padding: 8px 0 8px 25px;
+    position: relative;
+}
+
+.second_block-3-text li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-w);
+    font-weight: bold;
+}
+.second {
+    overflow: hidden;
+}
+
 /* ========== ТРЕТЬЯ СЕКЦИЯ (ДЕСКТОП) ========== */
 .third {
     position: relative;
@@ -462,6 +639,7 @@ section {
     margin: 0;
     text-align: center;
     white-space: nowrap;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .third_slider {
@@ -486,7 +664,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 83px;
     padding: 147px 20px 20px 20px;
     box-sizing: border-box;
 }
@@ -498,7 +675,13 @@ section {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
-
+.review-course {
+    display: inline-block;
+    border: 1px solid var(--color-2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    background: transparent
+}
 .third_btn {
     position: absolute;
     top: 50%;
@@ -610,6 +793,7 @@ section {
 }
 
 .fourth_card {
+    margin-top: 15px;
     width: 366px;
     height: 212px;
     background: var(--color-3);
@@ -618,29 +802,54 @@ section {
     padding: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: flex-start;
     transition: all 0.3s ease;
     border: 1px solid rgba(0,0,0,0.05);
+    gap: 20px;
 }
 
 .fourth_card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
+.fourth_card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+.fourth_card-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.60);
+    border-radius: 50%;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-4);
+    margin-bottom: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+/* Тень для текста (оставляем как есть) */
 .fourth_card-title {
     font-family: var(--font-main);
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--color-w);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.218);
 }
 
 .fourth_card-text {
     font-family: var(--font-main);
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.5;
     color: var(--color-w);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.218);
 }
 
 /* ============================================================
@@ -770,20 +979,20 @@ section {
     }
     
     .hero_block-3 {
-        height: 700px !important;
+        height: 500px !important;
         aspect-ratio: 362 / 578;
     }
     .hero_block-3-title{
-        font-size: 2rem;
+        font-size: 1rem;
     }
     .hero_block-3-text {
-        font-size: 2rem;
+        font-size: 1rem;
         max-width: 400px;
     }
     .hero_block-3-vector img {
-    max-width: auto;
-    height: 200px;
-    max-height: 200px;
+        max-width: auto;
+        height: 100px;
+        max-height: 100px;
 }
     /* Скрываем notch на мобильных */
     .hero_notch {
@@ -852,17 +1061,18 @@ section {
     }
     
     .third_slide {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding: 100px 20px 60px;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 30px !important;
+        padding: 100px 20px 60px !important;
+        height: auto !important;
+        min-height: 700px !important;  /* ← увеличиваем высоту, чтобы вместить 2 карточки */
     }
     
     .review-card {
-        width: 100% !important;
-        max-width: 450px !important;
-        height: auto !important;
-        aspect-ratio: 509 / 337;
+        width: 90% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
     }
     
     .third_btn {
@@ -1009,8 +1219,7 @@ section {
     .fourth_card {
         max-width: 350px !important;
     }
-    
-    
+
     
     .hero_block-1-subtext {
         font-size: 0.85rem;
@@ -1021,19 +1230,19 @@ section {
         padding: 6px 16px;
     }
     .hero_block-3{
-        max-height: 530px;
+        max-height: 300px;
     }
     .hero_block-3-title {
         margin-left: 25px;
-        font-size: 1.3rem;
+        font-size: 0.9rem;
+        padding: 8px 12px;
     }
     .hero_block-3-text {
-        font-size: 1.3rem;
-        max-width: 250px;
+        font-size: 0.8rem;
+        max-width: 300px;
+        text-align: justify;
     }
-    .hero_block-3-vector img {
-        max-height: 150px;
-    }
+  
     .fourth_card-title {
         font-size: 1.5rem !important;
     }
@@ -1583,5 +1792,157 @@ section {
     .review-card {
         width: 470px;
         height: 311px;
+    }
+}
+/* ========== СТИЛИ ДЛЯ КАРТОЧЕК ОТЗЫВОВ ========== */
+.review-card {
+    width: 100%;
+    max-width: 450px;
+    min-width: 280px;
+    background: var(--color-w);
+    border-radius: 40px;
+    box-shadow: 0 15px 35px rgba(63, 87, 91, 0.12);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 45px rgba(63, 87, 91, 0.2);
+}
+
+/* Верхняя строка: фото и звёзды в одной линии */
+.review-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 45px;
+}
+
+.review-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-3);
+    flex-shrink: 0;
+}
+
+.review-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--color-w);
+}
+
+.review-stars {
+    color: #f5a623;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+}
+
+/* Вторая строка: имя и курс */
+.review-author-info {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.review-author {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-4);
+}
+
+.review-course {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    color: var(--color-1);
+    font-weight: 500;
+}
+
+/* Текст отзыва */
+.review-text {
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-4);
+    text-align: left;
+    margin: 0;
+    padding-top: 10px;
+}
+
+
+/* ===== ПРИНУДИТЕЛЬНЫЕ СТИЛИ ДЛЯ THIRD_SLIDE ===== */
+.third_slide {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 50px !important;
+}
+
+.review-card {
+    width: 450px !important;
+    max-width: 450px !important;
+    margin: 0 !important;
+}
+/* ===== ПРИНУДИТЕЛЬНЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ (до 800px) ===== */
+@media screen and (max-width: 800px) {
+    .third_slide {
+        flex-direction: column !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 30px !important;
+        padding: 100px 20px 60px !important;
+        height: auto !important;
+        min-height: 650px !important;
+    }
+    
+    .third_slider {
+        height: auto !important;
+        min-height: 700px !important;
+    }
+    
+    .review-card {
+        width: 90% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+        position: relative !important;
+    }
+}
+
+/* Для очень маленьких экранов (до 500px) */
+@media screen and (max-width: 500px) {
+    .third_slide {
+        min-height: 580px !important;
+        gap: 20px !important;
+        padding: 80px 15px 40px !important;
+    }
+    
+    .third_slider {
+        min-height: 620px !important;
+    }
+    
+    .review-card {
+        width: 95% !important;
+        max-width: 300px !important;
     }
 }

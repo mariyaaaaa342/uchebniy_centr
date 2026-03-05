@@ -1,0 +1,56 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}{{ news_item.title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/news.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/news_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="news-detail-container">
+    <div class="back-link">
+        <a href="{% url 'news' %}" class="back-btn">← Назад к новостям</a>
+    </div>
+    
+    {% if news_item.type == 'news' %}
+    <span class="detail-badge badge-news">Новость</span>
+    {% elif news_item.type == 'promo' %}
+    <span class="detail-badge badge-promo">Акция</span>
+    {% else %}
+    <span class="detail-badge badge-event">Событие</span>
+    {% endif %}
+    
+    <h1 class="detail-title">{{ news_item.title }}</h1>
+    
+    <div class="detail-meta">
+        <span>{{ news_item.publish_date|date:"d.m.Y" }}</span>
+        {% if news_item.created_by %}
+        <span>{{ news_item.created_by.username }}</span>
+        {% endif %}
+    </div>
+    
+    {% if news_item.image %}
+        <img class="detail-image" src="{{ news_item.image.url }}" alt="{{ news_item.title }}">
+    {% elif news_item.image_url %}
+        <img class="detail-image" src="{{ news_item.image_url }}" alt="{{ news_item.title }}">
+    {% endif %}
+    
+    <div class="detail-content">
+        {{ news_item.content|linebreaks }}
+    </div>
+    
+    <div class="news-navigation">
+        {% if prev_news %}
+        <a href="{% url 'news_detail' prev_news.news_id %}" class="nav-link">← {{ prev_news.title|truncatewords:5 }}</a>
+        {% else %}
+        <span></span>
+        {% endif %}
+        
+        {% if next_news %}
+        <a href="{% url 'news_detail' next_news.news_id %}" class="nav-link">{{ next_news.title|truncatewords:5 }} →</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

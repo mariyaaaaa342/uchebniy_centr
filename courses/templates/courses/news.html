@@ -1,0 +1,157 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Новости и акции - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-container">
+    <h1 class="news-title">Новости и акции</h1>
+    <p class="news-subtitle">Будьте в курсе последних событий и специальных предложений</p>
+    
+    <div class="news-filters">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="news">Новости</button>
+        <button class="filter-btn" data-filter="promo">Акции</button>
+        <button class="filter-btn" data-filter="event">События</button>
+    </div>
+    
+    {% if has_content %}
+        <!-- Новости -->
+        {% if news %}
+        <div class="news-section" data-section="news">
+            <h2 class="section-title">
+                <span class="section-icon">📰</span>
+                Новости
+            </h2>
+            <div class="news-grid">
+                {% for item in news %}
+                <div class="news-card" data-type="news">
+                    {% if item.image_url %}
+                    <img class="news-image" src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+                    {% else %}
+                    <div class="news-image" style="background: var(--color-6); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 3rem;">📰</span>
+                    </div>
+                    {% endif %}
+                    <div class="news-content">
+                        <span class="news-badge badge-news">Новость</span>
+                        <div class="news-card-header">
+                            <h3 class="news-card-title">{{ item.title }}</h3>
+                            <div class="news-date"> {{ item.publish_date|date:"d.m.Y" }}</div>
+                        </div>
+                        <p class="news-excerpt">{{ item.content|truncatewords:20|striptags }}</p>
+                        <a href="{% url 'news_detail' item.news_id %}" class="news-link">Узнать подробнее →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Акции -->
+        {% if promos %}
+        <div class="news-section" data-section="promo">
+            <h2 class="section-title">
+                <span class="section-icon">🎁</span>
+                Акции и скидки
+            </h2>
+            <div class="news-grid">
+                {% for item in promos %}
+                <div class="news-card" data-type="promo">
+                    {% if item.image_url %}
+                    <img class="news-image" src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+                    {% else %}
+                    <div class="news-image" style="background: var(--color-6); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 3rem;">🎁</span>
+                    </div>
+                    {% endif %}
+                    <div class="news-content">
+                        <span class="news-badge badge-promo">Акция</span>
+                        <div class="news-card-header">
+                            <h3 class="news-card-title">{{ item.title }}</h3>
+                            <div class="news-date"> {{ item.publish_date|date:"d.m.Y" }}</div>
+                        </div>
+                        <p class="news-excerpt">{{ item.content|truncatewords:20|striptags }}</p>
+                        <a href="{% url 'news_detail' item.news_id %}" class="news-link">Узнать подробнее →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+       
+        
+        <!-- События -->
+        {% if events %}
+        <div class="news-section" data-section="event">
+            <h2 class="section-title">
+                <span class="section-icon"></span>
+                События
+            </h2>
+            <div class="news-grid">
+                {% for item in events %}
+                <div class="news-card" data-type="event">
+                    {% if item.image %}
+                        <img class="news-image" src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+                    {% elif item.image_url %}
+                        <img class="news-image" src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+                    {% else %}
+                        <div class="news-image" style="background: var(--color-6); display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 3rem;">📰</span>
+                        </div>
+                    {% endif %}
+                    <div class="news-content">
+                        <span class="news-badge badge-event">Событие</span>
+                        <div class="news-card-header">
+                            <h3 class="news-card-title">{{ item.title }}</h3>
+                            <div class="news-date"> {{ item.publish_date|date:"d.m.Y" }}</div>
+                        </div>
+                        <p class="news-excerpt">{{ item.content|truncatewords:20|striptags }}</p>
+                        <a href="{% url 'news_detail' item.news_id %}" class="news-link">Подробнее о событии →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <h2 class="empty-state-title">Новостей пока нет</h2>
+            <p class="empty-state-text">Скоро здесь появятся новости и акции. Следите за обновлениями!</p>
+        </div>
+    {% endif %}
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Фильтрация новостей
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sections = document.querySelectorAll('.news-section');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+            
+            // Обновляем активную кнопку
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Фильтруем секции
+            sections.forEach(section => {
+                if (filter === 'all') {
+                    section.style.display = 'block';
+                } else {
+                    const sectionType = section.dataset.section;
+                    section.style.display = sectionType === filter ? 'block' : 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

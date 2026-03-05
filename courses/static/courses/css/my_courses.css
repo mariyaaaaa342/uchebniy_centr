@@ -1,4 +1,6 @@
 /* Мои курсы - стили */
+
+
 .courses-progress-list {
     display: flex;
     flex-direction: column;
@@ -12,6 +14,7 @@
     border-radius: 20px;
     padding: 25px;
     border: 1px solid var(--color-2);
+    font-family: var(--font-main);
     transition: all 0.3s ease;
 }
 
@@ -30,6 +33,7 @@
 }
 
 .course-header h3 {
+    font-family: var(--font-main);
     font-size: 1.3rem;
     color: var(--color-4);
     margin: 0;
@@ -43,16 +47,19 @@
 }
 
 .status-not_started {
+    font-family: var(--font-main);
     background: #e0e0e0;
     color: #666;
 }
 
 .status-in_progress {
+    font-family: var(--font-main);
     background: #fff3e0;
     color: #f57c00;
 }
 
 .status-completed {
+    font-family: var(--font-main);
     background: #e8f5e9;
     color: #388e3c;
 }
@@ -94,6 +101,7 @@
 }
 
 .module-item {
+    font-family: var(--font-main);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,6 +118,7 @@
 }
 
 .module-title {
+    font-family: var(--font-main);
     font-weight: 500;
     color: var(--color-4);
     font-size: 0.95rem;

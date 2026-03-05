@@ -1,107 +1,82 @@
-{% extends 'courses/base.html' %}
+{% extends 'courses/cabinet_base.html' %}
 {% load static %}
 
 {% block title %}Профиль {{ user.full_name }}{% endblock %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'courses/css/profile.css' %}">
-{% endblock %}
-
-{% block content %}
-    <div class="profile-container">
-        <div class="profile-sidebar">
-            <div class="profile-avatar">
-                <img src="{{ profile.get_avatar_url }}" alt="Аватар">
-            </div>
-            <h2>{{ user.full_name }}</h2>
-            <p class="profile-email">{{ user.email }}</p>
-            <p class="profile-phone">{{ user.phone }}</p>
-            
-            <div class="profile-menu">
-                <a href="{% url 'profile' %}" class="menu-item active">Общая информация</a>
-                <a href="{% url 'profile_edit' %}" class="menu-item">Редактировать профиль</a>
-                <a href="{% url 'my_courses' %}" class="menu-item">Мои курсы</a> 
-                <a href="{% url 'profile_applications' %}" class="menu-item">Мои заявки</a>
-                <a href="{% url 'logout' %}" class="menu-item logout">Выйти</a>
-            </div>
+{% block cabinet_content %}
+    <h1>Добро пожаловать, {{ user.full_name }}!</h1>
+    
+    <div class="profile-info-card">
+        <h3>Основная информация</h3>
+        <div class="info-row">
+            <span class="info-label">ФИО:</span>
+            <span class="info-value">{{ user.full_name }}</span>
         </div>
-        
-        <div class="profile-content">
-            <h1>Добро пожаловать, {{ user.full_name }}!</h1>
-            
-            <div class="profile-info-card">
-                <h3>Основная информация</h3>
-                <div class="info-row">
-                    <span class="info-label">ФИО:</span>
-                    <span class="info-value">{{ user.full_name }}</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Email:</span>
-                    <span class="info-value">{{ user.email }}</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Телефон:</span>
-                    <span class="info-value">{{ user.phone }}</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Дата регистрации:</span>
-                    <span class="info-value">{{ user.registration_date|date:"d.m.Y" }}</span>
-                </div>
-            </div>
-            
-            {% if profile.bio or profile.birth_date or profile.address %}
-            <div class="profile-info-card">
-                <h3>Дополнительная информация</h3>
-                {% if profile.bio %}
-                <div class="info-row">
-                    <span class="info-label">О себе:</span>
-                    <span class="info-value">{{ profile.bio }}</span>
-                </div>
-                {% endif %}
-                {% if profile.birth_date %}
-                <div class="info-row">
-                    <span class="info-label">Дата рождения:</span>
-                    <span class="info-value">{{ profile.birth_date|date:"d.m.Y" }}</span>
-                </div>
-                {% endif %}
-                {% if profile.address %}
-                <div class="info-row">
-                    <span class="info-label">Адрес:</span>
-                    <span class="info-value">{{ profile.address }}</span>
-                </div>
-                {% endif %}
-            </div>
-            {% endif %}
-            
-            <div class="profile-info-card">
-                <h3>Последние заявки</h3>
-                {% if applications %}
-                    <div class="applications-list">
-                        {% for app in applications|slice:":3" %}
-                        <div class="application-item">
-                            <div class="app-course">{{ app.course.title }}</div>
-                            <div class="app-details">
-                                <span class="app-format">{{ app.format }}</span>
-                                <span class="app-date">{{ app.application_date|date:"d.m.Y" }}</span>
-                                <span class="app-status status-{{ app.status }}">
-                                    {% if app.status == 'new' %}Новая
-                                    {% elif app.status == 'processed' %}Обработана
-                                    {% elif app.status == 'confirmed' %}Подтверждена
-                                    {% elif app.status == 'cancelled' %}Отменена
-                                    {% else %}{{ app.status }}{% endif %}
-                                </span>
-                            </div>
-                        </div>
-                        {% endfor %}
+        <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ user.email }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Телефон:</span>
+            <span class="info-value">{{ user.phone }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Дата регистрации:</span>
+            <span class="info-value">{{ user.registration_date|date:"d.m.Y" }}</span>
+        </div>
+    </div>
+    
+    {% if profile.bio or profile.birth_date or profile.address %}
+    <div class="profile-info-card">
+        <h3>Дополнительная информация</h3>
+        {% if profile.bio %}
+        <div class="info-row">
+            <span class="info-label">О себе:</span>
+            <span class="info-value">{{ profile.bio }}</span>
+        </div>
+        {% endif %}
+        {% if profile.birth_date %}
+        <div class="info-row">
+            <span class="info-label">Дата рождения:</span>
+            <span class="info-value">{{ profile.birth_date|date:"d.m.Y" }}</span>
+        </div>
+        {% endif %}
+        {% if profile.address %}
+        <div class="info-row">
+            <span class="info-label">Адрес:</span>
+            <span class="info-value">{{ profile.address }}</span>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <div class="profile-info-card">
+        <h3>Последние заявки</h3>
+        {% if applications %}
+            <div class="applications-list">
+                {% for app in applications|slice:":3" %}
+                <div class="application-item">
+                    <div class="app-course">{{ app.course.title }}</div>
+                    <div class="app-details">
+                        <span class="app-format">{{ app.format }}</span>
+                        <span class="app-date">{{ app.application_date|date:"d.m.Y" }}</span>
+                        <span class="app-status status-{{ app.status }}">
+                            {% if app.status == 'new' %}Новая
+                            {% elif app.status == 'processed' %}Обработана
+                            {% elif app.status == 'confirmed' %}Подтверждена
+                            {% elif app.status == 'cancelled' %}Отменена
+                            {% else %}{{ app.status }}{% endif %}
+                        </span>
                     </div>
-                    {% if applications.count > 3 %}
-                    <a href="{% url 'profile_applications' %}" class="view-all">Все заявки →</a>
-                    {% endif %}
-                {% else %}
-                    <p class="no-data">У вас пока нет заявок. Запишитесь на курс!</p>
-                    <a href="{% url 'course_list' %}" class="btn-primary">Перейти к курсам</a>
-                {% endif %}
+                </div>
+                {% endfor %}
             </div>
-        </div>
+            {% if applications.count > 3 %}
+            <a href="{% url 'profile_applications' %}" class="view-all">Все заявки →</a>
+            {% endif %}
+        {% else %}
+            <p class="no-data">У вас пока нет заявок. Запишитесь на курс!</p>
+            <a href="{% url 'course_list' %}" class="btn-primary">Перейти к курсам</a>
+        {% endif %}
     </div>
 {% endblock %}

@@ -54,7 +54,7 @@
             {% if modules %}
                 <div class="modules-list">
                     {% for module in modules %}
-                    <div class="module-item" data-module-key="{{ module.key }}">
+                    <div class="module-item" data-module-key="{{ module.module_id }}">
                         <div class="module-header">
                             <div class="module-title">
                                 <span class="module-number">{{ forloop.counter }}.</span>
@@ -68,10 +68,7 @@
                                     {% endif %}
                                 </span>
                             </div>
-                        </div>
-                        <div class="module-description">
-                            {{ module.description }}
-                        </div>
+                        </div> 
                     </div>
                     {% endfor %}
                 </div>

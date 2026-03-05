@@ -1,0 +1,440 @@
+/* ============================================================
+   ТЁМНАЯ ТЕМА - ЕДИНЫЙ ФАЙЛ ДЛЯ ВСЕГО САЙТА
+   ============================================================ */
+
+/* Переопределение переменных для тёмной темы */
+body.dark-theme {
+    /* Основные цвета (замена светлой темы) */
+    --color-2: #EAD7A1;
+    --color-0: #343b38;
+    --color-11: #719178;
+    --color-12: #b9aa80;
+    --color-13: #7e907a;
+    --color-14: #3F575B;
+    --color-15: #4a4a4a;
+    --color-w: #eee;
+    
+    /* Текст */
+    --text-light: #eee;
+    --text-dark: #343b38;
+}
+
+/* ===== ОСНОВНЫЕ ФОНЫ ===== */
+body.dark-theme {
+    background-color: var(--color-0) !important;
+}
+/* ============================================================
+   ТЁМНАЯ ТЕМА - ШАПКА
+   ============================================================ */
+body.dark-theme .header {
+    background: var(--color-0);
+}
+body.dark-theme .header_logo-text,
+body.dark-theme .header_address-text,
+body.dark-theme .header_user{
+    color: var(--text-light);
+}
+
+
+/* ============================================================
+             ГЛАВНАЯ СТРАНИЦА
+   ============================================================ */
+
+/* ===== 1. СТИЛИ ДЛЯ БЛОКОВ ===== */
+/* Поднимаем выемку (notch) выше затемнения */
+body.dark-theme .hero_notch {
+    position: relative;
+    z-index: 2;
+}
+/* Затемнение для hero_block-1 */
+body.dark-theme .hero_block-1 {
+    position: relative;
+}
+
+body.dark-theme .hero_block-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.135);  /* ← степень затемнения */
+    border-radius: 40px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Чтобы контент был поверх затемнения */
+.hero_block-1-content {
+    z-index: 2;
+}
+/* Блок hero_block-2 SVG фон */
+body.dark-theme .hero_notch-svg path,
+body.dark-theme .hero_block-2-svg path,
+body.dark-theme .second_block-3-svg path {
+    fill: var(--color-0) !important;
+}
+
+/* Жёлтый inset-блок */
+body.dark-theme .hero_inset {
+    background: var(--color-12) !important;
+}
+
+/* Блок hero_block-3 */
+body.dark-theme .hero_block-3 {
+    background: var(--color-11) !important;
+}
+
+/* Белая плашка с заголовком "Пробное занятие бесплатно" */
+body.dark-theme .hero_block-3-title {
+    background: var(--color-w) !important;
+    color: var(--color-0) !important;
+}
+
+/* Текст внутри hero_block-3 */
+body.dark-theme .hero_block-3-text {
+    color: var(--text-light) !important;
+}
+
+/* -----------Вторая секция - тёмный фон ----------*/
+/* Вторая секция блок-1 */
+body.dark-theme .second_block-1 {
+    background: var(--color-4) !important;
+}
+
+/* Вторая секция - внутренний блок */
+body.dark-theme .second_block-3-inner {
+    background: var(--color-13) !important;
+}
+
+/* Слайдер-контейнер */
+body.dark-theme .second_slider-container {
+    border-color: var(--color-12) !important;
+}
+
+
+
+
+/* Третья секция (отзывы) - фон слайдера */
+body.dark-theme .third_slider {
+    background: var(--color-12) !important;
+}
+
+/* Кнопки слайдера вперёд/назад */
+body.dark-theme .third_btn {
+    background: var(--color-15) !important;
+    color: var(--color-w) !important;
+}
+
+body.dark-theme .third_btn:hover {
+    background: var(--color-12) !important;
+    color: var(--text-light) !important;
+}
+
+/* Карточки отзывов */
+body.dark-theme .review-card {
+    background: var(--color-15) !important;
+    border-color: var(--color-12) !important;
+}
+/* Точки слайдера */
+body.dark-theme .slider-dot {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+body.dark-theme .slider-dot.active {
+    background: var(--color-12) !important;
+}
+
+
+/* Четвёртая секция - карточки */
+body.dark-theme .fourth_card {
+    background: var(--color-13) !important;
+}
+
+/* Кольца вокруг секции */
+body.dark-theme .ring {
+    border-color: var(--color-2) !important;
+    opacity: 0.3;
+}
+
+
+/* Звёзды в отзывах (оставляем жёлтыми) */
+body.dark-theme .review-stars {
+    color: #f5a623 !important;
+}
+
+/* Плейсхолдер для фото */
+body.dark-theme .review-photo-placeholder {
+    background: var(--color-13) !important;
+    color: var(--text-light) !important;
+}
+
+/* ===== 2. СТИЛИ ДЛЯ КНОПОК ===== */
+body.dark-theme .hero_block-1-btn {
+    background: var(--color-w) !important;
+    color: var(--color-4) !important;
+}
+
+body.dark-theme .hero_block-1-btn:hover {
+    background: var(--color-13) !important;
+    color: var(--text-light) !important;
+}
+body.dark-theme .hero_block-3-title{
+    background: var(--color-w) !important;
+}
+/* ===== 3. СВЕТЛЫЕ ТЕКСТЫ (на тёмном фоне) ===== */
+body.dark-theme .hero_inset-title,
+body.dark-theme .hero_inset-list li,
+body.dark-theme .hero_title,
+body.dark-theme .hero_title_logo,
+body.dark-theme .hero_block-1-title,
+body.dark-theme .hero_block-1-subtext,
+body.dark-theme .hero_block-3-text,
+body.dark-theme .third_title,
+body.dark-theme .fourth_card-title,
+body.dark-theme .fourth_card-text,
+body.dark-theme .review-text,
+body.dark-theme .review-author {
+    color: var(--text-light) !important;
+}
+/* Четвёртая секция - заголовок "Почему мы" */
+body.dark-theme .fourth_title {
+    background: var(--color-0) !important;
+    color: var(--text-light) !important;
+}
+
+
+/* ===== 4. ТЁМНЫЕ ТЕКСТЫ (на светлом фоне) ===== */
+
+
+body.dark-theme .hero_block-3-title {
+    color: var(--color-4) !important;
+}
+/* ===== 4. ЗОЛОТЫЕ  ТЕКСТЫ (на светлом фоне) ===== */
+body.dark-theme .review-course {
+    border-color: var(--color-12);
+    color: var(--color-2)
+}
+
+
+/* ============================================================
+            СТРАНИЦА О НАС
+   ============================================================ */
+.slider-caption{
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.218);
+}
+body.dark-theme .blocks-section-title,
+body.dark-theme .block-title,
+body.dark-theme .block-text,
+body.dark-theme .slider-caption,
+body.dark-theme .values-title{
+    color: var(--text-light);
+}
+
+body.dark-theme .block-1,
+body.dark-theme .block-2,
+body.dark-theme .block-3,
+body.dark-theme .block-4 {
+    background: var(--color-15);
+    border-color: var(--color-2);
+}
+body.dark-theme .values_card-1-svg path,
+body.dark-theme .values_card-3-svg path{
+    fill: var(--color-13) !important;
+}
+
+body.dark-theme .values_card-2-svg path,
+body.dark-theme .values_card-4-svg path {
+    fill: var(--color-12) !important;
+}
+body.dark-theme .values-card-title,
+body.dark-theme .values-card-text{
+    color: var(--text-light);
+}
+/* ============================================================
+            СТРАНИЦА КУРСЫ
+   ============================================================ */
+
+body.dark-theme .courses-title,
+body.dark-theme .courses-subtitle,
+body.dark-theme .course-description,
+body.dark-theme .course-program h3,
+body.dark-theme .course-program li,
+body.dark-theme .course-title {
+    color: var(--text-light);
+}
+
+body.dark-theme .course-card {
+    background: var(--color-15);
+}
+/* ============================================================
+            СТРАНИЦА ПРЕПОДАВАТЕЛИ
+   ============================================================ */
+body.dark-theme .teachers-title,
+body.dark-theme .teacher-name, 
+body.dark-theme .teacher-specialization, 
+body.dark-theme .teacher-biography,
+body.dark-theme .teachers-subtitle {
+    color: var(--text-light);
+} 
+body.dark-theme .teacher-card{
+    background: var(--color-15);
+}
+
+/* ============================================================
+            СТРАНИЦА ПОРТФОЛИО
+   ============================================================ */
+body.dark-theme .portfolio-title,
+body.dark-theme .portfolio-subtitle,
+body.dark-theme .portfolio-item-title,
+body.dark-theme .portfolio-description,
+body.dark-theme .filter-group-title{
+    color: var(--text-light) !important;
+}
+body.dark-theme .portfolio-work-type{
+    color: var(--text-dark);
+}
+body.dark-theme .portfolio-card,
+body.dark-theme .filter-panel{
+    background: var(--color-15);
+}
+body.dark-theme .filter-btn {
+    background: var(--color-15) !important;
+    border-color: var(--color-12) !important;
+    color: var(--text-light) !important;
+}
+
+/* Кнопка при наведении */
+body.dark-theme .filter-btn:hover {
+    background: var(--color-12) !important;
+    color: var(--text-light) !important;
+}
+
+/* Активная кнопка */
+body.dark-theme .filter-btn.active {
+    background: var(--color-11) !important;
+    border-color: var(--color-11) !important;
+    color: var(--text-light) !important;
+}
+
+/* ============================================================
+            СТРАНИЦА НОВОСТИ
+   ============================================================ */
+body.dark-theme .news-title,
+body.dark-theme .news-subtitle,
+body.dark-theme .section-title,
+body.dark-theme .news-card-header,
+body.dark-theme .news-card-title,
+body.dark-theme .news-date,
+body.dark-theme .news-excerpt,
+body.dark-theme .news-link{
+    color: var(--text-light) !important;
+}
+
+body.dark-theme .news-card{
+    background: var(--color-15);
+}
+/* ============================================================
+            ДЕТАЛЬНАЯ СТРАНИЦА НОВОСТЕЙ
+   ============================================================ */
+
+body.dark-theme .back-btn,
+body.dark-theme .detail-title,
+body.dark-theme .detail-meta,
+body.dark-theme .detail-content p{
+    color: var(--text-light) !important;
+}
+body.dark-theme .detail-badge{
+    background: var(--color-12);
+ }
+
+ /* ============================================================
+            СТРАНИЦА КОНТАКТЫ
+   ============================================================ */
+body.dark-theme .contacts-title,
+body.dark-theme .contacts-info-title,
+body.dark-theme .contact-label,
+body.dark-theme .contact-details,
+body.dark-theme .contact-value,
+body.dark-theme .contact-value a,
+body.dark-theme .work-hours-day,
+body.dark-theme .work-hours-time,
+body.dark-theme .contacts-map-title{
+    color: var(--text-light) !important;
+}
+body.dark-theme .contacts-map,   
+body.dark-theme .contacts-info{
+    background: var(--color-14);
+}
+body.dark-theme .work-hours {
+    background: rgba(255, 255, 255, 0.207)
+}
+ /* ==============================================
+            ЛИЧНЫЙ КАБИНЕТ 
+   =============================================== */
+body.dark-theme .profile-sidebar,
+body.dark-theme .module-item,
+body.dark-theme .profile-info-card,
+body.dark-theme .course-progress-card {
+    background: var(--color-15);
+}
+body.dark-theme .profile-sidebar h2,
+body.dark-theme .profile-email,
+body.dark-theme .profile-phone,
+body.dark-theme .menu-item,
+body.dark-theme .profile-content h1,
+body.dark-theme .course-progress-card h3,
+body.dark-theme .progress-percent,
+body.dark-theme .module-title,
+body.dark-theme .profile-info-card h3,
+body.dark-theme .app-course,
+body.dark-theme .info-label,
+body.dark-theme .info-value {
+    color: var(--text-light) !important;
+}
+body.dark-theme .menu-item.logout a{
+    color: #c00;
+}
+
+body.dark-theme .status-not_started {
+    background: rgba(255, 255, 255, 0.307);
+    color: var(--text-light) !important;
+}
+body.dark-theme .status-in_progress{
+    color: #a5713d;
+}
+
+body.dark-theme .status-completed {
+
+    color: #658f67;
+}
+body.dark-theme .app-format {
+    color: var(--text-dark);
+}
+body.dark-theme .application-item{
+    background: var(--color-13);
+}
+body.dark-theme .profile-form,
+body.dark-theme label,
+body.dark-theme textarea,
+body.dark-theme input {
+     background: var(--color-15);
+}
+body.dark-theme .form-section h3,
+body.dark-theme .form-group label,
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+    color: var(--text-light);
+}
+body.dark-theme .application-card,
+body.dark-theme .empty-state,
+body.dark-theme input {
+     background: var(--color-15);
+}
+body.dark-theme .app-header h3,
+body.dark-theme .detail-label,
+body.dark-theme .detail-value,
+body.dark-theme .empty-state p,
+body.dark-theme .form-group textarea {
+    color: var(--text-light);
+}

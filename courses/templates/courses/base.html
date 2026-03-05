@@ -10,9 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="{% static 'courses/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/dark-theme.css' %}">
     
     <!-- Дополнительные стили для конкретной страницы -->
     {% block extra_css %}{% endblock %}
@@ -23,6 +25,13 @@
     
     <!-- Основной контент -->
     <main class="main-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+    {% endif %}
         {% block content %}
         {% endblock %}
     </main>
@@ -32,8 +41,43 @@
     
     <!-- Общие скрипты -->
     <script src="{% static 'courses/js/menu.js' %}"></script>
-    
+    <script src="{% static 'courses/js/theme.js' %}"></script>
+    <script src="//code.jivo.ru/widget/BLwo7XiMHC" async></script>
+    <script>
+        // Ждём загрузки виджета JivoSite
+        setTimeout(function() {
+            const checkTheme = function() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const jivoInput = document.querySelector('.jivo-input, .jivo-textarea, textarea.jivo-input');
+                
+                if (jivoInput && isDark) {
+                    jivoInput.style.backgroundColor = '#2a2a3a';
+                    jivoInput.style.color = '#ffffff';
+                    jivoInput.style.borderColor = '#4a4a5a';
+                }
+            };
+            
+            // Проверяем каждые 2 секунды (пока чат не загрузится)
+            const interval = setInterval(function() {
+                if (document.querySelector('.jivo-panel, .jivo-desktop')) {
+                    checkTheme();
+                    clearInterval(interval);
+                }
+            }, 500);
+            
+            // Также проверяем при переключении темы
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('change', function() {
+                    setTimeout(checkTheme, 100);
+                });
+            }
+        }, 1000);
+    </script>
     <!-- Дополнительные скрипты для конкретной страницы -->
-    {% block extra_js %}{% endblock %}
+    {% block extra_js %}
+        
+    {% endblock %}
+    
 </body>
 </html>
