@@ -578,7 +578,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.118);
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
     .values-grid {
         grid-template-columns: repeat(2, minmax(280px, 375px));
         gap: 0px; 
@@ -712,7 +712,7 @@
     .values-card-text {
         font-size: 0.8rem;
     }
-}
+} */
 /* ========== СЕКЦИЯ СЕРТИФИКАТОВ ========== */
 .certificates-section {
     width: 100%;
@@ -858,7 +858,7 @@
 }
 
 /* Адаптивность */
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
     .certificates-slide {
         gap: 20px;
         padding: 20px;
@@ -880,4 +880,4 @@
         max-width: 350px;
         width: 100%;
     }
-}
+} */

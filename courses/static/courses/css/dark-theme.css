@@ -547,4 +547,10 @@ body.dark-theme .faq-question:hover {
 body.dark-theme .faq-item.active .faq-answer {
     border-top-color: var(--color-12);
 }
-
+body.dark-theme .reset-container {
+    background: var(--color-15);;
+}
+body.dark-theme .reset-title,
+body.dark-theme .reset-text {
+    color: var(--text-light);
+}

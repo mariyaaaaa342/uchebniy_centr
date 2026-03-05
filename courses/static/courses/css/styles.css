@@ -14,10 +14,10 @@
     --radius-xs: 10px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -25,7 +25,6 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 0;
     margin: 0;
 }
@@ -1099,9 +1098,9 @@ body.dark-theme .form-input {
         /* Небольшое масштабирование */
     .main-container {
         transform: scale(0.92);
-        transform: none;
+        transform-origin: top center;
         width: 100%;
-        padding: 0;
+        padding: 20px 10px;
     }
     /* Все секции на всю ширину родителя */
     
@@ -1224,17 +1223,16 @@ body.dark-theme .form-input {
     }
 }
 @media screen and (max-width: 1024px),
-       screen and (max-width: 1024px) and (orientation: landscape){
+    screen and (max-width: 1024px) and (orientation: landscape){
             /* Небольшое масштабирование */
-    .main-container {
-        /* transform: scale(0.92); */
-        transform-origin: top center;
-        width: 100%;
-        padding: 0;
-    }
-    
     body {
         overflow-x: hidden;
+    }
+    .main-container {
+        transform: scale(0.92); 
+        transform-origin: top center;
+        width: 100%;
+        padding: 20px 10px;
     }
 
     .hero_block-1 {
@@ -1268,7 +1266,7 @@ body.dark-theme .form-input {
         margin-bottom: 15px;
         margin-right: auto;
         margin-left: 40px;
-;
+
     } 
     .hero_block-2 {
         margin-left: 120px;

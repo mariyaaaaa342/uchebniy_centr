@@ -14,7 +14,7 @@
 .header_container {
     max-width: 1500px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
@@ -390,7 +390,10 @@ input:checked + .slider:before {
 @media screen and (max-width: 1024px) {
     .header_container {
         max-width: 960px;
+        width: 100%;
         padding: 10px 20px;
+        margin: 0;
+        box-sizing: border-box;
     }
     
     .header_logo {
