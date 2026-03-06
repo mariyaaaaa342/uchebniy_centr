@@ -10,7 +10,9 @@
 {% block content %}
     <main class="main-container">
         <section class="about-section">
-            <div class="background-shape"></div>
+            <div class="background-shape">
+                <img src="{% static 'courses/images/background-shape.svg' %}" alt="Декоративная фигура" class="background-shape-img">
+            </div>
             
             <div class="slider-container">
                 <div class="slider-wrapper">
@@ -116,11 +118,10 @@
                     </svg>
                     <div class="values-content">
                         <div class="values-icon">
-                        <img src="{% static 'courses/images/professionalism.svg' %}" alt="Профессионализм" width="90" height="90">
-
+                            <img src="{% static 'courses/images/professionalism.svg' %}" alt="Профессионализм" width="90" height="90">
                         </div>
-                        <h3 class="values-card-title">Профессионализм</h3>
-                        <p class="values-card-text">Высокое качество обучения и опытные преподаватели</p>
+                            <h3 class="values-card-title">Профессионализм</h3>
+                            <p class="values-card-text">Высокое качество обучения и опытные преподаватели</p>
                     </div>
                 </div>
                 
@@ -148,16 +149,12 @@
                     </svg>
                     <div class="values-content">
                         <div class="values-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50">
-                                <circle cx="17" cy="17" r="8" fill="#3F575B"/>
-                                <circle cx="33" cy="17" r="8" fill="#3F575B"/>
-                                <path d="M12 33 Q25 25 38 33" stroke="#3F575B" stroke-width="3" fill="none"/>
-                            </svg>
+                            <img src="{% static 'courses/images/podhod.svg' %}" alt="Индивидуальный подход " width="80" height="80">
                         </div>
-                        <h3 class="values-card-title">Индивидуальный подход</h3>
-                        <p class="values-card-text">Учитываем особенности каждого ученика</p>
+                            <h3 class="values-card-title">Индивидуальный подход</h3>
+                            <p class="values-card-text">Учитываем особенности каждого ученика</p>
+                        </div>
                     </div>
-                </div>
                 
                 <div class="values-card">
                     <svg class="values_card-3-svg" width="355" height="395" viewBox="0 0 355 395" preserveAspectRatio="none">
@@ -183,10 +180,7 @@
                     </svg>
                     <div class="values-content">
                         <div class="values-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50">
-                                <path d="M25 10 L32 22 L45 22 L35 32 L38 45 L25 37 L12 45 L15 32 L5 22 L18 22 Z" 
-                                    fill="#3F575B"/>
-                            </svg>
+                            <img src="{% static 'courses/images/innovation.svg' %}" alt="Инновации" width="80" height="80">
                         </div>
                         <h3 class="values-card-title">Инновации</h3>
                         <p class="values-card-text">Современные методики и технологии обучения</p>
@@ -212,14 +206,39 @@
                     </svg>
                     <div class="values-content">
                         <div class="values-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50">
-                                <path d="M10 40 L20 25 L30 30 L40 15" stroke="#3F575B" stroke-width="3" fill="none"/>
-                                <circle cx="40" cy="15" r="5" fill="#3F575B"/>
-                            </svg>
+                            <img src="{% static 'courses/images/rezultat.svg' %}" alt="Результат" width="75" height="75">
                         </div>
                         <h3 class="values-card-title">Результат</h3>
                         <p class="values-card-text">Гарантируем достижение поставленных целей</p>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section class="certificates-section">
+            <div class="certificates-container">
+                <h2 class="certificates-title">Наши достижения</h2>
+                
+                <div class="certificates-slider">
+                    <div class="certificates-track">
+                        {% for cert in certificates %}
+                        <div class="certificates-slide">
+                            <div class="certificate-card">
+                                <img src="{{ cert.image.url }}" alt="{{ cert.title|default:'Сертификат' }}">
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="certificates-slide">
+                            <div class="certificate-empty">
+                                <p>Сертификаты скоро появятся</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button class="certificates-btn certificates-btn-prev">❮</button>
+                    <button class="certificates-btn certificates-btn-next">❯</button>
+                    
+                    <div class="certificates-dots"></div>
                 </div>
             </div>
         </section>
@@ -228,4 +247,5 @@
 
 {% block extra_js %}
     <script src="{% static 'courses/js/slider_about_us.js' %}"></script>
+    <script src="{% static 'courses/js/slider-sertificats.js' %}"></script>
 {% endblock %}

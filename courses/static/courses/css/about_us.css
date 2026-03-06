@@ -12,14 +12,17 @@
     margin: 60px auto;
     padding: 0 20px;
 }
+/* ========== ПЕРВАЯ СЕКЦИЯ СТРАНИЦЫ "О НАС" ========== */
 .about-section {
+    position: relative;
     width: 100%;
     max-width: 1307px;
-    height: auto;
-    min-height: 543px;
-    position: relative;
     margin: 0 auto;
-    overflow: hidden;
+    min-height: 543px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .background-shape {
@@ -28,29 +31,25 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--color-1) 0%, var(--color-3) 100%);
-    
-    clip-path: polygon(
-        0% 0%,      /* левый верх */
-        100% 0%,    /* правый верх */
-        100% 85%,   /* правый край, начало выреза */
-        87% 85%,    /* правый вырез - верхний угол */
-        87% 100%,   /* правый вырез - нижний угол */
-        13% 100%,    /* левый вырез - нижний угол */
-        13% 85%,     /* левый вырез - верхний угол */
-        0% 85%      /* левый край, начало выреза */
-    );
-    
     z-index: 1;
-    opacity: 0.9;
+    overflow: hidden;
+    border-radius: 60px;
 }
+
+.background-shape-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .slider-container {
     position: relative;
-    width: 100%;
-    height: 450px;
-    max-width: 1307px;
-    margin: 0 auto;
     z-index: 2;
+    width: 100%;
+    max-width: 1307px;
+    height: 450px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,8 +70,8 @@
     width: 584px;
     height: 349px;
     background: var(--color-w);
-    border-radius: 40px; 
-    box-shadow: 0 15px 30px rgba(63, 87, 91, 0.2); 
+    border-radius: 40px;
+    box-shadow: 0 15px 30px rgba(63, 87, 91, 0.2);
     overflow: hidden;
     transition: all 0.5s ease;
 }
@@ -82,6 +81,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 /* Подпись под слайдером */
 .slider-caption {
     text-align: center;
@@ -89,18 +89,10 @@
     font-size: 1.4rem;
     font-weight: 400;
     color: var(--color-w);
-    margin-top: 40px;
+    margin-bottom: 30px;
     letter-spacing: 2.5px;
     position: relative;
     z-index: 2;
-}
-
-/* Адаптация для мобильных */
-@media screen and (max-width: 767px) {
-    .slider-caption {
-        margin-top: 50px;
-        font-size: 1rem;
-    }
 }
 
 /* Десктопная версия */
@@ -110,7 +102,7 @@
         transform: scale(0.8);
         opacity: 0.6;
         z-index: 1;
-        filter: blur(1px); 
+        filter: blur(1px);
     }
     
     .card-center {
@@ -129,6 +121,7 @@
     }
 }
 
+/* Мобильная версия */
 @media screen and (max-width: 767px) {
     .about-section {
         min-height: 400px;
@@ -157,12 +150,13 @@
         display: block;
     }
     
-    .slider-card img {
-        height: 100%;
+    .slider-caption {
+        margin-top: 50px;
+        font-size: 1rem;
     }
-    
 }
 
+/* Стрелки слайдера */
 .slider-arrow {
     position: absolute;
     top: 50%;
@@ -181,7 +175,7 @@
     justify-content: center;
     transition: all 0.3s ease;
     z-index: 4;
-    font-family: Arial, sans-serif; 
+    font-family: Arial, sans-serif;
 }
 
 .slider-arrow:hover {
@@ -199,25 +193,10 @@
     right: 20px;
 }
 
-@media screen and (max-width: 767px) {
-    .slider-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 22px;
-    }
-    
-    .arrow-left {
-        left: 10px;
-    }
-    
-    .arrow-right {
-        right: 10px;
-    }
-}
-
+/* Точки */
 .slider-dots {
     position: absolute;
-    bottom: -40px;
+    bottom: -20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -241,17 +220,7 @@
     border-color: var(--color-1);
 }
 
-@media screen and (max-width: 767px) {
-    .slider-dots {
-        bottom: -30px;
-    }
-    
-    .dot {
-        width: 10px;
-        height: 10px;
-    }
-}
-
+/* Адаптация для планшетов */
 @media screen and (max-width: 1200px) and (min-width: 768px) {
     .card-left {
         left: calc(50% - 450px);
@@ -264,10 +233,6 @@
     .slider-card {
         width: 450px;
         height: 270px;
-    }
-    
-    .slider-card p {
-        font-size: 1.3rem;
     }
 }
 
@@ -283,6 +248,31 @@
     .slider-card {
         width: 380px;
         height: 230px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .slider-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+    }
+    
+    .arrow-left {
+        left: 10px;
+    }
+    
+    .arrow-right {
+        right: 10px;
+    }
+    
+    .slider-dots {
+        bottom: -30px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
     }
 }
 
@@ -749,7 +739,6 @@
     width: 70px;
     height: 70px;
     margin: 0 auto 15px;
-    background: var(--color-3);
     border-radius: 25px;
     display: flex;
     align-items: center;
@@ -983,5 +972,172 @@
     
     .values-card-text {
         font-size: 0.8rem;
+    }
+}
+/* ========== СЕКЦИЯ СЕРТИФИКАТОВ ========== */
+.certificates-section {
+    width: 100%;
+    max-width: 1307px;
+    margin: 80px auto 0;
+    padding: 40px 0;
+}
+
+.certificates-container {
+    position: relative;
+    width: 100%;
+}
+
+.certificates-title {
+    font-family: var(--font-main);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color-4);
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+}
+
+.certificates-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--color-2);
+    margin: 15px auto 0;
+}
+
+/* Слайдер как на главной странице */
+.certificates-slider {
+    position: relative;
+    width: 97%;
+    overflow: hidden;
+    border-radius: 60px;
+    backdrop-filter: blur(5px);
+    padding: 40px 40px;
+    margin-bottom: 0;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.21);
+}
+
+.certificates-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.certificates-slide {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 20px;
+    background: transparent; 
+}
+
+/* Карточка сертификата - увеличиваем размер */
+.certificate-card {
+    flex: 1;
+    max-width: 600px;
+    background: var(--color-w);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    padding: 0;
+    border: none;
+    line-height: 0;  /* убирает лишнюю высоту от текста */
+    font-size: 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.certificate-card:hover {
+    transform: translateY(-5px);
+}
+
+.certificate-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;  
+    padding: 0;
+    
+}
+
+.certificate-title {
+    display: none;;
+}
+
+/* Кнопки как на главной странице */
+.certificates-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid var(--color-2);
+    cursor: pointer;
+    font-size: 35px;
+    color: var(--color-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 20;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.17);
+}
+
+.certificates-btn-prev { left: 80px; }
+.certificates-btn-next { right: 80px; }
+
+.certificates-btn:hover {
+    background: var(--color-2);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Точки */
+.certificates-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.certificates-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.certificates-dot.active {
+    background: var(--color-1);
+    transform: scale(1.2);
+}
+
+/* Адаптивность */
+@media screen and (max-width: 900px) {
+    .certificates-slide {
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .certificate-card {
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .certificates-slide {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    
+    .certificate-card {
+        max-width: 350px;
+        width: 100%;
     }
 }

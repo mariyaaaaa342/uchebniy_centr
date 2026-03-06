@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.utils import timezone
 from .forms import RegistrationForm
-from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress, Module, ModuleProgress, Review
+from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress, Module, ModuleProgress, Review, Certificate
 import json
 
 def custom_login_required(view_func):
@@ -656,3 +656,11 @@ def submit_review(request):
         messages.error(request, f'Ошибка при сохранении отзыва: {str(e)}')
     
     return redirect('profile')
+
+def about_us(request):
+    """Страница О нас"""
+    certificates = Certificate.objects.filter(is_active=True).order_by('order', '-created_at')
+    context = {
+        'certificates': certificates,
+    }
+    return render(request, 'courses/about_us.html', context)

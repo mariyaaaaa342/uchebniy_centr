@@ -21,31 +21,47 @@
         
         <form method="post">
             {% csrf_token %}
+            
             <div class="form-group">
                 <label class="form-label">ФИО</label>
-                {{ form.full_name }}
-                {{ form.full_name.errors }}
+                <input type="text" name="full_name" class="form-input" value="{{ form.full_name.value|default:'' }}" required>
+                {% if form.full_name.errors %}
+                    <div class="error-message">{{ form.full_name.errors }}</div>
+                {% endif %}
             </div>
+            
             <div class="form-group">
                 <label class="form-label">Номер телефона</label>
-                {{ form.phone }}
-                {{ form.phone.errors }}
+                <input type="tel" name="phone" class="form-input" value="{{ form.phone.value|default:'' }}" required>
+                {% if form.phone.errors %}
+                    <div class="error-message">{{ form.phone.errors }}</div>
+                {% endif %}
             </div>
+            
             <div class="form-group">
                 <label class="form-label">Email</label>
-                {{ form.email }}
-                {{ form.email.errors }}
+                <input type="email" name="email" class="form-input" value="{{ form.email.value|default:'' }}" required>
+                {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors }}</div>
+                {% endif %}
             </div>
+            
             <div class="form-group">
                 <label class="form-label">Пароль</label>
-                {{ form.password }}
-                {{ form.password.errors }}
+                <input type="password" name="password" class="form-input" required>
+                {% if form.password.errors %}
+                    <div class="error-message">{{ form.password.errors }}</div>
+                {% endif %}
             </div>
+            
             <div class="form-group">
                 <label class="form-label">Подтверждение пароля</label>
-                {{ form.password_confirm }}
-                {{ form.password_confirm.errors }}
+                <input type="password" name="password_confirm" class="form-input" required>
+                {% if form.password_confirm.errors %}
+                    <div class="error-message">{{ form.password_confirm.errors }}</div>
+                {% endif %}
             </div>
+            
             <button type="submit" class="register-btn">Зарегистрироваться</button>
         </form>
         

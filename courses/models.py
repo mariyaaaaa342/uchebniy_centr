@@ -439,3 +439,21 @@ class Review(models.Model):
         if self.photo:
             return self.photo.url
         return '/static/courses/images/default-avatar.png'
+    
+class Certificate(models.Model):
+    certificate_id = models.AutoField(primary_key=True, verbose_name='ID сертификата')
+    title = models.CharField(max_length=200, blank=True, null=True, verbose_name='Название')
+    image = models.ImageField(upload_to='certificates/', verbose_name='Изображение')
+    order = models.IntegerField(default=0, verbose_name='Порядок сортировки')
+    is_active = models.BooleanField(default=True, verbose_name='Активно')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+    
+    class Meta:
+        managed = False
+        db_table = 'certificates'
+        ordering = ['order', '-created_at']
+        verbose_name = 'Сертификат'
+        verbose_name_plural = 'Сертификаты'
+    
+    def __str__(self):
+        return self.title or f'Сертификат #{self.certificate_id}'

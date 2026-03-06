@@ -2,7 +2,7 @@ from django import forms
 from django.utils.html import format_html
 from django.utils import timezone
 from django.contrib import admin
-from .models import Courses, Teachers, Applications, Users, Portfolio, WorkType, Module, ModuleProgress, CourseProgress, News
+from .models import Courses, Teachers, Applications, Users, Portfolio, WorkType, Module, ModuleProgress, CourseProgress, News, Certificate
 from .models import Review
 
 @admin.register(Teachers)
@@ -249,3 +249,16 @@ class ReviewAdmin(admin.ModelAdmin):
         queryset.update(status='rejected', is_active=False)
         self.message_user(request, f'{queryset.count()} отзыв(ов) отклонено')
     reject_reviews.short_description = 'Отклонить выбранные отзывы'
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ('certificate_id', 'title', 'order', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    list_editable = ('order', 'is_active')
+    search_fields = ('title',)
+    list_per_page = 20
+    fieldsets = (
+        ('Информация о сертификате', {
+            'fields': ('title', 'image', 'order', 'is_active')
+        }),
+    )
