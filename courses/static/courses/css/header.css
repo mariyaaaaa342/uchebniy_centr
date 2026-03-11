@@ -1,24 +1,27 @@
+/* ========== ОСНОВНЫЕ СТИЛИ ШАПКИ ========== */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    background: white;  /* ← непрозрачный фон */
+    background: white;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     z-index: 1100;
     transition: all 0.3s ease;
 }
 
 .header_container {
-    width: 1500px;
-    max-width: 100%;
+    max-width: 1500px;
+    width: 100%;
     margin: 0 auto;
     padding: 15px 40px;
     display: flex;
-    justify-content: space-between; 
-    align-items: center
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
 }
+
 .header_left {
     display: flex;
     align-items: center;
@@ -26,13 +29,14 @@
     gap: 30px;
     margin-left: 0px;
 }
+
 .header_logo {
     font-family: var(--font-main);
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--color-4);
     letter-spacing: 2px;
-    position: relative; 
+    position: relative;
 }
 
 .header_right {
@@ -41,6 +45,9 @@
     margin-left: auto;
     gap: 30px;
 }
+
+/* ========== КНОПКИ ========== */
+.header_login-btn,
 .header_register-btn {
     padding: 8px 20px;
     background: var(--color-1);
@@ -54,11 +61,228 @@
     margin-right: 10px;
 }
 
+.header_login-btn {
+    background: transparent;
+    border: 2px solid var(--color-1);
+    color: var(--color-1);
+}
+
+.header_login-btn:hover {
+    background: var(--color-1);
+    color: white;
+}
+
 .header_register-btn:hover {
     background: var(--color-4);
     transform: translateY(-2px);
 }
-/* Переключатель темы */
+
+/* ========== ПОЛЬЗОВАТЕЛЬ ========== */
+.header_user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--font-main);
+    color: var(--color-4);
+    margin-right: 10px;
+}
+
+.header_logout-btn {
+    padding: 5px 12px;
+    background: #fee;
+    color: #c00;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.header_logout-btn:hover {
+    background: #c00;
+    color: white;
+}
+
+/* ========== АДРЕС ========== */
+.header_address {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--color-4);
+}
+
+.header_address-icon {
+    font-size: 1.2rem;
+    color: var(--color-2);
+}
+
+.header_address-text {
+    font-weight: 200;
+    letter-spacing: 0.5px;
+}
+
+/* ========== БУРГЕР-МЕНЮ ========== */
+.header_burger {
+    width: 50px;
+    height: 50px;
+    background: var(--color-1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    flex-shrink: 0;
+}
+
+.header_burger:hover {
+    background: var(--color-4);
+    transform: scale(1.05);
+}
+
+.header_burger-line {
+    width: 30px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.header_burger.active .header_burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.header_burger.active .header_burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.header_burger.active .header_burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ========== ВЫПАДАЮЩЕЕ МЕНЮ ========== */
+.header_menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+    padding: 10px 40px 40px;
+    transition: left 0.4s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 999;
+}
+
+.header_menu.active {
+    left: 0;
+    right: auto;
+}
+
+.header_menu-list {
+    list-style: none;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.header_menu-item {
+    margin-bottom: 25px;
+}
+
+.header_menu-link {
+    font-family: var(--font-main);
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--color-4);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.header_menu-link:hover {
+    font-weight: 700;
+    border-bottom-width: 3px;
+    border-bottom-color: var(--color-1);
+}
+
+.header_menu-link span {
+    font-size: 1rem;
+    color: var(--color-3);
+    width: 25px;
+}
+
+.header_menu-logo {
+    margin-top: 10px;
+    margin-left: 0;
+    text-align: left;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.header_menu-logo-text {
+    font-family: var(--font-main);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-4);
+    letter-spacing: 2px;
+}
+
+.header_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.header_overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header_menu-contacts {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.header_menu-contact {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-family: var(--font-main);
+    color: var(--color-4);
+    font-size: 1rem;
+}
+
+.header_menu-contact-icon {
+    width: 35px;
+    height: 35px;
+    background: var(--color-1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
 .theme-switch-wrapper {
     display: flex;
     align-items: center;
@@ -117,388 +341,229 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-.theme-icon {
-    font-size: 16px;
-}
-
-
-
-
-
-@media screen and (max-width: 400px) {
-    .header_register-btn {
-        display: none;  
-    }
-}
-.header_login-btn,
-.header_register-btn {
-    padding: 8px 20px;
-    background: var(--color-1);
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    font-family: var(--font-main);
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    margin-right: 10px;
-}
-
-.header_login-btn {
-    background: transparent;
-    border: 2px solid var(--color-1);
-    color: var(--color-1);
-}
-
-.header_login-btn:hover {
-    background: var(--color-1);
-    color: white;
-}
-
-.header_register-btn:hover {
-    background: var(--color-4);
-    transform: translateY(-2px);
-}
-
-.header_user {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-family: var(--font-main);
-    color: var(--color-4);
-    margin-right: 10px;
-}
-
-.header_logout-btn {
-    padding: 5px 12px;
-    background: #fee;
-    color: #c00;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.header_logout-btn:hover {
-    background: #c00;
-    color: white;
-}
-
-@media screen and (max-width: 600px) {
-    .header_login-btn,
-    .header_register-btn {
-        padding: 6px 15px;
-        font-size: 0.9rem;
-        margin-right: 5px;
-    }
-    
-    .header_user {
-        font-size: 0.9rem;
-        gap: 8px;
-    }
-    .header_register-btn {
-        padding: 6px 15px;
-        font-size: 0.9rem;
-        margin-right: 5px;
-    }
-}
-.header_address {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-main);
-    font-size: 1rem;
-    color: var(--color-4);
-}
-
-.header_address-icon {
-    font-size: 1.2rem;
-    color: var(--color-2);
-}
-
-.header_address-text {
-    font-weight: 200;
-    letter-spacing: 0.5px;
-}
-
-
-.header_burger {
-    width: 50px;
-    height: 50px;
-    background: var(--color-1);
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1001;
-    flex-shrink: 0;
-}
-
-.header_burger:hover {
-    background: var(--color-4);
-    transform: scale(1.05);
-}
-
-.header_burger-line {
-    width: 30px;
-    height: 2px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.header_burger.active .header_burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-
-.header_burger.active .header_burger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.header_burger.active .header_burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-.header_menu {
-    position: fixed;
-    top: 0;
-    left: -400px;          /* ← меняем right на left, и минус */
-    width: 350px;
-    height: 100vh;
-    background: white;
-    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);  /* ← тень теперь справа */
-    padding: 10px 40px 40px;
-    transition: left 0.4s ease;  /* ← transition для left */
-    overflow-y: auto;  
-    overflow-x: hidden;
-    z-index: 999;
-}
-
-.header_menu.active {
-    overflow-y: auto;
-    overflow-x: hidden;
-    left: 0;               /* ← появляется слева */
-    right: auto;           /* ← сбрасываем right */
-}
-
-.header_menu-list {
-    list-style: none;
-    margin-top: 20px;
-    padding: 0;
-}
-
-.header_menu-item {
-    margin-bottom: 25px;
-    opacity: 1;
-    transform: none;
-}
-
-.header_menu.active .header_menu-item {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.header_menu-link {
-    font-family: var(--font-main);
-    font-size: 1.3rem;
-    font-weight: 300;
-    color: var(--color-4);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-.header_menu-link:hover {
-     font-weight: 700;  /* ← жирный шрифт */
-    border-bottom-width: 3px;  /* ← черта толще */
-    border-bottom-color: var(--color-1);
-}
-
-.header_menu-link span {
-    font-size: 1rem;
-    color: var(--color-3);
-    width: 25px;
-}
-.header_menu-logo {
-    margin-top: 10px;
-    margin-left: 0;
-    text-align: left;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.header_menu-logo-text {
-    font-family: var(--font-main);
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: var(--color-4);
-    letter-spacing: 2px;
-}
-
-
-
-
-.header_overlay {
-    position: fixed;
-    top:  0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);  /* ← замыливание всей страницы */
-    z-index: 998;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.header_overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.header_menu-contacts {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 2px solid rgba(0, 0, 0, 0.05);
-}
-
-.header_menu-contact {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    font-family: var(--font-main);
-    color: var(--color-4);
-    font-size: 1rem;
-}
-
-.header_menu-contact-icon {
-    width: 35px;
-    height: 35px;
-    background: var(--color-1);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-}
 .theme-icon-img {
-    width: 25px;          
+    width: 25px;
     height: 30px;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 2px;     
+    margin-left: 2px;
 }
-@media screen and (max-width: 800px) {
+
+/* ========== АДАПТИВ ДЛЯ ВСЕХ РАЗРЕШЕНИЙ ========== */
+
+/* Для 1366px */
+@media screen and (max-width: 1366px) {
     .header_container {
-        padding: 15px 20px;
+        max-width: 1200px;
+        padding: 12px 30px;
     }
     
     .header_logo {
         font-size: 1.3rem;
     }
-    
-    .header_right {
-        gap: 20px;
+}
+
+/* Для 1280px */
+@media screen and (max-width: 1280px) {
+    .header_container {
+        max-width: 1100px;
+        padding: 12px 25px;
     }
     
     .header_address-text {
         font-size: 0.9rem;
     }
     
-    .header_burger {
-        width: 45px;
-        height: 45px;
-        border-radius: 12px;
+    .header_login-btn,
+    .header_register-btn {
+        padding: 6px 16px;
+        font-size: 0.9rem;
     }
     
-    .header_burger-line {
-        width: 25px;
-    }
-    
-    .header_menu {
-        width: 300px;
-        padding: 80px 30px 30px;
-    }
-    
-    .header_menu-link {
-        font-size: 1.2rem;
+    .theme-icon-img {
+        width: 22px;
+        height: 26px;
     }
 }
 
-@media screen and (max-width: 500px) {
+/* Для 1024px */
+@media screen and (max-width: 1024px) {
     .header_container {
-        padding: 12px 15px;
+        max-width: 960px;
+        padding: 10px 20px;
     }
     
     .header_logo {
-        font-size: 1.1rem;
-    }
-    
-    
-    .header_right {
-        gap: 15px;
+        font-size: 1.2rem;
     }
     
     .header_address {
-        gap: 5px;
-    }
-    
-    .header_address-icon {
-        font-size: 1rem;
-    }
-    
-    .header_address-text {
-        font-size: 0.8rem;
-    }
-    
-    .header_burger {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        gap: 6px;
-    }
-    
-    .header_burger-line {
-        width: 22px;
-    }
-    
-    .header_menu {
-        width: 280px;
-        padding: 70px 25px 25px;
-    }
-}
-@media screen and (max-width: 400px) {
-    .header_address-text {
         display: none;
     }
     
-    .header_address-icon {
-        font-size: 1.3rem;
+    .header_login-btn,
+    .header_register-btn {
+        padding: 5px 14px;
+        font-size: 0.85rem;
+    }
+    
+    .theme-switch-wrapper {
+        margin-left: 5px;
+    }
+    
+    .theme-icon-img {
+        width: 20px;
+        height: 24px;
+    }
+}
+
+/* ========== ГЛАВНЫЙ ФИКС ДЛЯ 768px ========== */
+@media screen and (max-width: 768px) {
+
+    .header_container {
+        max-width: 70% !important;
+        width: 70% !important;
+        padding: 10px 20px !important;
+        margin-left: 10px;
+        gap: 50px;
+
+    }
+    .header_right {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    
+    .header_left{
+        align-items: center;
+        margin-left: 0;
+        margin-right: 0;
+        gap: 15px;
+    }
+    .header_logo {
+        font-size: 0.9rem !important;
+    }
+    
+    .header_address {
+        display: none !important;
+    }
+    
+  /*   .header_right {
+        margin-left: 0 !important;  
+        gap: 12px !important;
+    } */
+    
+    .header_login-btn,
+    .header_register-btn {
+        padding: 5px 12px !important;
+        font-size: 0.8rem !important;
+        margin-right: 5px !important;
+    }
+    
+    .header_user {
+        font-size: 0.8rem !important;
+        gap: 8px !important;
+    }
+    
+    .theme-switch-wrapper {
+        gap: 5px !important;
+        margin-left: 5px !important;
+    }
+    
+    .theme-icon-img {
+        width: 18px !important;
+        height: 22px !important;
+    }
+    
+    .header_burger {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 10px !important;
+    }
+    
+    .header_burger-line {
+        width: 25px !important;
+    }
+
+}
+
+/* Для 480px */
+@media screen and (max-width: 480px) {
+    .header_container {
+        padding: 8px 15px !important;
     }
     
     .header_logo {
-        font-size: 1rem;
+        display: none;
+    }
+    
+
+    
+    .header_register-btn {
+        padding: 4px 10px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .theme-switch-wrapper {
+        margin-left: 0 !important;
+    }
+    
+    .theme-icon-img {
+        width: 16px !important;
+        height: 20px !important;
+    }
+    
+    .header_burger {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 10px !important;
+        gap: 6px !important;
+    }
+    
+    .header_burger-line {
+        width: 22px !important;
     }
 }
-body {
-    padding-top: 80px; 
+
+/* Для 375px */
+@media screen and (max-width: 375px) {
+    .header_container {
+        padding: 8px 12px !important;
+    }
+    
+    .header_logo {
+        font-size: 0.8rem !important;
+    }
+    
+    .header_register-btn {
+        padding: 3px 8px !important;
+        font-size: 0.7rem !important;
+    }
 }
 
-@media screen and (max-width: 800px) {
+/* Отступ для body под фиксированную шапку */
+body {
+    padding-top: 80px;
+}
+
+@media screen and (max-width: 1024px) {
     body {
         padding-top: 70px;
     }
 }
+
+@media screen and (max-width: 768px) {
+    body {
+        padding-top: 65px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding-top: 60px;
+    }
+}
+
+/* Убираем backdrop-filter если мешает */
 .header,
 .header_container,
 .header_left,

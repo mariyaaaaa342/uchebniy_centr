@@ -95,34 +95,9 @@
     z-index: 2;
 }
 
-/* Десктопная версия */
-@media screen and (min-width: 768px) {
-    .card-left {
-        left: calc(50% - 600px);
-        transform: scale(0.8);
-        opacity: 0.6;
-        z-index: 1;
-        filter: blur(1px);
-    }
-    
-    .card-center {
-        left: 50%;
-        transform: translateX(-50%) scale(1);
-        z-index: 3;
-        box-shadow: 0 20px 40px rgba(63, 87, 91, 0.3);
-    }
-    
-    .card-right {
-        right: calc(50% - 600px);
-        transform: scale(0.8);
-        opacity: 0.6;
-        z-index: 1;
-        filter: blur(1px);
-    }
-}
 
 /* Мобильная версия */
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 768px) {
     .about-section {
         min-height: 400px;
     }
@@ -154,7 +129,7 @@
         margin-top: 50px;
         font-size: 1rem;
     }
-}
+} */
 
 /* Стрелки слайдера */
 .slider-arrow {
@@ -221,7 +196,7 @@
 }
 
 /* Адаптация для планшетов */
-@media screen and (max-width: 1200px) and (min-width: 768px) {
+/* @media screen and (max-width: 1024px) and (min-width: 768px) {
     .card-left {
         left: calc(50% - 450px);
     }
@@ -275,14 +250,14 @@
         height: 10px;
     }
 }
-
+ */
 /* ===== СЕКЦИЯ "НАША ДЕЯТЕЛЬНОСТЬ" ===== */
 
 .activity-section {
     width: 100%;
     max-width: 1307px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 60px 0;
     position: relative;
 }
 
@@ -334,7 +309,10 @@
     text-align: left;
     margin: 0;
 }
-
+.activity-left-col,
+.activity-shape-1-mobile {
+    display: none;
+}
 /* 3. Первая фигура (тёмная, на всю ширину) */
 .activity-shape-1 {
     position: relative;
@@ -458,65 +436,13 @@
     margin-top: 15px;
 }
 
-/* ===== АДАПТИВНОСТЬ ===== */
-@media screen and (max-width: 1200px) {
-    .activity-main-text-block {
-        max-width: 90%;
-        margin-left: 5%;
-    }
-    .shape-1_text-1-block {
-        width: 90%;
-    }
-    .shape-1_text-2-block {
-        width: 60%;
-    }
-    .activity-shape-2 {
-        width: 55%;
-    }
-}
-@media screen and (max-width: 800px) {
-    .activity-title {
-        font-size: 2rem;
-    }
-    .activity-main-text-block p {
-        font-size: 1rem;
-    }
-    .shape-1-content {
-        padding: 4% 6%;
-        gap: 20px;
-    }
-    .shape-1_title-1,
-    .shape-1_title-2 {
-        font-size: 1.4rem;
-        padding: 4px 15px;
-    }
-    .shape-1_text-1-block,
-    .shape-1_text-2-block {
-        width: 100%;
-    }
-    .activity-shape-2 {
-        position: relative;
-        width: 90%;
-        margin: 30px auto 0;
-        right: auto;
-        bottom: auto;
-    }
-    .shape-2_title-3 {
-        font-size: 1.3rem;
-    }
-}
-@media screen and (max-width: 500px) {
-    .shape-1_title-1,
-    .shape-1_title-2,
-    .shape-2_title-3 {
-        font-size: 1.2rem;
-        padding: 3px 12px;
-    }
-    .shape-1_text-1,
-    .shape-1_text-2,
-    .shape-2_text-3 {
-        font-size: 0.9rem;
-    }
+.link-about {
+        font-family: var(--font-main);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--color-w);
+    text-align: left;
+    margin-top: 15px;
 }
 
 /*Секция наши ценности*/
@@ -685,67 +611,7 @@
     }
 }
 
-@media screen and (max-width: 800px) {
-    .values-section {
-        padding: 30px 15px;
-    }
-    
-    .values-title {
-        font-size: 2.5rem;
-        margin-bottom: 35px;
-    }
-    
-    .values-grid {
-        grid-template-columns: minmax(280px, 375px);
-        gap: 0px; 
-        justify-content: center;
-    }
-    
-    .values-card {
-        width: 100%;
-        max-width: 375px;
-        height: 395px;
-        margin-bottom: 0;
-    }
-    
-    .values-content {
-        padding: 45px 12px 20px 22px;
-    }
-    
-    .values-card:not(:nth-child(4)) .values-content {
-        padding-left: 12px;
-    }
-    
-    .values-card:nth-child(4) .values-content {
-        padding-left: 2px;
-    }
-    
-    .values-card-title,
-    .values-card-text {
-        max-width: 190px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .values-icon {
-        width: 65px;
-        height: 65px;
-        margin: 0 auto 15px;
-    }
-    
-    .values-icon svg {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .values-card-title {
-        font-size: 1.3rem;
-    }
-    
-    .values-card-text {
-        font-size: 1rem;
-    }
-}
+
 
 @media screen and (max-width: 500px) {
     .values-title {

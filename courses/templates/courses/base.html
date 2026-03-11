@@ -1,146 +1,158 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{% block title %}Учебный центр Леди{% endblock %}</title>
-    
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{% static 'courses/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/dark-theme.css' %}">
-    
-    <!-- Дополнительные стили для конкретной страницы -->
-    {% block extra_css %}{% endblock %}
-</head>
-<body data-user-id="{{ request.session.user_id|default:'' }}">
-    <!-- Шапка сайта -->
-    {% include 'courses/header.html' %}
-    
-    <!-- Основной контент -->
-    <main class="main-container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-    {% endif %}
-        {% block content %}
-        {% endblock %}
-    </main>
-    
-    <!-- Подвал сайта -->
-    {% include 'courses/footer.html' %}
-    
-    <!-- Общие скрипты -->
-    <script src="{% static 'courses/js/menu.js' %}"></script>
-    <script src="{% static 'courses/js/theme.js' %}"></script>
-    <script src="{% static 'courses/js/modal.js' %}"></script>
-    <script src="//code.jivo.ru/widget/BLwo7XiMHC" async></script>
-    <script>   
-        setTimeout(function() {
-            const checkTheme = function() {
-                const isDark = document.body.classList.contains('dark-theme');
-                const jivoInput = document.querySelector('.jivo-input, .jivo-textarea, textarea.jivo-input');
-                
-                if (jivoInput && isDark) {
-                    jivoInput.style.backgroundColor = '#2a2a3a';
-                    jivoInput.style.color = '#ffffff';
-                    jivoInput.style.borderColor = '#4a4a5a';
-                }
-            };
-            
-            // Проверяем каждые 2 секунды (пока чат не загрузится)
-            const interval = setInterval(function() {
-                if (document.querySelector('.jivo-panel, .jivo-desktop')) {
-                    checkTheme();
-                    clearInterval(interval);
-                }
-            }, 500);
-            
-            // Также проверяем при переключении темы
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                themeToggle.addEventListener('change', function() {
-                    setTimeout(checkTheme, 100);
-                });
-            }
-        }, 1000);
-    </script>    
-
-    {% block extra_js %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <title>{% block title %}Учебный центр Леди{% endblock %}</title>
         
-    {% endblock %}
-    <!-- Модальное окно ВХОДА -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2 class="modal-title">Вход</h2>
-            
-            <form id="loginForm" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="form-label">Телефон или Email</label>
-                    <input type="text" name="login_input" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Пароль</label>
-                    <input type="password" name="password" class="form-input" required>
-                </div>
-                <button type="submit" class="modal-btn">Войти</button>
-            </form>
-            
-            <div class="modal-footer">
-                Нет аккаунта? <a href="#" id="showRegisterModal">Зарегистрироваться</a>
-            </div>
-            <div class="forgot-password">
-                <a href="{% url 'password_reset' %}">Забыли пароль?</a>
-            </div>            
-        </div>
-    </div>
+        <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Siemreap&display=swap" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{% static 'courses/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'courses/css/dark-theme.css' %}">
+        
+        {% block extra_css %}{% endblock %}
+        
+    <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109388510', 'ym');
 
-    <!-- Модальное окно РЕГИСТРАЦИИ -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2 class="modal-title">Регистрация</h2>
+            ym(109388510, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/109388510" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    </head>
+    <body data-user-id="{{ request.session.user_id|default:'' }}">
+        {% include 'courses/header.html' %}
+        
+        <!-- Основной контент -->
+        <main class="main-container">
+            <div class="content-wrapper">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        
+        {% include 'courses/footer.html' %}
+        
+        <!-- Общие скрипты -->
+        <script src="{% static 'courses/js/menu.js' %}"></script>
+        <script src="{% static 'courses/js/theme.js' %}"></script>
+        <script src="{% static 'courses/js/modal.js' %}"></script>
+        <script src="//code.jivo.ru/widget/BLwo7XiMHC" async></script>
+        <script>   
+            setTimeout(function() {
+                const checkTheme = function() {
+                    const isDark = document.body.classList.contains('dark-theme');
+                    const jivoInput = document.querySelector('.jivo-input, .jivo-textarea, textarea.jivo-input');
+                    
+                    if (jivoInput && isDark) {
+                        jivoInput.style.backgroundColor = '#2a2a3a';
+                        jivoInput.style.color = '#ffffff';
+                        jivoInput.style.borderColor = '#4a4a5a';
+                    }
+                };
+                
+                // Проверяем каждые 2 секунды (пока чат не загрузится)
+                const interval = setInterval(function() {
+                    if (document.querySelector('.jivo-panel, .jivo-desktop')) {
+                        checkTheme();
+                        clearInterval(interval);
+                    }
+                }, 500);
+                
+                // Также проверяем при переключении темы
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('change', function() {
+                        setTimeout(checkTheme, 100);
+                    });
+                }
+            }, 1000);
+        </script>    
+
+        {% block extra_js %}
             
-            <form id="registerForm" method="post" action="{% url 'register' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="form-label">ФИО</label>
-                    <input type="text" name="full_name" class="form-input" required>
+        {% endblock %}
+        <!-- Модальное окно ВХОДА -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h2 class="modal-title">Вход</h2>
+                
+                <form id="loginForm" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">Телефон или Email</label>
+                        <input type="text" name="login_input" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" name="password" class="form-input" required>
+                    </div>
+                    <button type="submit" class="modal-btn">Войти</button>
+                </form>
+                
+                <div class="modal-footer">
+                    Нет аккаунта? <a href="#" id="showRegisterModal">Зарегистрироваться</a>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Номер телефона</label>
-                    <input type="tel" name="phone" class="form-input" inputmode="numeric" pattern="[0-9+()-]+" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Пароль</label>
-                    <input type="password" name="password" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Подтверждение пароля</label>
-                    <input type="password" name="password_confirm" class="form-input" required>
-                </div>
-                <button type="submit" class="modal-btn">Зарегистрироваться</button>
-            </form>
-            
-            <div class="modal-footer">
-                Уже есть аккаунт? <a href="#" id="showLoginModal">Войти</a>
+                <div class="forgot-password">
+                    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                </div>            
             </div>
         </div>
-    </div>
-</body>
+
+        <!-- Модальное окно РЕГИСТРАЦИИ -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h2 class="modal-title">Регистрация</h2>
+                
+                <form id="registerForm" method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">ФИО</label>
+                        <input type="text" name="full_name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Номер телефона</label>
+                        <input type="tel" name="phone" class="form-input" inputmode="numeric" pattern="[0-9+()-]+" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" name="password" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Подтверждение пароля</label>
+                        <input type="password" name="password_confirm" class="form-input" required>
+                    </div>
+                    <button type="submit" class="modal-btn">Зарегистрироваться</button>
+                </form>
+                
+                <div class="modal-footer">
+                    Уже есть аккаунт? <a href="#" id="showLoginModal">Войти</a>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

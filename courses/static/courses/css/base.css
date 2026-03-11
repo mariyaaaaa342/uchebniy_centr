@@ -1,0 +1,36 @@
+/* base.css - только глобальная структура */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 80px; /* Компенсация фиксированной шапки */
+}
+
+/* Основной контент - растягивается */
+.main-content {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+/* Контейнер для центрирования контента страниц */
+.content-wrapper {
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Для страниц, где есть .main-container (например, index.html) */
+.main-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0;
+}

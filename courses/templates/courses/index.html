@@ -4,269 +4,277 @@
 {% block title %}Учебный центр Леди{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'courses/css/adaptiv_for_home.css' %}">
 
 {% endblock %}
 
 {% block content %}
-
-    <main class="main-container">
+    <div class="main-container"> 
         <section class="hero">
-            <div class="hero_block-1" style="background-image: url('{% static 'courses/images/hero.png' %}');">
-                
-                <div class="hero_notch">
-                    <svg class="hero_notch-svg" viewBox="0 0 300 100" preserveAspectRatio="none">
-                        <path
-                        d="M 0, 0 
-                        L 300, 0
-                        C 270, 3 255, 7 250, 30
-                        L 250, 40
-                        L 250, 50
-                        C 250, 55 253, 70 235, 76
-                        L 27, 77
-                        L 18, 79
-                        C 7, 83 3, 95 1, 98
-                        L 1, 99
-                        L 0, 100
-                        Z"
-                        fill="#fff"
-                        />                       
+            <div class="section-container"> 
+                <div class="hero_block-1" style="background-image: url('{% static 'courses/images/hero.png' %}');">
+                    
+                    <div class="hero_notch">
+                        <svg class="hero_notch-svg" viewBox="0 0 300 100" preserveAspectRatio="none">
+                            <path
+                            d="M 0, 0 
+                            L 300, 0
+                            C 270, 3 255, 7 250, 30
+                            L 250, 40
+                            L 250, 50
+                            C 250, 55 253, 70 235, 76
+                            L 27, 77
+                            L 18, 79
+                            C 7, 83 3, 95 1, 98
+                            L 1, 99
+                            L 0, 100
+                            Z"
+                            fill="#fff"
+                            />                       
+                        </svg>
+                        <div class="hero_title">
+                            Учебный центр <br> <span class="hero_title_logo">ЛЕДИ</span>
+                        </div>
+                    </div>
+                    <div class="hero_block-1-content">
+                        <div class="hero_block-1-title">
+                            КУРСЫ<br>
+                            ПАРИКМАХЕРСКОГО<br>
+                            ИСКУССТВА
+                        </div>
+                            <div class="hero_block-1-subtext">
+                                90% практики, преподаватель-специалист с многолетним опытом,<br>
+                                фокус на становлении мастера и помощь с дальнейшим трудоустройством
+                            </div>
+                            <a href="/courses/" class="hero_block-1-btn">Записаться на курс</a>
+
+                    </div>
+                </div>
+
+                <div class="hero_block-2">
+                    
+                    <svg class="hero_block-2-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
+                        <path 
+                            d="M 681.05,472 
+                            C 681.05,454 687.32,428 715.05,428 
+                            L 1058.76,428 
+                            C 1086.49,428 1092.76,454 1092.76,472 
+                            L 1091.18,638.63 
+                            L 1091.18,660.5 
+                            C 1091.18,672 1101.08,678.63 1117.5,678.63 
+                            L 1127,678.63 
+                            L 666.68,677.93 
+                            C 674.41,677.93 680.68,671.66 680.68,663.93 
+                            L 681.05,661.35 
+                            L 681.05,472 Z"
+                            fill="#fff"
+                            />               
                     </svg>
-                    <div class="hero_title">
-                        Учебный центр <br> <span class="hero_title_logo">ЛЕДИ</span>
-                    </div>
-                </div>
-                <div class="hero_block-1-content">
-                    <div class="hero_block-1-title">
-                        КУРСЫ<br>
-                        ПАРИКМАХЕРСКОГО<br>
-                        ИСКУССТВА
-                    </div>
-                        <div class="hero_block-1-subtext">
-                            90% практики, преподаватель-специалист с многолетним опытом,<br>
-                            фокус на становлении мастера и помощь с дальнейшим трудоустройством
-                        </div>
-                        <a href="/courses/" class="hero_block-1-btn">Записаться на курс</a>
-
-                </div>
-            </div>
-
-            <div class="hero_block-2">
-                
-                <svg class="hero_block-2-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
-                    <path 
-                        d="M 681.05,472 
-                        C 681.05,454 687.32,428 715.05,428 
-                        L 1058.76,428 
-                        C 1086.49,428 1092.76,454 1092.76,472 
-                        L 1091.18,638.63 
-                        L 1091.18,660.5 
-                        C 1091.18,672 1101.08,678.63 1117.5,678.63 
-                        L 1127,678.63 
-                        L 666.68,677.93 
-                        C 674.41,677.93 680.68,671.66 680.68,663.93 
-                        L 681.05,661.35 
-                        L 681.05,472 Z"
-                        fill="#fff"
-                        />               
-                </svg>
-                <div class="hero_block-2-content">
-                    <div class="hero_inset">
-                        <div class="hero_inset-content">
-                            <h3 class="hero_inset-title">Что вы получите после обучения:</h3>
-                            <ol class="hero_inset-list">
-                                <li>Сертификат о прохождении наших  курсов</li>
-                                <li>Возможность официально трудоустроиться в нашем салоне</li>
-                                <li>Огромный практический опыт и бесценный багаж знаний о парикмахерском деле</li>
-                            </ol>
+                    <div class="hero_block-2-content">
+                        <div class="hero_inset">
+                            <div class="hero_inset-content">
+                                <h3 class="hero_inset-title">Что вы получите после обучения:</h3>
+                                <ol class="hero_inset-list">
+                                    <li>Сертификат о прохождении наших  курсов</li>
+                                    <li>Возможность официально трудоустроиться в нашем салоне</li>
+                                    <li>Огромный практический опыт и бесценный багаж знаний о парикмахерском деле</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="hero_block-3">
-                <div class="hero_block-3-content">
-                    <div class="hero_block-3-title">Пробное занятие бесплатно!</div>
-                    <p class="hero_block-3-text">Все мечтают найти дело по душе, но страшно ошибиться? 
-                        Мы это понимаем! Поэтому мы даём вам уникальную возможность - посетить полноценное занятие в 
-                        нашей школе абсолютно<br> бесплатно.</p>
-                    <div class="hero_block-3-vector">
-                        <!-- Здесь будет векторная картинка -->
-                        <img src="{% static 'courses/images/hero_2.png' %}" alt="Vector">
+                <div class="hero_block-3">
+                    <div class="hero_block-3-content">
+                        <div class="hero_block-3-title">Пробное занятие бесплатно!</div>
+                        <div class="hero_block-3-row">
+                            <p class="hero_block-3-text">Все мечтают найти дело по душе, но страшно ошибиться? 
+                                Мы это понимаем! Поэтому мы даём вам уникальную возможность - посетить полноценное занятие в 
+                                нашей школе абсолютно бесплатно.</p>
+                            <div class="hero_block-3-vector">
+                                <img src="{% static 'courses/images/hero_2.png' %}" alt="Vector">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </section>
         
         <section class="second">
-            <div class="second_block-1">
-                <div class="second_block-1-content">
-                    <h2 class="second_block-1-title">Немного информации о нашем центре</h2>
-                    <div class="second_block-1-text">
-                        <p>Наш учебный центр «Леди» работает с 2014 года. За это время мы обучили более 500 мастеров, 
-                            многие из которых уже работают в ведущих салонах города и открыли свои студии.<br>
-                            Мы делаем упор на практику — 90% времени студенты работают с реальными моделями: мужчинами и женщинами разных возрастов.<br> 
-                            Мы не стоим на месте, постоянно обучаемся новым техникам и обучаем наших студентов тому, что знаем сами. От нас уходят не просто выпускники, 
-                            а настоящие, профессиональные мастера, котрые знают свое дело на 100%. <br>Мы стремимся не только к тому, чтобы учить, но и к тому, чтобы те знания, 
-                            которые мы хотим Вам дать, Вы точно усвоили</p>
+            <div class="section-container">
+                <div class="second_block-1">
+                    <div class="second_block-1-content">
+                        <h2 class="second_block-1-title">Немного информации о нашем центре</h2>
+                        <div class="second_block-1-text">
+                            <p>Наш учебный центр «Леди» работает с 2014 года. За это время мы обучили более 500 мастеров, 
+                                многие из которых уже работают в ведущих салонах города и открыли свои студии.<br>
+                                Мы делаем упор на практику — 90% времени студенты работают с реальными моделями: мужчинами и женщинами разных возрастов.<br> 
+                                Мы не стоим на месте, постоянно обучаемся новым техникам и обучаем наших студентов тому, что знаем сами. От нас уходят не просто выпускники, 
+                                а настоящие, профессиональные мастера, котрые знают свое дело на 100%. <br>Мы стремимся не только к тому, чтобы учить, но и к тому, чтобы те знания, 
+                                которые мы хотим Вам дать, Вы точно усвоили</p>
+                        </div>
+                        <a href="{% url 'about' %}" class="link-about_us">Подробнее о нас »</a>
                     </div>
-                    <a href="{% url 'about' %}" class="link-about_us">Подробнее о нас »</a>
                 </div>
-            </div>
-            <div class="second_block-2">
-                <div class="second_slider-container">
-                    <div class="slider-track">
-                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_1.jpg' %}');"></div>
-                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_2.jpg' %}');"></div>
-                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_3.jpg' %}');"></div>
-                        <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_4.jpg' %}');"></div>
+                <div class="second_block-2">
+                    <div class="second_slider-container">
+                        <div class="slider-track">
+                            <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_1.jpg' %}');"></div>
+                            <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_2.jpg' %}');"></div>
+                            <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_3.jpg' %}');"></div>
+                            <div class="slider-slide" style="background-image: url('{% static 'courses/images/slider_1_photo_4.jpg' %}');"></div>
+                        </div>
+                    
+                        <div class="slider-dots"></div>
                     </div>
-                   
-                    <div class="slider-dots"></div>
                 </div>
-            </div>
-            <div class="second_block-3">
-                <svg class="second_block-3-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
-                   <path d=" M 850, 265.5
-                            L 1435, 265.5
-                            L 1435, 501.5
-                            L 760, 501.5
-                            C 750, 500 790, 500 790.7, 448.44
-                            L 790.7, 318.7
-                            C 790.7, 285 805, 269.5 830, 266.5
-                            Z " 
-                        fill="#fff" />
-                </svg>
-                <div class="second_block-3-inner">
-                    <div class="second_block-3-content">
-                        <div class="second_block-3-title">Кому подойдет наш центр?</div>
-                        <div class="second_block-3-text">
-                            <p>Мы работаем:</p>
-                            <ul>
-                                <li>С новичками — с нуля до профессионального мастера</li>
-                                <li>С действующими мастерами — для повышения квалификации</li>
-                                <li>С теми, кто хочет сменить профессию или мечтает открыть свою студию</li>
-                                <li>С людьми с ограниченными физическими возможностями</li>
-                            </ul>
+                <div class="second_block-3">
+                    <svg class="second_block-3-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
+                    <path d=" M 850, 265.5
+                                L 1435, 265.5
+                                L 1435, 501.5
+                                L 760, 501.5
+                                C 750, 500 790, 500 790.7, 448.44
+                                L 790.7, 318.7
+                                C 790.7, 285 805, 269.5 830, 266.5
+                                Z " 
+                            fill="#fff" />
+                    </svg>
+                    <div class="second_block-3-inner">
+                        <div class="second_block-3-content">
+                            <div class="second_block-3-title">Кому подойдет наш центр?</div>
+                            <div class="second_block-3-text">
+                                <p>Мы работаем:</p>
+                                <ul>
+                                    <li>С новичками — с нуля до профессионального мастера</li>
+                                    <li>С действующими мастерами — для повышения квалификации</li>
+                                    <li>С теми, кто хочет сменить профессию или мечтает открыть свою студию</li>
+                                    <li>С людьми с ограниченными физическими возможностями</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </section>
         
         <section class="third">
-            <div class="third_slider-container">
-                <h2 class="third_title">Наши отзывы</h2>
-                
-                <div class="third_slider">
-                    <div class="third_track">
-                        {% for review in reviews %}
-                            {% if forloop.counter0|divisibleby:2 %}
-                                <div class="third_slide">
-                            {% endif %}
-                            
-                            <!-- НАЧАЛО КАРТОЧКИ ОТЗЫВА -->
-                            <div class="review-card">
-                                <div class="review-header">
-                                    <div class="review-photo">
-                                        {% if review.photo %}
-                                            <img src="{{ review.photo.url }}" alt="{{ review.student_name }}">
-                                        {% else %}
-                                            <div class="review-photo-placeholder"></div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="review-stars">
-                                        {% for i in "12345"|make_list %}
-                                            {% if forloop.counter <= review.rating %}
-                                                ★
-                                            {% else %}
-                                                ☆
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
+            <div class="section-container">
+                <div class="third_slider-container">
+                    <h2 class="third_title">Наши отзывы</h2>
+                    
+                    <div class="third_slider">
+                        <div class="third_track">
+                            {% for review in reviews %}
+                                {% if forloop.counter0|divisibleby:2 %}
+                                    <div class="third_slide">
+                                {% endif %}
                                 
-                                <div class="review-author-info">
-                                    <span class="review-author">{{ review.student_name }}</span>
-                                    {% if review.course %}
-                                        <span class="review-course">{{ review.course.title }}</span>
-                                    {% endif %}
-                                </div>
-                                
-                                <p class="review-text">"{{ review.text }}"</p>
-                            </div>
-                            <!-- КОНЕЦ КАРТОЧКИ ОТЗЫВА -->
-                            
-                            {% if forloop.counter|divisibleby:2 or forloop.last %}
-                                </div>
-                            {% endif %}
-                        {% empty %}
-                            <div class="third_slide">
+                                <!-- НАЧАЛО КАРТОЧКИ ОТЗЫВА -->
                                 <div class="review-card">
                                     <div class="review-header">
-                                        <div class="review-photo-placeholder" style="width: 60px; height: 60px; 
-                                        border-radius: 50%; display: flex; align-items: center; justify-content: 
-                                        center; background: var(--color-3); font-size: 1.8rem;"></div>
+                                        <div class="review-photo">
+                                            {% if review.photo %}
+                                                <img src="{{ review.photo.url }}" alt="{{ review.student_name }}">
+                                            {% else %}
+                                                <div class="review-photo-placeholder"></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="review-stars">
+                                            {% for i in "12345"|make_list %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    ★
+                                                {% else %}
+                                                    ☆
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
+                                    
                                     <div class="review-author-info">
-                                        <span class="review-author">Нет отзывов</span>
+                                        <span class="review-author">{{ review.student_name }}</span>
+                                        {% if review.course %}
+                                            <span class="review-course">{{ review.course.title }}</span>
+                                        {% endif %}
                                     </div>
-                                    <p class="review-text">Пока нет отзывов. Будьте первым!</p>
+                                    
+                                    <p class="review-text">"{{ review.text }}"</p>
                                 </div>
-                            </div>
-                        {% endfor %}
+                                <!-- КОНЕЦ КАРТОЧКИ ОТЗЫВА -->
+                                
+                                {% if forloop.counter|divisibleby:2 or forloop.last %}
+                                    </div>
+                                {% endif %}
+                            {% empty %}
+                                <div class="third_slide">
+                                    <div class="review-card">
+                                        <div class="review-header">
+                                            <div class="review-photo-placeholder" style="width: 60px; height: 60px; 
+                                            border-radius: 50%; display: flex; align-items: center; justify-content: 
+                                            center; background: var(--color-3); font-size: 1.8rem;"></div>
+                                        </div>
+                                        <div class="review-author-info">
+                                            <span class="review-author">Нет отзывов</span>
+                                        </div>
+                                        <p class="review-text">Пока нет отзывов. Будьте первым!</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <button class="third_btn third_btn-prev">❮</button>
+                        <button class="third_btn third_btn-next">❯</button>
+                        
+                        <div class="third_dots"></div>
                     </div>
-                    
-                    <button class="third_btn third_btn-prev">❮</button>
-                    <button class="third_btn third_btn-next">❯</button>
-                    
-                    <div class="third_dots"></div>
                 </div>
             </div>
         </section>
         
         <section class="fourth">
-            <div class="fourth_container">
-                <div class="fourth_rings">
-                    <div class="ring ring-1"></div>
-                    <div class="ring ring-2"></div>
-                    <div class="ring ring-3"></div>
-                    <div class="ring ring-4"></div>
+            <div class="section-container">
+                <div class="fourth_container">
+                    <div class="fourth_rings">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
+                        <div class="ring ring-4"></div>
+                    </div>
+                    
+                    <h2 class="fourth_title">Почему мы</h2>
+                    
+                    <div class="fourth_grid">
+                        <div class="fourth_card">
+                            <div class="fourth_card-header">
+                                <span class="fourth_card-number">1</span>
+                                <h3 class="fourth_card-title">Опыт</h3>
+                            </div>
+                            <p class="fourth_card-text">Более 11 лет работы в сфере образования</p>
+                        </div>
+                        <div class="fourth_card">
+                            <div class="fourth_card-header">
+                                <span class="fourth_card-number">2</span>
+                                <h3 class="fourth_card-title">Преподаватели</h3>
+                            </div>    
+                            <p class="fourth_card-text">Профессионалы с практическим опытом</p>
+                        </div>
+                        <div class="fourth_card">
+                            <div class="fourth_card-header">
+                                <span class="fourth_card-number">3</span>
+                                <h3 class="fourth_card-title">Индивидуальный подход</h3>
+                            </div>
+                            <p class="fourth_card-text">Учитываем особенности каждого ученика</p>
+                        </div>
+                        <div class="fourth_card">
+                            <div class="fourth_card-header">
+                                <span class="fourth_card-number">4</span>
+                                <h3 class="fourth_card-title">Результат</h3>
+                            </div>    
+                            <p class="fourth_card-text">Гарантируем достижение поставленных целей</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <h2 class="fourth_title">Почему мы</h2>
-                
-                <div class="fourth_grid">
-                    <div class="fourth_card">
-                        <div class="fourth_card-header">
-                            <span class="fourth_card-number">1</span>
-                            <h3 class="fourth_card-title">Опыт</h3>
-                        </div>
-                        <p class="fourth_card-text">Более 11 лет работы в сфере образования</p>
-                    </div>
-                    <div class="fourth_card">
-                        <div class="fourth_card-header">
-                            <span class="fourth_card-number">2</span>
-                            <h3 class="fourth_card-title">Преподаватели</h3>
-                        </div>    
-                        <p class="fourth_card-text">Профессионалы с практическим опытом</p>
-                    </div>
-                    <div class="fourth_card">
-                        <div class="fourth_card-header">
-                            <span class="fourth_card-number">3</span>
-                            <h3 class="fourth_card-title">Индивидуальный подход</h3>
-                        </div>
-                        <p class="fourth_card-text">Учитываем особенности каждого ученика</p>
-                    </div>
-                    <div class="fourth_card">
-                        <div class="fourth_card-header">
-                            <span class="fourth_card-number">4</span>
-                            <h3 class="fourth_card-title">Результат</h3>
-                        </div>    
-                        <p class="fourth_card-text">Гарантируем достижение поставленных целей</p>
-                    </div>
             </div>
         </section>
-    </main>
+    </div>
 {% endblock %}
 {% block extra_js %}
     <script src="{% static 'courses/js/slider.js' %}"></script>

@@ -1,0 +1,773 @@
+/* ========== АДАПТИВ ДЛЯ СЛАЙДЕРА (1-я СЕКЦИЯ) ========== */
+
+/* Для 1280px и больше (десктоп) */
+@media screen and (min-width: 1025px) {
+    .card-left {
+        left: calc(50% - 600px) !important;
+        transform: scale(0.8) !important;
+        opacity: 0.6 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .card-center {
+        left: 50% !important;
+        transform: translateX(-50%) scale(1) !important;
+        z-index: 3 !important;
+    }
+    
+    .card-right {
+        right: calc(50% - 600px) !important;
+        transform: scale(0.8) !important;
+        opacity: 0.6 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+}
+
+@media screen and (max-width: 1280px) and (orientation: landscape){ 
+    .shape-1-content {
+        gap: 30px;
+    }
+    
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3{
+        font-size: 1.5rem;
+    }
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size: 1.3rem;
+    }
+    .shape-2_text-3{
+        margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .slider-card {
+        width: 380px !important;
+        height: 230px !important;
+    }
+    
+    .card-left {
+        left: calc(50% - 420px) !important;
+        transform: scale(0.85) !important;
+        opacity: 0.5 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .card-center {
+        left: 50% !important;
+        transform: translateX(-50%) scale(1) !important;
+        z-index: 3 !important;
+    }
+    
+    .card-right {
+        right: calc(50% - 420px) !important;
+        transform: scale(0.85) !important;
+        opacity: 0.5 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .slider-caption {
+        font-size: 1.2rem !important;
+    }
+    .activity-section {
+        padding: 0;
+    }
+
+    .shape-1-content {
+        padding: 3.5% 3.5%;
+        gap: 30px;
+    }
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3{
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size:
+        1.1rem;
+    }
+    .shape-2-content {
+        padding: 3% 5% 5% 5%;
+    }
+
+    .shape-2_text-3{
+        margin-top: 0;
+    }
+
+    .values-grid {
+        grid-template-columns: repeat(2, minmax(280px, 300px));
+        gap: 20px; 
+        justify-content: center;
+    }
+ }
+
+ @media screen and (max-width: 912px) {
+    .shape-1-content {
+        padding: 3.5% 3.5%;
+        gap: 30px;
+    }
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3{
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+    }
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size: 0.95rem;
+    }
+    .shape-2-content {
+        padding: 3%;
+    }
+    
+ }
+@media screen and (max-width: 853px) {
+    .slider-card {
+        width: 340px !important;
+        height: 210px !important;
+    }
+    
+    .card-left {
+        left: calc(50% - 380px) !important;
+        transform: scale(0.85) !important;
+        opacity: 0.5 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .card-center {
+        left: 50% !important;
+        transform: translateX(-50%) scale(1) !important;
+        z-index: 3 !important;
+    }
+    
+    .card-right {
+        right: calc(50% - 380px) !important;
+        transform: scale(0.85) !important;
+        opacity: 0.5 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .slider-caption {
+        font-size: 1.1rem !important;
+    }
+    
+    .slider-arrow {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 24px !important;
+    }
+    
+    .arrow-left {
+        left: 10px !important;
+    }
+    
+    .arrow-right {
+        right: 10px !important;
+    }
+    .shape-1-content {
+        padding: 3.5% 3.5%;
+        gap: 20px;
+    }
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3{
+        margin-bottom: 15px;
+        font-size: 1rem;
+    }
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3{
+        margin-bottom: 15px;
+        font-size: 1rem;
+    }
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size: 0.85rem;
+    }
+}
+@media screen and (max-width: 768px) {
+    .slider-card {
+        width: 320px !important;
+        height: 200px !important;
+    }
+    
+    .card-left {
+        left: calc(50% - 360px) !important;
+        transform: scale(0.8) !important;
+        opacity: 0.6 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    .card-right {
+        right: calc(50% - 360px) !important;
+        transform: scale(0.8) !important;
+        opacity: 0.6 !important;
+        z-index: 1 !important;
+        filter: blur(1px) !important;
+    }
+    
+    .slider-caption {
+        font-size: 1rem !important;
+    }
+
+    
+    .card-center {
+        left: 50%;
+        transform: translateX(-50%) scale(1);
+        z-index: 3;
+        box-shadow: 0 20px 40px rgba(63, 87, 91, 0.3);
+    }
+    
+    .card-right {
+        right: calc(50% - 600px);
+        transform: scale(0.8);
+        opacity: 0.6;
+        z-index: 1;
+        filter: blur(1px);
+    }
+    .activity-wrapper {
+        display: none !important;
+    }
+    .activity-shape-2 {
+        background: #719178;
+        position: relative !important;
+        width: 100% !important;
+        height: auto;
+        border-radius: 30px;
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+    }
+   
+    
+    /* ===== КОНТЕЙНЕР СЕКЦИИ ===== */
+    .activity-container {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 40px !important;
+        align-items: stretch !important;
+        padding: 0 5px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* ===== ЛЕВАЯ КОЛОНКА (блок 1 + блок 2) ===== */
+    .activity-left-col {
+        flex: 1 !important;
+        min-width: 100% !important;  /* ← минимальная ширина */
+        max-width: 45% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important;
+    }
+    
+    
+    /* ===== БЛОК 1 (ТЕКСТ) ===== */
+    .activity-main-text-block {
+        margin: 0 !important;
+        margin-top: 0 !important;
+        padding: 15px 10px !important;
+        background: transparent;
+        border: 2px solid var(--color-2);
+        border-radius: 30px;
+        box-sizing: border-box;
+        width: 100% !important;
+        max-width: 100%;
+    }
+    
+    .activity-main-text-block p {
+        font-size: 0.9rem !important;
+        line-height: 1.3 !important;
+        color: var(--color-4);
+        margin: 0;
+    }
+    
+    /* ===== БЛОК 2 (ФИГУРА) ===== */
+    .activity-left-col .shape-2-content {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .activity-left-col .shape-2_title-3 {
+        font-size: 0.9rem !important;
+        font-weight: 400;
+        padding: 2px 8px;
+        margin-top: 0 !important;
+        margin-bottom: 7px;
+        border: 1px solid #EAD7A1;
+    }
+    
+    .activity-left-col .shape-2_text-3 {
+        font-size: 0.85rem !important;
+        line-height: 1.4;
+        margin-top: 5px;
+        max-width: 97%;
+    }
+    
+   
+    /* ===== ПРАВАЯ КОЛОНКА (блок 3) ===== */
+    .activity-shape-1-mobile {
+        display: block;
+        flex:2 !important;
+        min-width: 250px !important;
+        background: #3F575B;
+        border-radius: 30px;
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+    .shape-1-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+    }
+    
+    .activity-shape-1-mobile .shape-1_text-1-block,
+    .activity-shape-1-mobile .shape-1_text-2-block {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .activity-shape-1-mobile .shape-1_title-1,
+    .activity-shape-1-mobile .shape-1_title-2 {
+        font-size: 0.9rem !important;
+        font-weight: 400;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+        padding: 2px 15px;
+        display: inline-block;
+        border: 2px solid var(--color-2);
+        border-radius: 30px;
+    }
+    
+    .activity-shape-1-mobile .shape-1_text-1,
+    .activity-shape-1-mobile .shape-1_text-2 {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        margin-top: 5px;
+    }
+    
+    /* ===== ПОКАЗЫВАЕМ МОБИЛЬНУЮ ВЕРСИЮ ===== */
+    .activity-wrapper-mobile {
+        display: block !important;
+        width: 100%;
+    }
+    .values-section {
+        padding: 30px 15px;
+    }
+    
+    .values-title {
+        font-size: 2.5rem;
+        margin-bottom: 70px;
+    }
+    
+    .values-card {
+        width: 100%;
+        max-width: 300px;
+        height: 350px;
+        margin-bottom: 0;
+    }
+    
+    .values-content {
+        padding: 45px 12px 20px 22px;
+    }
+    
+    .values-card:not(:nth-child(4)) .values-content {
+        padding-left: 12px;
+    }
+    
+    .values-card:nth-child(4) .values-content {
+        padding-left: 2px;
+    }
+    
+    .values-card-title,
+    .values-card-text {
+        max-width: 190px;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    
+    .values-icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 15px;
+    }
+    
+    .values-icon svg {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .values-card-title {
+        font-size: 1.3rem;
+    }
+    
+    .values-card-text {
+        font-size: 1rem;
+    }
+    .certificates-section {
+        margin: 40px auto 0;
+        padding: 20px 0;
+    }
+    
+    .certificates-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .certificates-title::after {
+        width: 60px;
+        margin: 10px auto 0;
+    }
+    
+    .certificates-slider {
+        width: 100%;
+        padding: 20px 15px;
+        border-radius: 40px;
+    }
+    
+    .certificates-track {
+        width: 100%;
+    }
+    
+    .certificates-slide {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;
+    }
+    
+    .certificate-card {
+        max-width: 280px;
+        width: 100%;
+        border-radius: 20px;
+    }
+    
+    /* Кнопки навигации */
+    .certificates-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+    
+    .certificates-btn-prev {
+        left: 10px;
+    }
+    
+    .certificates-btn-next {
+        right: 10px;
+    }
+    
+    /* Точки */
+    .certificates-dots {
+        gap: 8px;
+        margin-top: 15px;
+    }
+    
+    .certificates-dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+@media screen and (max-width: 540px) {
+    .about-section {
+        min-height: 350px;
+    }
+    
+    .slider-container {
+        height: 300px;
+    }
+    
+    .slider-card {
+        display: none !important;
+        width: 260px !important;
+        height: 180px !important;
+        left: 50% !important;
+        transform: translateX(-50%) scale(1) !important;
+        opacity: 1 !important;
+        filter: none !important;
+        border-radius: 25px;
+    }
+    
+    .slider-card.active {
+        display: block !important;
+    }
+    
+    .card-left,
+    .card-right,
+    .card-center {
+        position: absolute !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) scale(1) !important;
+    }
+    
+    .slider-caption {
+        margin-top: 20px;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Стрелки */
+    .slider-arrow {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+    
+    .arrow-left {
+        left: 5px !important;
+    }
+    
+    .arrow-right {
+        right: 5px !important;
+    }
+    
+    /* Точки */
+    .slider-dots {
+        bottom: -20px !important;
+        gap: 6px !important;
+    }
+    
+    .dot {
+        width: 7px !important;
+        height: 7px !important;
+    }
+    
+    .dot.active {
+        transform: scale(1.2) !important;
+    }
+    .values-grid {
+        grid-template-columns: repeat(1, minmax(320px, 300px));
+        gap: 20px; 
+        justify-content: center;
+    }
+    .certificates-title {
+        font-size: 1.6rem;
+    }
+    
+    .certificates-slider {
+        padding: 15px 10px;
+    }
+    
+    .certificate-card {
+        max-width: 250px;
+    }
+    
+    .certificates-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+    
+    .certificates-btn-prev {
+        left: 5px;
+    }
+    
+    .certificates-btn-next {
+        right: 5px;
+    }
+    
+    .certificates-dot {
+        width: 6px;
+        height: 6px;
+        gap: 6px;
+    }
+}
+
+/* Для разрешения 440px и меньше (маленькие телефоны) */
+@media screen and (max-width: 440px) {
+    .about-section {
+        min-height: 320px;
+    }
+    
+    .slider-container {
+        height: 280px;
+    }
+    
+    .slider-card {
+        display: none !important;
+        width: 220px !important;
+        height: 160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) scale(1) !important;
+        opacity: 1 !important;
+        filter: none !important;
+        border-radius: 20px;
+    }
+    
+    .slider-card.active {
+        display: block !important;
+    }
+    
+    .card-left,
+    .card-right,
+    .card-center {
+        position: absolute !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) scale(1) !important;
+    }
+    
+    .slider-caption {
+        margin-top: 15px;
+        font-size: 0.7rem !important;
+        letter-spacing: 1px !important;
+    }
+    
+    /* Стрелки */
+    .slider-arrow {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+    }
+    
+    .arrow-left {
+        left: 3px !important;
+    }
+    
+    .arrow-right {
+        right: 3px !important;
+    }
+    
+    /* Точки */
+    .slider-dots {
+        bottom: -15px !important;
+        gap: 5px !important;
+    }
+    
+    .dot {
+        width: 6px !important;
+        height: 6px !important;
+    }
+    
+    .dot.active {
+        transform: scale(1.1) !important;
+    }
+}
+@media screen and (max-width: 400px) {
+    .certificates-title {
+        font-size: 1.4rem;
+    }
+    
+    .certificate-card {
+        max-width: 220px;
+    }
+    
+    .certificates-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+    }
+    
+    .certificates-dots {
+        gap: 6px;
+    }
+    
+    .certificates-dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+/* Для очень маленьких телефонов (380px и меньше) */
+@media screen and (max-width: 380px) {
+    .slider-container {
+        height: 260px;
+    }
+    
+    .slider-card {
+        width: 200px !important;
+        height: 145px !important;
+        border-radius: 18px;
+    }
+    
+    .slider-caption {
+        font-size: 0.65rem !important;
+    }
+    
+    .slider-arrow {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 12px !important;
+    }
+    
+    .dot {
+        width: 5px !important;
+        height: 5px !important;
+    }
+}
+
+/* Для 320px (самые маленькие телефоны) */
+@media screen and (max-width: 320px) {
+    .slider-container {
+        height: 240px;
+    }
+    
+    .slider-card {
+        width: 180px !important;
+        height: 130px !important;
+        border-radius: 15px;
+    }
+    
+    .slider-caption {
+        font-size: 0.6rem !important;
+    }
+    
+    .slider-arrow {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10px !important;
+    }
+    
+    .arrow-left {
+        left: 2px !important;
+    }
+    
+    .arrow-right {
+        right: 2px !important;
+    }
+    .certificate-card {
+        max-width: 200px;
+    }
+    
+    .certificates-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
+    }
+}

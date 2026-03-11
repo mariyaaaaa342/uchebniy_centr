@@ -90,7 +90,7 @@ def submit_application(request):
                 'success': True, 
                 'message': 'Заявка успешно отправлена'
             })
-            
+
         except Exception as e:
             return JsonResponse({
                 'success': False, 

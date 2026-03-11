@@ -1,5 +1,8 @@
+from datetime import date
+
 from django.db import models
 from django.utils import timezone
+
 
 
 FORMAT_CHOICES = [
@@ -379,29 +382,6 @@ class Profile(models.Model):
             return self.avatar.url
         return '/static/images/default-avatar.png'
     
-"""from django.db.models.signals import pre_save
-from django.dispatch import receiver
-
-@receiver(pre_save, sender='courses.Applications')
-def create_progress_on_confirm(sender, instance, **kwargs):
-    if instance.status == 'confirmed':
-        # Проверяем, был ли статус изменён на confirmed
-        if instance.pk:
-            try:
-                old = Applications.objects.get(pk=instance.pk)
-                if old.status == 'confirmed':
-                    return
-            except Applications.DoesNotExist:
-                pass
-        
-        CourseProgress.objects.get_or_create(
-            user=instance.user,
-            course=instance.course,
-            defaults={
-                'format': instance.format,
-                'status': 'not_started'
-            }
-        )"""
 
 class Review(models.Model):
     RATING_CHOICES = [
@@ -457,3 +437,38 @@ class Certificate(models.Model):
     
     def __str__(self):
         return self.title or f'Сертификат #{self.certificate_id}'
+    
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.conf import settings
+
+@receiver(post_save, sender=Applications)
+def send_new_application_notification(sender, instance, created, **kwargs):
+    """Отправляет уведомление администратору при создании новой заявки"""
+    if created:
+        # Собираем информацию о заявке
+        subject = f'Новая заявка на курс {instance.course.title}'
+        
+        message = f"""
+        Поступила новая заявка на обучение!
+
+        Детали заявки:
+        - Студент: {instance.user.full_name}
+        - Курс: {instance.course.title}
+        - Формат: {instance.format}
+        - Телефон: {instance.user.phone}
+        - Email: {instance.user.email}
+        - Дата заявки: {instance.application_date.strftime('%d.%m.%Y %H:%M') if instance.application_date else 'Не указана'}
+
+        🔗 Ссылка в админ панели: https://ledy-center.ru/admin/courses/applications/{instance.application_id}/change/
+        """
+        
+        # Отправляем письмо администратору
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=['miininamasha6@gmail.com'],  
+            fail_silently=False,
+        )
