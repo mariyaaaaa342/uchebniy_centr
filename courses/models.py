@@ -268,12 +268,10 @@ class Portfolio(models.Model):
     image_url = models.CharField(max_length=500, verbose_name='URL фотографии (ссылка)', blank=True, null=True)    
     work_types = models.ManyToManyField('WorkType', verbose_name='Типы работ', blank=True)
     author_type = models.CharField(max_length=20, choices=AUTHOR_TYPE_CHOICES, verbose_name='Тип автора')
-    author_name = models.CharField(max_length=200, verbose_name='Имя автора', blank=True, null=True)
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     is_active = models.BooleanField(default=True, verbose_name='Отображать на сайте')
-    teacher = models.ForeignKey('Teachers', models.SET_NULL, blank=True, null=True, verbose_name='Преподаватель')
-    student = models.ForeignKey('Users', models.SET_NULL, blank=True, null=True, verbose_name='Студент')
+ 
 
     class Meta:
         managed = False
@@ -311,6 +309,8 @@ class Users(models.Model):
     email = models.EmailField(unique=True, max_length=100, verbose_name='Email')
     password_hash = models.CharField(max_length=255, verbose_name='Хеш пароля')
     registration_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата регистрации')
+    password_reset_token = models.CharField(max_length=100, blank=True, null=True)
+    password_reset_token_created = models.DateTimeField(blank=True, null=True)
 
     is_verified = models.BooleanField(
         blank=True, 

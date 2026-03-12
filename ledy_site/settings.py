@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--txb^g(&b_gh26v+kq37(p(tb1zoyrf$jn+j356ds6rg#^3q^4'
+SECRET_KEY = 'django-insecure--txb^g(&b_gh26hduhv+kq2t37(p(tb1zdsoyrf$jn+j356ds6rds4thng#^3q^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,4 +136,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Перенаправление для @login_required
 LOGIN_URL = '/login/'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+""" EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'mininamasha6@gmail.com'
+EMAIL_HOST_PASSWORD = 'uutm udjc ueas gbqq'
+DEFAULT_FROM_EMAIL = 'mininamasha6@gmail.com' """

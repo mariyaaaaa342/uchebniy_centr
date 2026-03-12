@@ -276,378 +276,250 @@
     }
 }
 
-.blocks-section {
-    position: relative;
-    width: 1307px;
-    max-width: 100%;
-    min-height: 700px;
+/* ===== СЕКЦИЯ "НАША ДЕЯТЕЛЬНОСТЬ" ===== */
+
+.activity-section {
+    width: 100%;
+    max-width: 1307px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 60px 20px;
+    position: relative;
 }
 
-.blocks-section-title {
-    position: absolute;
-    top: 170px;
-    left: 0;
+.activity-container {
+    width: 100%;
+    position: relative;
+}
+
+/* 1. Заголовок секции по центру */
+.activity-title {
     font-family: var(--font-main);
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 300;
     color: var(--color-4);
+    text-align: center;
+    margin-bottom: 70px;
+    margin-top: 80px;
     letter-spacing: 2px;
-    z-index: 10;
-    transform: translateY(-50%);
+    position: relative;
+    z-index: 2;
 }
-
-.blocks-section-title::after {
+.activity-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 80px; 
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
     height: 3px;
     background: var(--color-2);
 }
 
-.blocks-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 800px;
-}
-
-.block {
-    position: absolute;
-    background: var(--color-w);
+/* 2. Основной текст (прозрачный блок с песочной рамкой, прижат к левому краю) */
+.activity-main-text-block {
+    max-width: 80%;
+    margin: 100px auto 30px 0;
+    padding: 30px 40px;
+    background: transparent;
+    border: 2px solid var(--color-2);
     border-radius: 30px;
-    padding: 30px;
-    box-shadow: 0 15px 30px rgba(63, 87, 91, 0.1);
-    border: 1px solid var(--color-4);
-    transition: all 0.3s ease;
-    max-width: 350px;
-    min-width: 250px;
-    width: auto;
+    position: relative;
     z-index: 2;
 }
-.block:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(63, 87, 91, 0.2);
-    border-color: var(--color-1);
-}
-
-.block-title {
+.activity-main-text-block p {
     font-family: var(--font-main);
-    font-size: 1.8rem;
-    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 1.5;
     color: var(--color-4);
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+    text-align: left;
+    margin: 0;
 }
 
-.block-text {
-    font-family: var(--font-main);
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
+/* 3. Первая фигура (тёмная, на всю ширину) */
+.activity-shape-1 {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
 }
-.block-1 {
-    left: 0;
-    top: 380px;
-}
-
-.block-2 {
-    left: 353px;
-    top: 128px;
+.shape-1-img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.block-3 {
-    left: 583px;
-    top: 490px;
-}
-
-.block-4 {
-    left: 929px;
-    top: 225px;
-}
-
-
-
-.arrow {
+/* Слой текста поверх первой фигуры */
+.shape-1-content {
     position: absolute;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.arrow-1-2 {
-    left: 100px;
-    top: 110px;        
-    width: 400px;
-    height: 300px;
-}
-
-.arrow-2-3 {
-    left: 680px;      
-    top: 180px;
-    width: 400px;
-    height: 350px;
-}
-
-.arrow-3-4 {
-    left: 930px;      
-    top: 380px;
-    width: 350px;
-    height: 300px;
-}
-
-.arrow-svg {
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5% 5%;
+    z-index: 2;
+    gap: 50px;
 }
 
-.arrow-path {
-    fill: none;
-    stroke: var(--color-2);
-    stroke-width: 3;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-.arrow-head {
-    fill: var(--color-2);  
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
-
-    stroke-width: 1;
-}
-.arrow-1-2 .arrow-path {
-    d: path("M92,246 Q160,150 230,145");
-}
-.arrow-1-2 .arrow-head {
-    d: path("M230,145 L220,135 L220,145 L220,155 L230,145");
+/* Верхний текстовый блок – ширина 80% от родительской фигуры */
+.shape-1_text-1-block {
+    width: 96%;
+    max-width: 96%;
 }
 
-.arrow-2-3 .arrow-path {
-    d: path("M120,100 Q150,110 180,160 Q200,200 168,277");
-}
-.arrow-2-3 .arrow-head {
-    d: path("M178,277 L158,267 L158,277 L158,287 L168,277");
-}
-.arrow-3-4 .arrow-path {
-    d: path("M95,225 Q180,160 180,90");
-}
-.arrow-3-4 .arrow-head {
-    d: path("M190,90 L170,80 L170,90 L170,100 L190,90");
-
-}
-@media screen and (max-width: 1400px) and (min-width: 1201px) {
-    .arrow-1-2 {
-        left: 80px;
-        top: 90px;      
-        width: 380px;
-        height: 280px;
-    }
-    .arrow-1-2 .arrow-path {
-        d: path("M87,233 Q152,142 218,138");
-    }
-    .arrow-1-2 .arrow-head {
-        d: path("M218,138 L208,128 L208,138 L208,148 L218,138");
-    }
-    .arrow-2-3 {
-        left: 640px;  
-        top: 160px;
-        width: 380px;
-        height: 330px;
-    }
-    .arrow-2-3 .arrow-path {
-        d: path("M114,95 Q142,104 171,152 Q190,190 160,263");
-    }
-    .arrow-2-3 .arrow-head {
-        d: path("M160,263 L150,253 L150,263 L150,273 L160,263");
-    }
-    .arrow-3-4 {
-        left: 880px;   
-        top: 360px;
-        width: 330px;
-        height: 280px;
-    }
-    .arrow-3-4 .arrow-path {
-        d: path("M90,214 Q171,152 171,86");
-    }
-    .arrow-3-4 .arrow-head {
-        d: path("M171,86 L161,76 L161,86 L161,96 L171,86");
-    }
+/* Нижний текстовый блок – ширина 40% от родительской фигуры */
+.shape-1_text-2-block {
+    width: 47%;
+    max-width: 47%;
 }
 
-@media screen and (max-width: 1200px) and (min-width: 1001px) {
-    .arrow-1-2 {
-        left: 40px;
-        top: 50px;     
-        width: 340px;
-        height: 240px;
-    }
-    .arrow-1-2 .arrow-path {
-        d: path("M82,220 Q144,135 207,130");
-    }
-    .arrow-1-2 .arrow-head {
-        d: path("M207,130 L197,120 L197,130 L197,140 L207,130");
-    }
-    .arrow-2-3 {
-        left: 600px;   
-        top: 140px;
-        width: 360px;
-        height: 310px;
-    }
-    .arrow-2-3 .arrow-path {
-        d: path("M108,90 Q135,99 162,144 Q180,180 152,249");
-    }
-    .arrow-2-3 .arrow-head {
-        d: path("M152,249 L142,239 L142,249 L142,259 L152,249");
-    }
-    .arrow-3-4 {
-        left: 830px;   
-        top: 340px;
-        width: 310px;
-        height: 260px;
-    }
-    .arrow-3-4 .arrow-path {
-        d: path("M85,202 Q162,144 162,81");
-    }
-    .arrow-3-4 .arrow-head {
-        d: path("M162,81 L152,71 L152,81 L152,91 L162,81");
-    }
+/* Заголовки внутри первой фигуры (светлые, рамка песочная) */
+.shape-1_title-1,
+.shape-1_title-2 {
+    font-family: var(--font-main);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--color-w);
+    margin-bottom: 30px;
+    display: inline-block;
+    padding: 5px 20px;
+    border: 2px solid var(--color-2);
+    border-radius: 30px;
+    background: transparent;
+    text-align: left;
 }
 
-@media screen and (max-width: 1000px) and (min-width: 801px) {
-    .arrow-1-2 {
-        left: 40px;   
-        top: 50px;
-        width: 340px;
-        height: 240px;
-    }
-    .arrow-1-2 .arrow-path {
-        d: path("M77,207 Q136,127 196,122");
-    }
-    .arrow-1-2 .arrow-head {
-        d: path("M196,122 L186,112 L186,122 L186,132 L196,122");
-    }
-    .arrow-2-3 {
-        left: 560px;   
-        top: 120px;
-        width: 340px;
-        height: 290px;
-    }
-    .arrow-2-3 .arrow-path {
-        d: path("M102,85 Q128,94 153,136 Q170,170 144,235");
-    }
-    .arrow-2-3 .arrow-head {
-        d: path("M144,235 L134,225 L134,235 L134,245 L144,235");
-    }
-    .arrow-3-4 {
-        left: 780px;   
-        top: 320px;
-        width: 290px;
-        height: 240px;
-    }
-    .arrow-3-4 .arrow-path {
-        d: path("M80,191 Q153,136 153,76");
-    }
-    .arrow-3-4 .arrow-head {
-        d: path("M153,76 L143,66 L143,76 L143,86 L153,76");
-    }
+/* Текст внутри первой фигуры (светлый, выравнивание по левому краю) */
+.shape-1_text-1,
+.shape-1_text-2 {
+    font-family: var(--font-main);
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--color-w);
+    text-align: left;
+    margin: 0;
 }
 
-@media screen and (max-width: 800px) {
-    .blocks-section {
-        width: 100%;
-        min-height: auto;
-        padding: 40px 20px;
+/* 4. Вторая фигура – прижата к правому краю и к низу первой фигуры */
+.activity-shape-2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 47.7%;        /* подберите под вашу SVG-форму */
+    z-index: 3;
+}
+.shape-2-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Слой текста поверх второй фигуры */
+.shape-2-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;   
+    align-items: center;
+    padding: 4% 6% 6% 6%;;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Заголовок внутри второй фигуры (светлый, рамка песочная) */
+.shape-2_title-3 {
+    font-family: var(--font-main);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--color-w);
+    /*margin-bottom: 15px;*/
+    margin-top: 0;
+    display: inline-block;
+    padding: 5px 20px;
+    border: 2px solid var(--color-2);
+    border-radius: 30px;
+    text-align: center;
+}
+
+/* Текст внутри второй фигуры (светлый, выравнивание по левому краю) */
+.shape-2_text-3 {
+    font-family: var(--font-main);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--color-w);
+    text-align: left;
+    margin-top: 15px;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media screen and (max-width: 1200px) {
+    .activity-main-text-block {
+        max-width: 90%;
+        margin-left: 5%;
     }
-    
-    .blocks-section-title {
-        position: relative;
-        top: 0;
-        left: 0;
-        font-size: 2rem;
-        margin-bottom: 30px;
-        text-align: center;
-        transform: none;
-    }
-    
-    .blocks-section-title::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .blocks-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        min-height: auto;
-        position: relative;
-    }
-    
-    .block {
-        position: relative;
-        left: auto !important;
-        top: auto !important;
+    .shape-1_text-1-block {
         width: 90%;
-        max-width: 400px;
-        margin: 0 auto;
     }
-    
-    .arrow {
+    .shape-1_text-2-block {
+        width: 60%;
+    }
+    .activity-shape-2 {
+        width: 55%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .activity-title {
+        font-size: 2rem;
+    }
+    .activity-main-text-block p {
+        font-size: 1rem;
+    }
+    .shape-1-content {
+        padding: 4% 6%;
+        gap: 20px;
+    }
+    .shape-1_title-1,
+    .shape-1_title-2 {
+        font-size: 1.4rem;
+        padding: 4px 15px;
+    }
+    .shape-1_text-1-block,
+    .shape-1_text-2-block {
+        width: 100%;
+    }
+    .activity-shape-2 {
         position: relative;
-        width: 60px;
-        height: 60px;
-        margin: 5px auto;
-        left: auto !important;
-        top: auto !important;
-        transform: rotate(90deg);
+        width: 90%;
+        margin: 30px auto 0;
+        right: auto;
+        bottom: auto;
     }
-    
-    .arrow-1-2,
-    .arrow-2-3,
-    .arrow-3-4 {
-        width: 60px;
-        height: 60px;
-        margin: 5px auto;
-    }
-    
-    .arrow-path {
-        stroke-width: 3;
-    }
-    .arrow-head {
-        fill: var(--color-1);
-    }
-    
-    .arrow-1-2 .arrow-path,
-    .arrow-2-3 .arrow-path,
-    .arrow-3-4 .arrow-path {
-        d: path("M10,30 Q30,15 50,30");
-    }
-    .arrow-1-2 .arrow-head,
-    .arrow-2-3 .arrow-head,
-    .arrow-3-4 .arrow-head {
-        d: path("M50,30 L45,25 L45,30 L45,35 L50,30");
+    .shape-2_title-3 {
+        font-size: 1.3rem;
     }
 }
-
 @media screen and (max-width: 500px) {
-    .blocks-section-title {
-        font-size: 1.5rem;
+    .shape-1_title-1,
+    .shape-1_title-2,
+    .shape-2_title-3 {
+        font-size: 1.2rem;
+        padding: 3px 12px;
     }
-    
-    .block {
-        width: 95%;
-        padding: 20px;
-    }
-    
-    .arrow {
-        width: 50px;
-        height: 50px;
+    .shape-1_text-1,
+    .shape-1_text-2,
+    .shape-2_text-3 {
+        font-size: 0.9rem;
     }
 }
 
+/*Секция наши ценности*/
 .values-section {
     position: relative;
     width: 1307px;
@@ -725,6 +597,7 @@
 .values-card:nth-child(4) .values-content {
     padding-left: 5px;
 }
+
 
 /* Ширина контейнера с текстом 190px для всех карточек */
 .values-card-title,
@@ -1006,15 +879,16 @@
     margin: 15px auto 0;
 }
 
-/* Слайдер как на главной странице */
 .certificates-slider {
     position: relative;
     width: 97%;
     overflow: hidden;
     border-radius: 60px;
+    background: #a8baa486;
     backdrop-filter: blur(5px);
     padding: 40px 40px;
     margin-bottom: 0;
+    border: 1px solid var(--color-2);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.21);
 }
 

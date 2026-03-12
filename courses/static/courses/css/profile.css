@@ -361,7 +361,15 @@
     font-family: var(--font-main);
     color: #666;
 }
+.menu-item.delete-account {
+    color: #c00;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
 
+.menu-item.delete-account:hover {
+    color: #f00;
+}
 @media (max-width: 800px) {
     .profile-container {
         flex-direction: column;

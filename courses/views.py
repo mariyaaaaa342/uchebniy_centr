@@ -8,6 +8,10 @@ from django.utils import timezone
 from .forms import RegistrationForm
 from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress, Module, ModuleProgress, Review, Certificate
 import json
+import secrets
+from django.core.mail import send_mail
+from django.conf import settings
+from datetime import timedelta
 
 def custom_login_required(view_func):
     def wrapper(request, *args, **kwargs):
@@ -191,11 +195,11 @@ def login_view(request):
         
         # Проверяем пароль
         if user and check_password(password, user.password_hash):
-            # Сохраняем пользователя в сессии
             request.session['user_id'] = user.user_id
             request.session['user_name'] = user.full_name
-            messages.success(request, f'Добро пожаловать, {user.full_name}!')
-            return redirect('home')  # перенаправляем на главную
+            # Редирект на предыдущую страницу или на главную
+            next_url = request.GET.get('next', 'home')
+            return redirect(next_url)
         else:
             messages.error(request, 'Неверный телефон/email или пароль')
     
@@ -664,3 +668,125 @@ def about_us(request):
         'certificates': certificates,
     }
     return render(request, 'courses/about_us.html', context)
+
+def faq(request):
+    """Страница часто задаваемых вопросов"""
+    context = {
+        'title': 'Часто задаваемые вопросы'
+    }
+    return render(request, 'courses/faq.html', context)
+
+@custom_login_required
+def delete_account(request):
+    """Удаление аккаунта пользователя"""
+    user_id = request.session.get('user_id')
+    user = get_object_or_404(Users, user_id=user_id)
+    
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        
+        if check_password(password, user.password_hash):
+            Applications.objects.filter(user=user).delete()
+            CourseProgress.objects.filter(user=user).delete()
+            Profile.objects.filter(user=user).delete()
+            user.delete()
+            
+            request.session.flush()
+            
+            messages.success(request, 'Ваш аккаунт успешно удалён. Жаль прощаться :(')
+            return redirect('home')
+        else:
+            messages.error(request, 'Неверный пароль')
+    
+    return render(request, 'courses/delete_account.html', {'user': user})
+
+def password_reset_request(request):
+    """Запрос на сброс пароля"""
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = Users.objects.filter(email=email).first()
+        
+        if user:
+            # Генерируем токен
+            token = secrets.token_urlsafe(32)
+            user.password_reset_token = token
+            user.password_reset_token_created = timezone.now()
+            user.save()
+            
+            # Отправляем письмо
+            reset_url = request.build_absolute_uri(f'/password-reset/confirm/{token}/')
+            
+            try:
+                send_mail(
+                    subject='Восстановление пароля - Учебный центр Леди',
+                    message=f'Для восстановления пароля перейдите по ссылке: {reset_url}',
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
+                messages.success(request, 'Ссылка для восстановления пароля отправлена на ваш email')
+            except Exception as e:
+                print(f"Ошибка отправки: {e}")
+                messages.error(request, 'Ошибка при отправке письма')
+        else:
+            messages.error(request, 'Пользователь с таким email не найден')
+        
+        return redirect('password_reset')
+    
+    return render(request, 'courses/password_reset.html')
+
+
+from django.utils import timezone
+from datetime import timedelta
+
+def password_reset_confirm(request, token):
+    user = Users.objects.filter(password_reset_token=token).first()
+    
+    if not user:
+        messages.error(request, 'Неверная или устаревшая ссылка')
+        return redirect('password_reset')
+    
+    # Проверка срока действия (1 час) - ИСПРАВЛЕНО
+    if user.password_reset_token_created:
+        # Делаем оба времени offset-aware
+        token_created = user.password_reset_token_created
+        if timezone.is_naive(token_created):
+            token_created = timezone.make_aware(token_created)
+        
+        if timezone.now() > token_created + timedelta(hours=1):
+            messages.error(request, 'Ссылка устарела. Запросите восстановление пароля заново.')
+            return redirect('password_reset')
+    
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+        
+        if not password or not password_confirm:
+            messages.error(request, 'Заполните оба поля')
+            return render(request, 'courses/password_reset_confirm.html', {'token': token})
+        
+        if password != password_confirm:
+            messages.error(request, 'Пароли не совпадают')
+            return render(request, 'courses/password_reset_confirm.html', {'token': token})
+        
+        if len(password) < 6:
+            messages.error(request, 'Пароль должен содержать минимум 6 символов')
+            return render(request, 'courses/password_reset_confirm.html', {'token': token})
+        
+        from django.contrib.auth.hashers import make_password
+        user.password_hash = make_password(password)
+        user.password_reset_token = None
+        user.password_reset_token_created = None
+        user.save()
+        
+        messages.success(request, 'Пароль успешно изменён! Теперь вы можете войти.')
+        return redirect('login')
+    
+    return render(request, 'courses/password_reset_confirm.html', {'token': token})
+
+def privacy_policy(request):
+    return render(request, 'courses/privacy_policy.html')
+
+def terms_of_use(request):
+    """Пользовательское соглашение"""
+    return render(request, 'courses/terms_of_use.html')

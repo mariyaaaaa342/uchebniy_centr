@@ -1,3 +1,4 @@
+{% load static %}
 <header class="header">
         <div class="header_container">
             <div class="header_left">
@@ -17,7 +18,7 @@
                         <input type="checkbox" id="themeToggle">
                         <span class="slider round"></span>
                     </label>
-                    <span class="theme-icon">🌙</span>
+                    <img src="{% static 'courses/images/значок_смены_темы.svg' %}" alt="Тёмная тема" class="theme-icon-img">
                 </div>
                 <div class="header_address">
                     <div class="header_address-text">
@@ -74,19 +75,20 @@
                     </a>
                 </li>
                 <li class="header_menu-item" style="--item-index: 7">
-                    <a href="{% url 'contacts' %}" class="header_menu-link">
-                        <span>07</span> Контакты
+                    <a href="{% url 'faq' %}" class="header_menu-link">
+                        <span>07</span> Частые вопросы
                     </a>
                 </li>
-                
-                <!-- Пункт "Личный кабинет" - показывается ТОЛЬКО авторизованным -->
-                <!--{% if request.session.user_id %}-->
+                <li class="header_menu-item" style="--item-index: 7">
+                    <a href="{% url 'contacts' %}" class="header_menu-link">
+                        <span>08</span> Контакты
+                    </a>
+                </li>
                 <li class="header_menu-item" style="--item-index: 8">
                     <a href="{% url 'profile' %}" class="header_menu-link">
-                        <span>08</span> Личный кабинет
+                        <span>09</span> Личный кабинет
                     </a>
                 </li>
-               <!-- {% endif %}-->
             </ul>
             
             <div class="header_menu-contacts">

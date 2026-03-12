@@ -87,20 +87,6 @@ body {
     width: 100%;
 }
 
-/*.course-header {
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--color-2);
-    padding-bottom: 15px;
-}
-
-.course-title {
-    font-family: var(--font-main);
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: var(--color-4);
-    margin-bottom: 10px;
-}
-*/
 .course-level {
     display: inline-block;
     padding: 5px 15px;
@@ -506,6 +492,12 @@ body {
     font-weight: 500;
     color: var(--color-4);
     margin-left: 5px;
+}
+
+.form-label .optional {
+    font-weight: normal;
+    opacity: 0.7;
+    font-size: 0.85rem;
 }
 
 .form-input {

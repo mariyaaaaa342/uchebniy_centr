@@ -18,22 +18,13 @@
         <p class="profile-phone">{{ user.phone }}</p>
         
         <div class="profile-menu">
-            <a href="{% url 'profile' %}" class="menu-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-                Общая информация
-            </a>
-            <a href="{% url 'profile_edit' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_edit' %}active{% endif %}">
-                Редактировать профиль
-            </a>
-            <a href="{% url 'my_courses' %}" class="menu-item {% if request.resolver_match.url_name == 'my_courses' %}active{% endif %}">
-                Мои курсы
-            </a>
-            <a href="{% url 'profile_applications' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_applications' %}active{% endif %}">
-                Мои заявки
-            </a>
-            <a href="{% url 'available_for_review' %}" class="menu-item {% if request.resolver_match.url_name == 'available_for_review' %}active{% endif %}">
-                Оставить отзыв
-            </a>
+            <a href="{% url 'profile' %}" class="menu-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Общая информация</a>
+            <a href="{% url 'profile_edit' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_edit' %}active{% endif %}"> Редактировать профиль</a>
+            <a href="{% url 'my_courses' %}" class="menu-item {% if request.resolver_match.url_name == 'my_courses' %}active{% endif %}">Мои курсы</a>
+            <a href="{% url 'profile_applications' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_applications' %}active{% endif %}">Мои заявки</a>
+            <a href="{% url 'available_for_review' %}" class="menu-item {% if request.resolver_match.url_name == 'available_for_review' %}active{% endif %}">Оставить отзыв</a>
             <a href="{% url 'logout' %}" class="menu_item_logout">Выйти</a>
+            <a href="{% url 'delete_account' %}" class="menu-item delete-account">Удалить аккаунт</a>
         </div>
     </div>
     

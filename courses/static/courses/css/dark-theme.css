@@ -26,16 +26,77 @@ body.dark-theme {
 /* ============================================================
    ТЁМНАЯ ТЕМА - ШАПКА
    ============================================================ */
-body.dark-theme .header {
+body.dark-theme .header,
+body.dark-theme .theme-switch {
     background: var(--color-0);
 }
+
 body.dark-theme .header_logo-text,
 body.dark-theme .header_address-text,
 body.dark-theme .header_user{
     color: var(--text-light);
 }
 
+/* ===== ВЫПАДАЮЩЕЕ МЕНЮ (БУРГЕР) - ТЁМНАЯ ТЕМА ===== */
 
+/* Фон меню */
+body.dark-theme .header_menu {
+    background: var(--color-0) !important;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ссылки в меню */
+body.dark-theme .header_menu-link {
+    color: var(--text-light) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Цифры рядом с пунктами меню */
+body.dark-theme .header_menu-link span {
+    color: var(--color-12) !important;
+}
+
+/* При наведении на ссылку */
+body.dark-theme .header_menu-link:hover {
+    color: var(--color-12) !important;
+    border-bottom-color: var(--color-12) !important;
+}
+
+/* Логотип в меню */
+body.dark-theme .header_menu-logo-text {
+    color: var(--text-light) !important;
+}
+
+/* Разделитель под логотипом */
+body.dark-theme .header_menu-logo {
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Контакты в меню */
+body.dark-theme .header_menu-contact {
+    color: var(--text-light) !important;
+}
+
+/* Иконки контактов */
+body.dark-theme .header_menu-contact-icon {
+    background: var(--color-11) !important;
+    color: var(--text-light) !important;
+}
+
+/* Разделитель перед контактами */
+body.dark-theme .header_menu-contacts {
+    border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Оверлей (затемнение фона) */
+body.dark-theme .header_overlay {
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+body.dark-theme .footer {
+    background: var(--color-0) !important;
+}
 /* ============================================================
              ГЛАВНАЯ СТРАНИЦА
    ============================================================ */
@@ -163,12 +224,6 @@ body.dark-theme .review-stars {
     color: #f5a623 !important;
 }
 
-/* Плейсхолдер для фото */
-body.dark-theme .review-photo-placeholder {
-    background: var(--color-13) !important;
-    color: var(--text-light) !important;
-}
-
 /* ===== 2. СТИЛИ ДЛЯ КНОПОК ===== */
 body.dark-theme .hero_block-1-btn {
     background: var(--color-w) !important;
@@ -224,20 +279,17 @@ body.dark-theme .review-course {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.218);
 }
 body.dark-theme .blocks-section-title,
-body.dark-theme .block-title,
-body.dark-theme .block-text,
+
 body.dark-theme .slider-caption,
 body.dark-theme .values-title{
     color: var(--text-light);
 }
-
-body.dark-theme .block-1,
-body.dark-theme .block-2,
-body.dark-theme .block-3,
-body.dark-theme .block-4 {
-    background: var(--color-15);
-    border-color: var(--color-2);
+body.dark-theme .activity-title, 
+body.dark-theme .activity-main-text-block p,
+body.dark-theme .certificates-title{
+    color: var(--text-light);
 }
+
 body.dark-theme .values_card-1-svg path,
 body.dark-theme .values_card-3-svg path{
     fill: var(--color-13) !important;
@@ -265,6 +317,9 @@ body.dark-theme .course-title {
 }
 
 body.dark-theme .course-card {
+    background: var(--color-15);
+}
+body.dark-theme .modal-container{
     background: var(--color-15);
 }
 /* ============================================================
@@ -438,3 +493,58 @@ body.dark-theme .empty-state p,
 body.dark-theme .form-group textarea {
     color: var(--text-light);
 }
+/* Тёмная тема для модальных окон */
+body.dark-theme .modal-content {
+    background: var(--color-15);
+    border: 1px solid var(--color-12);
+}
+
+body.dark-theme .modal-title,
+body.dark-theme .modal-footer {
+    color: var(--text-light);
+}
+
+body.dark-theme .form-input {
+    background: var(--color-15);
+    color: var(--text-light);
+    border-color: var(--color-12);
+}
+body.dark-theme .modal-close {
+    color: var(--text-light) !important;
+    background: var(--color-15) !important;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.dark-theme .modal-close:hover {
+    background: var(--color-12) !important;
+    color: var(--color-4) !important;
+}
+/* ========  FAQ   ===========*/
+body.dark-theme .faq-item {
+    background: var(--color-15);
+    border-color: var(--color-12);
+}
+
+body.dark-theme .faq-question {
+    color: var(--text-light);
+}
+body.dark-theme .faq-title,
+body.dark-theme .faq-subtitle,
+body.dark-theme .faq-answer {
+    color: var(--text-light);
+    opacity: 0.9;
+}
+
+body.dark-theme .faq-question:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .faq-item.active .faq-answer {
+    border-top-color: var(--color-12);
+}
+

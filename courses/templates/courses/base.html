@@ -42,9 +42,9 @@
     <!-- Общие скрипты -->
     <script src="{% static 'courses/js/menu.js' %}"></script>
     <script src="{% static 'courses/js/theme.js' %}"></script>
+    <script src="{% static 'courses/js/modal.js' %}"></script>
     <script src="//code.jivo.ru/widget/BLwo7XiMHC" async></script>
-    <script>
-        // Ждём загрузки виджета JivoSite
+    <script>   
         setTimeout(function() {
             const checkTheme = function() {
                 const isDark = document.body.classList.contains('dark-theme');
@@ -73,11 +73,74 @@
                 });
             }
         }, 1000);
-    </script>
-    <!-- Дополнительные скрипты для конкретной страницы -->
+    </script>    
+
     {% block extra_js %}
         
     {% endblock %}
-    
+    <!-- Модальное окно ВХОДА -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">Вход</h2>
+            
+            <form id="loginForm" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Телефон или Email</label>
+                    <input type="text" name="login_input" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" name="password" class="form-input" required>
+                </div>
+                <button type="submit" class="modal-btn">Войти</button>
+            </form>
+            
+            <div class="modal-footer">
+                Нет аккаунта? <a href="#" id="showRegisterModal">Зарегистрироваться</a>
+            </div>
+            <div class="forgot-password">
+                <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+            </div>            
+        </div>
+    </div>
+
+    <!-- Модальное окно РЕГИСТРАЦИИ -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">Регистрация</h2>
+            
+            <form id="registerForm" method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">ФИО</label>
+                    <input type="text" name="full_name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Номер телефона</label>
+                    <input type="tel" name="phone" class="form-input" inputmode="numeric" pattern="[0-9+()-]+" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" name="password" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Подтверждение пароля</label>
+                    <input type="password" name="password_confirm" class="form-input" required>
+                </div>
+                <button type="submit" class="modal-btn">Зарегистрироваться</button>
+            </form>
+            
+            <div class="modal-footer">
+                Уже есть аккаунт? <a href="#" id="showLoginModal">Войти</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

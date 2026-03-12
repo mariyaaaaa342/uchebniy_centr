@@ -44,51 +44,43 @@
                 </div>
             </div>
         </section>
-        <section class="blocks-section">
-            <h2 class="blocks-section-title">Наша история</h2>
-            <div class="blocks-container">
-                <div class="block block-1">
-                    <h3 class="block-title">Заголовок 1</h3>
-                    <p class="block-text">Текст первого блока. Здесь может быть любое описание, которое будет адаптироваться под содержимое.</p>
-                </div>
-                <!-- Стрелка от 1 ко 2 -->
-                <div class="arrow arrow-1-2">
-                    <svg class="arrow-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-                        <path class="arrow-path" />
-                        <path class="arrow-head" />
-                    </svg>
-                </div>
-                
-                <div class="block block-2">
-                    <h3 class="block-title">Заголовок 2</h3>
-                    <p class="block-text">Текст второго блока. Lorem ipsum dolor sit amet consectetur,
-                        adipisicing elit. Ullam inventore harum fugit quod minima labore tenetur 
-                        officiis consequuntur consequatur? Perspiciatis facilis exercitationem, 
-                        id adipisci inventore earum hic voluptate nisi.</p>
-                </div>
-                <!-- Стрелка от 2 к 3 -->
-                <div class="arrow arrow-2-3">
-                    <svg class="arrow-svg" viewBox="0 0 400 350" preserveAspectRatio="none">
-                        <path class="arrow-path" />
-                        <path class="arrow-head" />
-                    </svg>
-                </div>
-                
-                <div class="block block-3">
-                    <h3 class="block-title">Заголовок 3</h3>
-                    <p class="block-text">Текст третьего блока. Здесь может быть много текста, и блок расширится по высоте.</p>
-                </div>
-                <!-- Стрелка от 3 к 4 -->
-                <div class="arrow arrow-3-4">
-                    <svg class="arrow-svg" viewBox="0 0 350 300" preserveAspectRatio="none">
-                        <path class="arrow-path" />
-                        <path class="arrow-head" />
-                    </svg>
-                </div>
-                
-                <div class="block block-4">
-                    <h3 class="block-title">Заголовок 4</h3>
-                    <p class="block-text">Текст четвертого блока. Блоки адаптируются под содержимое.</p>
+        <section class="activity-section">
+            <div class="activity-container">
+                <h2 class="activity-title">Наша деятельность</h2>
+
+                <div class="activity-wrapper">
+                    <!-- Основной текст (песочный блок) -->
+                    <div class="activity-main-text-block">
+                        <p>Наш центр — это не просто место, где обучают парикмахерскому искусству. Для нас важно не только учить мастерству, но и делать мир вокруг добрее. Мы поддерживаем тех, кто нуждается в помощи, и прививаем бережное отношение к окружающему миру.</p>
+                    </div>
+
+                    <div class="activity-shape-1">
+                        <img src="{% static 'courses/images/блок-1.svg' %}" alt="Фигура" class="shape-1-img">
+                        
+                        <div class="shape-1-content">
+                            <div class="shape-1_text-1-block">
+                                <h3 class="shape-1_title-1">Помощь тем, кто рядом</h3>
+                                <p class="shape-1_text-1">Когда в Ростове-на-Дону оказался детский дом из Донбасса, наши мастера и студенты не могли остаться в стороне. Лично выезжали, чтобы подстричь ребят. В тот раз маленьких клиентов было почти четыреста человек.
+                                    Мы регулярно выезжаем в дома престарелых и пансионаты для пожилых людей. Для нас важно дарить заботу и внимание тем, кто в этом особенно нуждается. Наши мастера и студенты на безвозмездной основе приводят в порядок прически пожилых людей, возвращая им не только ухоженный вид, но и хорошее настроение, ощущение, что о них помнят и заботятся.
+                                    Также мы помогаем беженцам из ЛНР и ДНР, многодетным семьям. Через профессиональное обучение молодежь делает добрые дела для пенсионеров, детей-сирот и инвалидов. Наша цель — не просто адресная помощь, а системная поддержка, где каждый может внести свой вклад.</p>
+                            </div>
+                            <div class="shape-1_text-2-block">
+                                <h3 class="shape-1_title-2">Вторая жизнь вещей</h3>
+                                <p class="shape-1_text-2">Мы учим студентов не только мастерству, но и экологичному подходу. Из переработанных отходов (текстиль, картон) мы вместе создаем уникальные вещи: от карнавальных костюмов для школьных представлений до декораций и кукол для кукольного театра.
+                                    Идея пришла спонтанно, когда наша команда участвовала в конкурсе экологических костюмов. Заняв первое место, мы поняли: мусор — это не отходы, а материал для творчества. Теперь мы хотим открыть детский кружок, где будем учить детей не мусорить и давать вещам вторую жизнь.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Фигура №2 (блок color-3, находится в углублении первой фигуры) -->
+                    <div class="activity-shape-2">
+                        <img src="{% static 'courses/images/блок-2.svg' %}" alt="Фигура" class="shape-2-img">
+
+                        <div class="shape-2-content">
+                            <h3 class="shape-2_title-3">Профессионализм и душевность</h3>
+                            <p class="shape-2_text-3">Наши студенты учатся на практике, помогая реальным людям. Мы уверены: настоящий мастер — это не только тот, кто умело владеет ножницами, но и тот, кто обладает чутким сердцем. Талантливый человек талантлив во всем, поэтому мы поощряем любые начинания — от благотворительных стрижек до экологических проектов.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

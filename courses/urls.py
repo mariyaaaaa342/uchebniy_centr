@@ -24,4 +24,10 @@ urlpatterns = [
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
     path('available-for-review/', views.available_for_review, name='available_for_review'),
     path('submit-review/', views.submit_review, name='submit_review'),
+    path('faq/', views.faq, name='faq'),
+    path('profile/delete/', views.delete_account, name='delete_account'),
+    path('password-reset/', views.password_reset_request, name='password_reset'),
+    path('password-reset/confirm/<str:token>/', views.password_reset_confirm, name='password_reset_confirm'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-use/', views.terms_of_use, name='terms_of_use'),
 ]

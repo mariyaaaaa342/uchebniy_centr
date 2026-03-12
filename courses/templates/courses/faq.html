@@ -1,0 +1,124 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Часто задаваемые вопросы - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/faq.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="faq-container">
+    <h1 class="faq-title">Часто задаваемые вопросы</h1>
+    <p class="faq-subtitle">Ответы на самые популярные вопросы о нашем учебном центре</p>
+    
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Какие документы нужны для поступления?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Для поступления в учебный центр «Леди» нужны: паспорт (или свидетельство о рождении для лиц младше 18 лет), 
+                медицинская справка (форма 086/у) и 2 фотографии 3×4 см. Договор заключается после собеседования с преподавателем.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Какие виды оплаты принимаете?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Абсолютно все: наличными, по карте, переводом и через терминал.
+            </div>
+        </div>        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Можно ли оплатить обучение в рассрочку?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Да, мы предлагаем беспроцентную рассрочку на весь период обучения. Вы можете оплачивать обучение 
+                помесячно или поэтапно. Подробные условия уточняйте у нашего менеджера.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Выдаётся ли сертификат после окончания курсов?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Да, после успешного завершения обучения вы получаете официальный сертификат установленного образца. 
+                Сертификат подтверждает вашу квалификацию и даёт право на трудоустройство по специальности.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Как проходят практические занятия?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Практические занятия составляют 90% всего обучения. Вы работаете с реальными моделями (мужчинами и женщинами 
+                разных возрастов), отрабатываете все техники под руководством преподавателя. Каждый урок — это практика на живых людях.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Помогаете ли вы с трудоустройством?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Да, мы помогаем нашим выпускникам с трудоустройством. У нас есть собственный салон, куда мы приглашаем лучших студентов. 
+                Также у нас есть база партнёрских салонов, которые с удовольствием принимают наших выпускников.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Можно ли начать обучение с нуля?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Конечно! Наш курс «Парикмахер-универсал» рассчитан на студентов с любым уровнем подготовки. 
+                Мы начинаем с азов: инструменты, техника безопасности, базовые стрижки. Опытные мастера могут выбрать 
+                отдельные модули для повышения квалификации.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Какие инструменты нужны для обучения?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Все необходимые инструменты и расходные материалы предоставляет учебный центр. Вам не нужно покупать 
+                ничего самостоятельно. Но если у вас есть свои профессиональные инструменты, вы можете пользоваться ими.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="faq-question-text">Как записаться на пробное занятие?</span>
+                <span class="faq-icon">▶</span>
+            </div>
+            <div class="faq-answer">
+                Пробное занятие можно посетить абсолютно бесплатно. Для записи достаточно позвонить нам по телефону 
+                +7 (903) 489-22-01 или написать нам в онлайн-чат.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Аккордеон для FAQ
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+            faqItem.classList.toggle('active');
+        });
+    });
+</script>
+{% endblock %}

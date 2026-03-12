@@ -76,7 +76,7 @@ class WorkTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ('portfolio_id', 'title', 'get_work_types_display', 'author_type', 'author_name', 'created_at', 'is_active')
+    list_display = ('portfolio_id', 'title', 'get_work_types_display', 'author_type', 'created_at', 'is_active')
     list_filter = ('work_types', 'author_type', 'is_active')
     search_fields = ('title', 'author_name', 'description')
     list_editable = ('is_active',)
@@ -89,7 +89,7 @@ class PortfolioAdmin(admin.ModelAdmin):
             'fields': ('title', 'work_types', 'description')
         }),
         ('Автор', {
-            'fields': ('author_type', 'author_name', 'teacher', 'student')
+            'fields': ('author_type',)
         }),
         ('Изображение', {
             'fields': ('image', 'image_url')
