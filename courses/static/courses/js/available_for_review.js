@@ -1,4 +1,4 @@
-// Кнопки "Написать отзыв"
+//Кнопки "Написать отзыв"
     document.querySelectorAll('.btn-write-review').forEach(btn => {
         btn.addEventListener('click', () => {
             const courseId = btn.dataset.courseId;
@@ -8,7 +8,7 @@
         });
     });
     
-    // Звёзды
+    //Звёзды
     document.querySelectorAll('.stars').forEach(starsContainer => {
         const stars = starsContainer.querySelectorAll('.star');
         const ratingInput = starsContainer.parentElement.querySelector('#rating');

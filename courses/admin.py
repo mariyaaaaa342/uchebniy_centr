@@ -21,18 +21,18 @@ class ApplicationsAdmin(admin.ModelAdmin):
         """При сохранении заявки проверяем статус"""
         super().save_model(request, obj, form, change)
         
-        # Если заявка подтверждена
+        #Если заявка подтверждена
         if obj.status == 'confirmed':
             from .models import CourseProgress, Module, ModuleProgress
             
-            # Проверяем, существует ли уже прогресс
+            #Проверяем, существует ли уже прогресс
             progress = CourseProgress.objects.filter(
                 user=obj.user,
                 course=obj.course
             ).first()
             
             if not progress:
-                # Создаём прогресс вручную (без get_or_create)
+                #Создаём прогресс 
                 progress = CourseProgress.objects.create(
                     user=obj.user,
                     course=obj.course,
@@ -43,7 +43,7 @@ class ApplicationsAdmin(admin.ModelAdmin):
             else:
                 print(f"Прогресс уже существует #{progress.progress_id}")
             
-            # Добавляем все модули курса
+            #Добавляем все модули курса
             all_modules = Module.objects.filter(course=obj.course)
             for module in all_modules:
                 mp, created = ModuleProgress.objects.get_or_create(
@@ -110,7 +110,6 @@ class ModuleInline(admin.TabularInline):
     fields = ['title', 'order']
     ordering = ['order']
 
-# Регистрация с настройками (через декоратор)
 @admin.register(Courses)
 class CoursesAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'title', 'teacher', 'price_online', 'status')
@@ -130,11 +129,11 @@ class ModuleProgressInline(admin.TabularInline):
         return qs.select_related('module')
     
     def has_change_permission(self, request, obj=None):
-        # Разрешаем изменение только если объект существует
+        #Разрешаем изменение только если объект существует
         return obj is not None
     
     def has_add_permission(self, request, obj=None):
-        # Разрешаем добавление только если объект существует
+        #Разрешаем добавление только если объект существует
         return obj is not None
 
 @admin.register(CourseProgress)
@@ -143,7 +142,7 @@ class CourseProgressAdmin(admin.ModelAdmin):
     list_filter = ('status', 'format')
     search_fields = ('user__full_name', 'user__phone', 'course__title')
     readonly_fields = ('progress_id', 'last_accessed_at')
-    inlines = [ModuleProgressInline]  # ← добавляем inline для прогресса модулей
+    inlines = [ModuleProgressInline]  
     
     fieldsets = (
         ('Студент и курс', {'fields': ('user', 'course', 'format')}),
@@ -203,7 +202,7 @@ class NewsAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.created_by:
             from .models import Admins
-            # Создаём или получаем администратора (временное решение)
+            #Создаём или получаем администратора 
             admin, created = Admins.objects.get_or_create(
                 username=request.user.username,
                 defaults={

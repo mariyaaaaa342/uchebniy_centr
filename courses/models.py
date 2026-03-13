@@ -1,5 +1,8 @@
 from datetime import date
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -59,7 +62,7 @@ class Admins(models.Model):
     class Meta:
         managed = False
         db_table = 'admins'
-        verbose_name = 'Администратор'           # Единственное число
+        verbose_name = 'Администратор'           
         verbose_name_plural = 'Администраторы'
 
 class Applications(models.Model):
@@ -99,7 +102,6 @@ class Module(models.Model):
     
     def __str__(self):
         return self.title
-        #return f"{self.course.title} - {self.title}"
 
 class ModuleProgress(models.Model):
     module_progress_id = models.AutoField(primary_key=True, verbose_name='ID прогресса модуля')
@@ -141,9 +143,9 @@ class CourseProgress(models.Model):
     
     def update_status_from_modules(self):
         """Обновляет общий статус на основе ModuleProgress"""
-        # Проверяем, есть ли уже primary key (объект сохранён в БД)
+        #Проверяем, есть ли уже primary key (объект сохранён в бд)
         if not self.pk:
-            return  # Если объект ещё не сохранён, ничего не делаем
+            return  #Если объект ещё не сохранён, ничего не делаем
         
         modules_progress = self.modules_progress_list.all()
         if not modules_progress.exists():
@@ -158,7 +160,7 @@ class CourseProgress(models.Model):
         else:
             self.status = 'not_started'
     def save(self, *args, **kwargs):
-        # Обновляем статус только если объект уже существует в БД
+        #Обновляем статус только если объект уже существует в БД
         if self.pk:
             self.update_status_from_modules()
         super().save(*args, **kwargs)
@@ -280,7 +282,7 @@ class Portfolio(models.Model):
         managed = False
         db_table = 'portfolio'
         ordering = ['-created_at']
-        verbose_name = 'Портфолио'           # Единственное число
+        verbose_name = 'Портфолио'           
         verbose_name_plural = 'Портфолио'
 
     def __str__(self):
@@ -333,7 +335,7 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
-        verbose_name = 'Пользователь'           # Единственное число
+        verbose_name = 'Пользователь'          
         verbose_name_plural = 'Пользователи'
 
     def __str__(self):
@@ -352,7 +354,7 @@ class Teachers(models.Model):
     class Meta:
         managed = False
         db_table = 'teachers'
-        verbose_name = 'преподаватель'           # Единственное число
+        verbose_name = 'преподаватель'           
         verbose_name_plural = 'преподаватели'
         
     def __str__(self):
@@ -438,10 +440,7 @@ class Certificate(models.Model):
     def __str__(self):
         return self.title or f'Сертификат #{self.certificate_id}'
     
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.core.mail import send_mail
-from django.conf import settings
+
 
 @receiver(post_save, sender=Applications)
 def send_new_application_notification(sender, instance, created, **kwargs):

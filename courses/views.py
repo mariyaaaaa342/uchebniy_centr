@@ -6,12 +6,13 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.utils import timezone
 from .forms import RegistrationForm
-from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress, Module, ModuleProgress, Review, Certificate
+from .models import Applications, Teachers, Courses, Users, Portfolio, Profile, CourseProgress, Module, ModuleProgress, Review, Certificate, Module, ModuleProgress, WorkType, News
 import json
 import secrets
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import timedelta
+from django.contrib.auth.hashers import make_password
 
 def custom_login_required(view_func):
     def wrapper(request, *args, **kwargs):
@@ -28,11 +29,10 @@ def course_list(request):
     }
     return render(request, 'courses/course_list.html', context)
 
-# courses/views.py
+#courses/views.py
 def submit_application(request):
-    """Обработка отправки заявки (только для авторизованных пользователей)"""
-    
-    # Проверяем, авторизован ли пользователь
+    """Обработка отправки заявки (только для авторизованных пользователей)"""    
+    #Проверяем, авторизован ли пользователь
     if 'user_id' not in request.session:
         return JsonResponse({
             'success': False, 
@@ -41,15 +41,15 @@ def submit_application(request):
     
     if request.method == 'POST':
         try:
-            # Получаем пользователя из сессии
+            #Получаем пользователя из сессии
             user_id = request.session['user_id']
             user = Users.objects.get(user_id=user_id)
             
-            # Получаем данные из POST-запроса
+            #Получаем данные из POST-запроса
             course_id = request.POST.get('course_id')
             format_type = request.POST.get('format')
             email = request.POST.get('email') 
-            # Проверяем обязательные поля
+            #Проверяем обязательные поля
             if not all([course_id, format_type]):
                 return JsonResponse({
                     'success': False, 
@@ -145,13 +145,12 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            # Все проверки пройдены
             full_name = form.cleaned_data['full_name']
             phone = form.cleaned_data['phone']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             
-            # Проверка уникальности email и телефона (если решили оставить)
+            #Проверка уникальности email и телефона 
             if Users.objects.filter(phone=phone).exists():
                 form.add_error('phone', 'Пользователь с таким номером телефона уже существует')
                 return render(request, 'courses/register.html', {'form': form})
@@ -160,7 +159,7 @@ def register(request):
                 form.add_error('email', 'Пользователь с таким email уже существует')
                 return render(request, 'courses/register.html', {'form': form})
             
-            # Создаём пользователя
+            #Создаём пользователя
             user = Users.objects.create(
                 full_name=full_name,
                 phone=phone,
@@ -173,7 +172,6 @@ def register(request):
             
             messages.success(request, 'Регистрация прошла успешно! Теперь вы можете войти.')
             return redirect('login')
-        # else: форма невалидна — ошибки уже есть в form.errors
     else:
         form = RegistrationForm()
     
@@ -182,22 +180,22 @@ def register(request):
 def login_view(request):
     """Страница входа пользователя"""
     if request.method == 'POST':
-        # Получаем данные из формы
-        login_input = request.POST.get('login_input')  # может быть телефон или email
+        #Получаем данные из формы
+        login_input = request.POST.get('login_input')  
         password = request.POST.get('password')
         
-        # Ищем пользователя по телефону или email
+        #Ищем пользователя по телефону или email
         user = None
         if login_input:
             user = Users.objects.filter(phone=login_input).first()
             if not user:
                 user = Users.objects.filter(email=login_input).first()
         
-        # Проверяем пароль
+        #Проверяем пароль
         if user and check_password(password, user.password_hash):
             request.session['user_id'] = user.user_id
             request.session['user_name'] = user.full_name
-            # Редирект на предыдущую страницу или на главную
+            #Редирект на предыдущую страницу или на главную
             next_url = request.GET.get('next', 'home')
             return redirect(next_url)
         else:
@@ -215,14 +213,11 @@ def logout_view(request):
 
 def portfolio(request):
     """Страница портфолио"""
-    # Получаем все активные работы
-    works = Portfolio.objects.filter(is_active=True).order_by('-created_at')
-    
-    # Получаем все типы работ из отдельной таблицы WorkType
-    from .models import WorkType
+    #Получаем все активные работы
+    works = Portfolio.objects.filter(is_active=True).order_by('-created_at')    
     work_types = WorkType.objects.all()
     
-    # Типы авторов
+    #Типы авторов
     author_types = Portfolio.AUTHOR_TYPE_CHOICES
     
     context = {
@@ -242,13 +237,10 @@ def profile_view(request):
     if not user_id:
         return redirect('login')
     
-    from .models import Users
     user = get_object_or_404(Users, user_id=user_id)
     
-    # Получаем или создаём профиль
+    #Получаем или создаём профиль
     profile, created = Profile.objects.get_or_create(user=user)
-    
-    # Получаем заявки пользователя
     applications = Applications.objects.filter(user=user).order_by('-application_date').select_related('course')
     
     context = {
@@ -268,7 +260,7 @@ def profile_edit(request):
     if not user_id:
         return redirect('login')
     
-    from .models import Users
+    
     user = get_object_or_404(Users, user_id=user_id)
     profile, created = Profile.objects.get_or_create(user=user)
     
@@ -277,13 +269,10 @@ def profile_edit(request):
         profile_form = ProfileExtendedForm(request.POST, request.FILES, instance=profile)
         
         if user_form.is_valid() and profile_form.is_valid():
-            # Сохраняем пользователя
             user.full_name = user_form.cleaned_data['full_name']
             user.email = user_form.cleaned_data['email']
             user.phone = user_form.cleaned_data['phone']
-            user.save()
-            
-            # Сохраняем профиль
+            user.save()            
             profile_form.save()
             
             messages.success(request, 'Профиль успешно обновлён!')
@@ -312,7 +301,6 @@ def profile_applications(request):
     if not user_id:
         return redirect('login')
     
-    from .models import Users
     user = get_object_or_404(Users, user_id=user_id)
     applications = Applications.objects.filter(user=user).order_by('-application_date').select_related('course')
     
@@ -328,7 +316,6 @@ def my_courses(request):
     if not user_id:
         return redirect('login')
     
-    from .models import ModuleProgress
     
     user = get_object_or_404(Users, user_id=user_id)
     progresses = CourseProgress.objects.filter(user=user).select_related('course')
@@ -368,30 +355,26 @@ def update_module_progress(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Метод не разрешён'}, status=405)
     
-    # Проверка прав: только администраторы и преподаватели
-    # Проверяем сессию админа (настройте под свои роли)
+    #Проверка прав: только администраторы 
     if not request.session.get('is_admin'):
         return JsonResponse({'error': 'Недостаточно прав'}, status=403)
     
     try:
         data = json.loads(request.body)
         progress_id = data.get('progress_id')
-        module_id = data.get('module_id')  # теперь используем module_id вместо module_key
-        new_status = data.get('status')  # 'not_started', 'in_progress', 'completed'
-        
-        from .models import Module, ModuleProgress
-        
+        module_id = data.get('module_id')  
+        new_status = data.get('status')          
         progress = CourseProgress.objects.get(progress_id=progress_id)
         module = Module.objects.get(module_id=module_id)
         
-        # Обновляем или создаём ModuleProgress
+        #Обновляем или создаём ModuleProgress
         module_progress, created = ModuleProgress.objects.update_or_create(
             progress=progress,
             module=module,
             defaults={'status': new_status}
         )
         
-        # Обновляем общий статус курса
+        #Обновляем общий статус курса
         all_modules = ModuleProgress.objects.filter(progress=progress)
         total = all_modules.count()
         completed = all_modules.filter(status='completed').count()
@@ -411,8 +394,7 @@ def update_module_progress(request):
             progress.status = 'not_started'
         
         progress.last_accessed_at = timezone.now()
-        progress.save()
-        
+        progress.save()        
         percent = int((completed / total) * 100) if total > 0 else 0
         
         return JsonResponse({
@@ -439,24 +421,21 @@ def course_progress_detail(request, progress_id):
     
     if not user_id:
         return redirect('login')
-    
-    from .models import Users, Module, ModuleProgress
-    
+        
     user = get_object_or_404(Users, user_id=user_id)
-    progress = get_object_or_404(CourseProgress, progress_id=progress_id, user=user)
-    
+    progress = get_object_or_404(CourseProgress, progress_id=progress_id, user=user)    
     course = progress.course
     
-    # Получаем все модули курса
+    #Получаем все модули курса
     modules = Module.objects.filter(course=course).order_by('order', 'module_id')
     
-    # Получаем прогресс по каждому модулю
+    #Получаем прогресс по каждому модулю
     modules_progress_dict = {
         mp.module_id: mp.status 
         for mp in ModuleProgress.objects.filter(progress=progress).select_related('module')
     }
     
-    # Формируем список модулей с их статусами
+    #Формируем список модулей с их статусами
     modules_with_status = []
     for module in modules:
         modules_with_status.append({
@@ -500,17 +479,15 @@ def contacts(request):
     }
     return render(request, 'courses/contacts.html', context)
 
-from .models import News
 
 def news_list(request):
     """Страница со списком новостей и акций"""
-    # Получаем активные новости, сортируем от новых к старым
+    #Получаем активные новости, сортируем от новых к старым
     news_list = News.objects.filter(
         is_active=True,
         publish_date__lte=timezone.now().date()
     ).order_by('-publish_date', '-created_at')
     
-    # Разделяем на новости и акции
     news = news_list.filter(type='news')
     promos = news_list.filter(type='promo')
     events = news_list.filter(type='event')
@@ -534,7 +511,7 @@ def news_detail(request, news_id):
         publish_date__lte=timezone.now().date()
     )
     
-    # Получаем следующие/предыдущие новости для навигации
+    #Получаем следующие/предыдущие новости для навигации
     prev_news = News.objects.filter(
         is_active=True,
         publish_date__lte=timezone.now().date(),
@@ -569,13 +546,13 @@ def available_for_review(request):
     user_id = request.session.get('user_id')
     user = get_object_or_404(Users, user_id=user_id)
     
-    # Находим курсы, где пользователь прошел хотя бы один модуль и ещё не оставил отзыв
+    #Находим курсы, где пользователь прошел хотя бы один модуль и ещё не оставил отзыв
     progresses = CourseProgress.objects.filter(
         user=user,
         has_reviewed=False
     ).select_related('course')
     
-    # Фильтруем только те, где есть хотя бы один пройденный модуль
+    #Фильтруем только те, где есть хотя бы один пройденный модуль
     available_courses = []
     for progress in progresses:
         completed_modules = ModuleProgress.objects.filter(
@@ -584,7 +561,7 @@ def available_for_review(request):
         ).count()
         
         if completed_modules > 0:
-            # Считаем общий прогресс
+            #Считаем общий прогресс
             total_modules = Module.objects.filter(course=progress.course).count()
             percent = int((completed_modules / total_modules) * 100) if total_modules > 0 else 0
             
@@ -616,7 +593,7 @@ def submit_review(request):
     text = request.POST.get('text')
     photo = request.FILES.get('photo')
     
-    # Проверяем, что пользователь действительно проходил этот курс
+    #Проверяем, что пользователь действительно проходил этот курс
     progress = CourseProgress.objects.filter(
         user=user,
         course_id=course_id,
@@ -627,7 +604,7 @@ def submit_review(request):
         messages.error(request, 'Вы не можете оставить отзыв на этот курс')
         return redirect('available_for_review')
     
-    # Проверяем, что есть хотя бы один пройденный модуль
+    #Проверяем, что есть хотя бы один пройденный модуль
     completed_modules = ModuleProgress.objects.filter(
         progress=progress,
         status='completed'
@@ -637,7 +614,6 @@ def submit_review(request):
         messages.error(request, 'Вы можете оставить отзыв только после прохождения хотя бы одного модуля курса')
         return redirect('available_for_review')
     
-    # Создаём отзыв
     try:
         review = Review.objects.create(
             student_name=user.full_name,
@@ -653,7 +629,6 @@ def submit_review(request):
         progress.has_reviewed = True
         progress.save()
         
-        #СООБЩЕНИЕ УСПЕХА
         messages.success(request, 'Спасибо за отзыв! Он будет опубликован после проверки администратором.')
         
     except Exception as e:
@@ -707,13 +682,13 @@ def password_reset_request(request):
         user = Users.objects.filter(email=email).first()
         
         if user:
-            # Генерируем токен
+            #Генерируем токен
             token = secrets.token_urlsafe(32)
             user.password_reset_token = token
             user.password_reset_token_created = timezone.now()
             user.save()
             
-            # Отправляем письмо
+            #Отправляем письмо
             reset_url = request.build_absolute_uri(f'/password-reset/confirm/{token}/')
             
             try:
@@ -736,8 +711,6 @@ def password_reset_request(request):
     return render(request, 'courses/password_reset.html')
 
 
-from django.utils import timezone
-from datetime import timedelta
 
 def password_reset_confirm(request, token):
     user = Users.objects.filter(password_reset_token=token).first()
@@ -746,7 +719,7 @@ def password_reset_confirm(request, token):
         messages.error(request, 'Неверная или устаревшая ссылка')
         return redirect('password_reset')
     
-    # Проверка срока действия (1 час) - ИСПРАВЛЕНО
+    # Проверка срока действия (1 час)
     if user.password_reset_token_created:
         # Делаем оба времени offset-aware
         token_created = user.password_reset_token_created
@@ -773,7 +746,7 @@ def password_reset_confirm(request, token):
             messages.error(request, 'Пароль должен содержать минимум 6 символов')
             return render(request, 'courses/password_reset_confirm.html', {'token': token})
         
-        from django.contrib.auth.hashers import make_password
+        
         user.password_hash = make_password(password)
         user.password_reset_token = None
         user.password_reset_token_created = None

@@ -44,7 +44,7 @@ class ProfileExtendedForm(forms.ModelForm):
 class RegistrationForm(forms.Form):
     full_name = forms.CharField(max_length=150)
     phone = forms.CharField(max_length=20)
-    email = forms.EmailField()  # встроенная валидация email
+    email = forms.EmailField()  
     password = forms.CharField(min_length=6)
     password_confirm = forms.CharField()
 
