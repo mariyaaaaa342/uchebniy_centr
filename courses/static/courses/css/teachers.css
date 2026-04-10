@@ -1,0 +1,121 @@
+:root {
+    --color-w: #ffffff;
+    --color-1: #719178;
+    --color-2: #EAD7A1;
+    --color-3: #A8BAA4;
+    --color-4: #3F575B;
+    --font-main: 'Advent Pro', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff;
+    font-family: var(--font-main);
+    padding-top: 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.teachers-main {
+    flex: 1;
+}
+
+.teachers-container {
+    max-width: 1400px;  
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.teachers-title {
+    font-family: var(--font-main);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--color-4);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+
+.teachers-subtitle {
+    font-family: var(--font-main);
+    font-size: 1.3rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.teachers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));  
+    gap: 40px;
+    padding-top: 30px;
+}
+
+.teacher-card {
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(63, 87, 91, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--color-2);
+}
+
+.teacher-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(63, 87, 91, 0.2);
+}
+
+.teacher-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;     
+    object-fit: cover;
+    background: var(--color-3);
+}
+
+.teacher-info {
+    padding: 25px;
+    text-align: left; 
+}
+
+.teacher-name {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-4);
+    margin-bottom: 12px;
+}
+
+.teacher-specialization {
+    font-size: 1rem;
+    color: var(--color-1);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.teacher-biography {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .teachers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+    .teacher-name { font-size: 1.4rem; }
+}
+
+@media (max-width: 600px) {
+    .teachers-grid {
+        grid-template-columns: 1fr;
+    }
+    .teacher-photo { height: 280px; }
+}

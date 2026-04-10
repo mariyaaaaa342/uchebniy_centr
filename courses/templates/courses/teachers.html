@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Преподаватели - Учебный центр Леди</title>
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'courses/css/teachers.css' %}">
+</head>
+<body>
+    {% include 'courses/header.html' %}
+    
+    <div class="teachers-container">
+        <h1 class="teachers-title">Наши преподаватели</h1>
+        <p class="teachers-subtitle">Профессионалы своего дела, которые помогут вам достичь новых высот</p>
+        
+        <div class="teachers-grid">
+            {% for teacher in teachers %}
+            <div class="teacher-card">
+                <img class="teacher-photo" 
+                    src="{% static teacher.photo %}" 
+                    alt="{{ teacher.full_name }}"
+                    onerror="this.src='{% static 'courses/images/placeholder.jpg' %}'">
+                <div class="teacher-info">
+                    <h3 class="teacher-name">{{ teacher.full_name }}</h3>
+                    <div class="teacher-specialization">
+                        {{ teacher.specialization|default:"Преподаватель" }}
+                    </div>
+                    <div class="teacher-biography">
+                        {{ teacher.biography|truncatewords:40|default:"Информация о преподавателе будет добавлена позже" }}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Преподаватели скоро появятся</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    {% include 'courses/footer.html' %}
+    
+    <script src="{% static 'courses/js/menu.js' %}"></script>
+</body>
+</html>
