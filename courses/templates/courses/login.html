@@ -1,20 +1,13 @@
+{% extends 'courses/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход - Учебный центр Ledy</title>
-    <link href="https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/login.css' %}">
-    <link rel="stylesheet" href="{% static 'courses/css/footer.css' %}">
 
-</head>
-<body>
-    {% include 'courses/header.html' %}
-    
+{% block title %}Авторизация - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'courses/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
     <div class="login-container">
         <h1 class="login-title">Вход</h1>
         
@@ -46,8 +39,7 @@
             Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
         </div>
     </div>
-    
-    {% include 'courses/footer.html' %}
-    <script src="{% static 'courses/js/menu.js' %}"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

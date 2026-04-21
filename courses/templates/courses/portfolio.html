@@ -1,0 +1,98 @@
+<!-- courses/templates/courses/portfolio.html -->
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Портфолио - Учебный центр Леди{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'courses/css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="portfolio-section">
+        <h1 class="portfolio-title">Портфолио работ</h1>
+        <p class="portfolio-subtitle">Работы наших студентов и преподавателей</p>
+        
+        <!-- Кнопка-иконка для открытия фильтров -->
+        <div class="filter-toggle">
+            <button class="filter-toggle-btn" id="filterToggleBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M6 12H18M10 18H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="6" cy="6" r="2" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="18" cy="12" r="2" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="14" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Фильтры</span>
+            </button>
+        </div>
+        
+        <!-- Выпадающая панель фильтров (скрыта по умолчанию) -->
+        <div class="filter-panel" id="filterPanel">
+            <div class="filter-group">
+                <div class="filter-group-title">Тип работ</div>
+                <div class="filter-buttons" id="workTypeFilters">
+                    <button class="filter-btn active" data-work-type="all">Все работы</button>
+                    <button class="filter-btn" data-work-type="haircut">Стрижки</button>
+                    <button class="filter-btn" data-work-type="styling">Укладки</button>
+                    <button class="filter-btn" data-work-type="coloring">Окрашивание</button>
+                    <button class="filter-btn" data-work-type="extension">Наращивание</button>
+                    <button class="filter-btn" data-work-type="keratin">Кератиновое выпрямление</button>
+                    <button class="filter-btn" data-work-type="perm">Химическая завивка</button>
+                    <button class="filter-btn" data-work-type="eyebrows">Оформление бровей</button>
+                    <button class="filter-btn" data-work-type="other">Другое</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-group-title">Автор</div>
+                <div class="filter-buttons" id="authorTypeFilters">
+                    <button class="filter-btn active" data-author-type="all">Все авторы</button>
+                    <button class="filter-btn" data-author-type="teacher">Преподаватели</button>
+                    <button class="filter-btn" data-author-type="student">Студенты/Выпускники</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Сетка портфолио -->
+        <div class="portfolio-grid" id="portfolioGrid">
+            {% for work in works %}
+            <div class="portfolio-card" 
+                data-work-types="{% for wt in work.work_types.all %}{{ wt.slug }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                data-author-type="{{ work.author_type }}"
+                data-image-url="{{ work.get_image_url }}"
+                data-title="{{ work.title }}"
+                data-author="{{ work.author_name }}"
+                data-description="{{ work.description|default:'' }}">
+                <img class="portfolio-image" src="{{ work.get_image_url }}" alt="{{ work.title }}" loading="lazy">
+                <div class="portfolio-info">
+                    <h3 class="portfolio-item-title">{{ work.title }}</h3>
+                    <div class="portfolio-work-types">
+                        {% for work_type in work.work_types.all %}
+                        <span class="portfolio-work-type">{{ work_type.name }}</span>
+                        {% empty %}
+                        <span class="portfolio-work-type">Без категории</span>
+                        {% endfor %}
+                    </div>
+                    {% if work.description %}
+                    <p class="portfolio-description">{{ work.description|truncatewords:15 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-works">
+                <p>Работы пока не добавлены. Скоро здесь появятся фотографии наших студентов и преподавателей!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Модальное окно -->
+    <div class="portfolio-modal" id="portfolioModal">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'courses/js/portfolio.js' %}"></script>
+{% endblock %}
